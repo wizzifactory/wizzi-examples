@@ -1,0 +1,89 @@
+// 12/4/2019:8:6:1  by C:\My\wizzi\v5\apps\wizzi-studio\dist\node_modules\wizzi-mtree\lib\loader\evaluator.js
+$.n(); // set the context state to NodeContext
+var $0 = {}; // the root node of the MTree buildup
+var $1 = { n: "css", v: "", r: 1, c: 1, s: "f1", u: "f1",  }; //44
+$.a($0, $1, 5);
+var $2 = { n: "<", v: ":root", r: 3, c: 5, s: "f1", u: "f1",  }; //45
+$.a($1, $2, 7);
+var $3 = { n: "@", v: "--font-normal 'Roboto', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif", r: 4, c: 9, s: "f1", u: "f1",  }; //46
+$.a($2, $3, 9);
+var $4 = { n: "@", v: "--font-monospace 'Fira Code', 'Fira Mono', Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace", r: 5, c: 9, s: "f1", u: "f1",  }; //47
+$.a($2, $4, 11);
+var $5 = { n: "<", v: "*", r: 7, c: 5, s: "f1", u: "f1",  }; //48
+$.a($1, $5, 13);
+var $6 = { n: "+", v: "*:before", r: 8, c: 9, s: "f1", u: "f1",  }; //49
+$.a($5, $6, 15);
+var $7 = { n: "+", v: "*:after", r: 9, c: 9, s: "f1", u: "f1",  }; //50
+$.a($5, $7, 17);
+var $8 = { n: "box-sizing", v: "inherit", r: 10, c: 9, s: "f1", u: "f1",  }; //51
+$.a($5, $8, 19);
+var $9 = { n: "<", v: "*:focus", r: 12, c: 5, s: "f1", u: "f1",  }; //52
+$.a($1, $9, 21);
+var $10 = { n: "outline", v: "none", r: 13, c: 9, s: "f1", u: "f1",  }; //53
+$.a($9, $10, 23);
+var $11 = { n: "<", v: "*:focus-visible", r: 15, c: 5, s: "f1", u: "f1",  }; //54
+$.a($1, $11, 25);
+var $12 = { n: "outline", v: "auto", r: 16, c: 9, s: "f1", u: "f1",  }; //55
+$.a($11, $12, 27);
+var $13 = { n: "<", v: "html", r: 18, c: 5, s: "f1", u: "f1",  }; //56
+$.a($1, $13, 29);
+var $14 = { n: "+", v: "body", r: 19, c: 9, s: "f1", u: "f1",  }; //57
+$.a($13, $14, 31);
+var $15 = { n: "height", v: "100%", r: 20, c: 9, s: "f1", u: "f1",  }; //58
+$.a($13, $15, 33);
+var $16 = { n: "width", v: "100%", r: 21, c: 9, s: "f1", u: "f1",  }; //59
+$.a($13, $16, 35);
+var $17 = { n: "<", v: "html", r: 23, c: 5, s: "f1", u: "f1",  }; //60
+$.a($1, $17, 37);
+var $18 = { n: "box-sizing", v: "border-box", r: 24, c: 9, s: "f1", u: "f1",  }; //61
+$.a($17, $18, 39);
+var $19 = { n: "<", v: "body", r: 26, c: 5, s: "f1", u: "f1",  }; //62
+$.a($1, $19, 41);
+var $20 = { n: "font-family", v: "var(--font-normal)", r: 27, c: 9, s: "f1", u: "f1",  }; //63
+$.a($19, $20, 43);
+var $21 = { n: "font-size", v: "14px", r: 28, c: 9, s: "f1", u: "f1",  }; //64
+$.a($19, $21, 45);
+var $22 = { n: "line-height", v: "1.428", r: 29, c: 9, s: "f1", u: "f1",  }; //65
+$.a($19, $22, 47);
+var $23 = { n: "margin", v: "0", r: 30, c: 9, s: "f1", u: "f1",  }; //66
+$.a($19, $23, 49);
+var $24 = { n: "#", v: "app", r: 32, c: 5, s: "f1", u: "f1",  }; //67
+$.a($1, $24, 51);
+var $25 = { n: "height", v: "100vh", r: 33, c: 9, s: "f1", u: "f1",  }; //68
+$.a($24, $25, 53);
+var $26 = { n: "padding", v: "2rem", r: 34, c: 9, s: "f1", u: "f1",  }; //69
+$.a($24, $26, 55);
+var $27 = { n: ".", v: "styler", r: 36, c: 5, s: "f1", u: "f1",  }; //70
+$.a($1, $27, 57);
+var $28 = { n: "@", v: "--color-primary #4630eb", r: 37, c: 9, s: "f1", u: "f1",  }; //71
+$.a($27, $28, 59);
+var $29 = { n: "@", v: "--color-secondary #5844ed", r: 38, c: 9, s: "f1", u: "f1",  }; //72
+$.a($27, $29, 61);
+var $30 = { n: "@", v: "--color-error #f44336", r: 39, c: 9, s: "f1", u: "f1",  }; //73
+$.a($27, $30, 63);
+var $31 = { n: "@", v: "--color-warning #ff9800", r: 40, c: 9, s: "f1", u: "f1",  }; //74
+$.a($27, $31, 65);
+var $32 = { n: "@", v: "--color-success #4caf50", r: 41, c: 9, s: "f1", u: "f1",  }; //75
+$.a($27, $32, 67);
+var $33 = { n: "@", v: "--color-border rgba(0, 0, 0, 0.08)", r: 42, c: 9, s: "f1", u: "f1",  }; //76
+$.a($27, $33, 69);
+var $34 = { n: "@", v: "--color-accent #000", r: 43, c: 9, s: "f1", u: "f1",  }; //77
+$.a($27, $34, 71);
+var $35 = { n: "@", v: "--color-accent-text #fff", r: 44, c: 9, s: "f1", u: "f1",  }; //78
+$.a($27, $35, 73);
+var $36 = { n: "@", v: "--color-text #111", r: 45, c: 9, s: "f1", u: "f1",  }; //79
+$.a($27, $36, 75);
+var $37 = { n: "@", v: "--color-background #fafafa", r: 46, c: 9, s: "f1", u: "f1",  }; //80
+$.a($27, $37, 77);
+var $38 = { n: "@", v: "--color-content #fff", r: 47, c: 9, s: "f1", u: "f1",  }; //81
+$.a($27, $38, 79);
+var $39 = { n: "@", v: "--color-editor-background #fafafa", r: 48, c: 9, s: "f1", u: "f1",  }; //82
+$.a($27, $39, 81);
+var $40 = { n: "@", v: "--color-editor-text #111", r: 49, c: 9, s: "f1", u: "f1",  }; //83
+$.a($27, $40, 83);
+var $41 = { n: "@", v: "--color-editor-border transparent", r: 50, c: 9, s: "f1", u: "f1",  }; //84
+$.a($27, $41, 85);
+var $42 = { n: "height", v: "100% !important", r: 51, c: 9, s: "f1", u: "f1",  }; //85
+$.a($27, $42, 87);
+var $43 = { n: "width", v: "100% !important", r: 52, c: 9, s: "f1", u: "f1",  }; //86
+$.a($27, $43, 89);

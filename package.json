@@ -1,0 +1,27 @@
+{
+  "name": "wizzi-examples",
+  "version": "0.0.1",
+  "description": "Wizzi examples",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizzifactory/wizzi-examples.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wizzifactory/wizzi-examples/issues"
+  },
+  "homepage": "https://github.com/wizzifactory/wizzi-examples#readme",
+  "devDependencies": {
+    "wizzi": "^0.7.5",
+    "wizzi-core": "^0.6.16",
+    "wizzi-js": "^0.7.1",
+    "wizzi-meta": "^0.6.6",
+    "wizzi-utils": "^0.7.3",
+    "wizzi-web": "^0.7.1"
+  }
+}

@@ -1,2 +1,2 @@
 # wizzi-examples
-Wizzi example packages
+Wizzi examples
