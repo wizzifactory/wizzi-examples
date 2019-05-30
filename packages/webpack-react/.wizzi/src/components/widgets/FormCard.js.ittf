@@ -1,0 +1,102 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/form-card.js
+
+	$
+		var md = {
+            name: "FormCardButtons",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Grid from '@material-ui/core/Grid'
+            import Paper from '@material-ui/core/Paper'
+            import FormCardButtons from './FormCardButtons'
+            $if !!app.Build.react.useRedux == false                                        
+                import Component from './component'
+                import attach from './attach'
+
+        $append styles
+            { paper
+                @ margin theme.spacing.unit
+                @ padding theme.spacing.unit * 2
+            { content
+                @ flex 1
+                @ cursor 'pointer'
+    
+        => handleClick
+            param event
+            if this.props.onClick
+                _ this.props.onClick(event, this.props.component)
+        
+        => handleEdit
+            param event
+            param id
+            if this.props.onEdit
+                _ this.props.onEdit(event, this.props.component)
+        
+        => handleDelete
+            param event
+            # this.handleMoreClose();
+            if this.props.onDelete
+                _ this.props.onDelete(this.props.component)
+        
+        render
+            const 
+                { 
+                    $if app.Build.react.useRedux
+                        @ children
+                    $else
+                        @ component
+                    @ classes
+                    @ forbidUpdate
+                    @ forbidDelete
+                    @ editable
+                    @ disabled
+                    @ value
+                = this.props
+            return 
+                div 
+                    < Paper 
+                        @ className {classes.paper}
+                        < Grid 
+                            @ container
+                            @ wrap "nowrap"
+                            < Grid 
+                                @ item
+                                @ className {classes.content}
+                                @ onClick
+                                    => 
+                                        param event
+                                        _ this.handleClick(event)
+                                $if app.Build.react.useRedux
+                                    + {children}
+                                $else
+                                    < Component 
+                                        @ component {component}
+                                        @ formTag {false}
+                                        @ mode "read"
+                            < FormCardButtons 
+                                @ forbidUpdate {forbidUpdate}
+                                @ forbidDelete {forbidDelete}
+                                @ editable {editable}
+                                @ disabled {disabled}
+                                @ archivedAt {value.archivedAt}
+                                @ onEdit
+                                    => 
+                                        param event
+                                        _ this.handleEdit(event)
+                                @ onDelete
+                                    => 
+                                        param event
+                                        _ this.handleDelete(event)
+
+    $if !!app.Build.react.useRedux == false                                        
+        export-default 
+            _ attach
+                [ 
+                    @ 'value'
+                (
+                    @ FormCard

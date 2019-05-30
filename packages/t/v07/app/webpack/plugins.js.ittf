@@ -1,0 +1,31 @@
+﻿$group
+	
+	$if app.Build.useMonaco
+		new MonacoWebpackPlugin()
+		#
+			_ new webpack.DefinePlugin
+				{
+					@ 'process.browser' true
+
+	$if app.Build.useMonaco2
+		$$ https://github.com/Microsoft/monaco-editor-webpack-plugin#options
+		new MonacoEditorPlugin
+			{
+				[ languages
+					@ 'javascript'
+					@ 'typescript'
+					@ 'css'
+					@ 'html'
+    
+    $if app.Build.webpack.useHtml
+		new HtmlWebpackPlugin
+			{
+				@ template './src/index.html'
+                @ filename './index.html'
+
+	
+    $if app.Build.useVue
+		new VueLoaderPlugin()
+
+	$if app.Build.useHotReplacement
+		new webpack.HotModuleReplacementPlugin()

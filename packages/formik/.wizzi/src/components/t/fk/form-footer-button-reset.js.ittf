@@ -1,0 +1,7 @@
+button
+    $params label
+    type "reset"
+    disabled {isSubmitting}
+    @ className "secondary"
+    @ onClick {handleReset}
+    + ${label}

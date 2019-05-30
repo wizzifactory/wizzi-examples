@@ -1,0 +1,55 @@
+$group
+
+    $if controlTypes.switch
+        $*
+        const renderSwitch
+            => 
+                param props
+                const
+                    { 
+                        @ input
+                        @ ...rest
+                    = props
+                return
+                    < Switch
+                        @ checked
+                            iif input.value
+                                then true
+                                else false
+                        @ onChange {input.onChange}
+                        @ value {input.value}
+                        @ {...rest}
+
+        const RfSwitch
+            => 
+                param props
+                # log 'RfSwitch.props', props
+                return
+                    < FormControlLabel
+                        @ className {props.classes.formControl}
+                        @ label {props.label}
+                        @ control {renderSwitch(props)}
+
+        *$
+        
+        const RfSwitch
+            => 
+                param props
+                # log 'RfSwitch.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        @ meta { touched, error }
+                        @ ...rest
+                    = props
+                return
+                    < SwitchField 
+                        @ className {classes.formControl}
+                        @ touched {touched}
+                        @ err {error}
+                        @ input {input}
+                        @ label {label}
+                        @ editable {true}
+                        @ {...rest}

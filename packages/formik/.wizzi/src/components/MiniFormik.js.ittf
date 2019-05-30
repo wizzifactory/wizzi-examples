@@ -1,0 +1,62 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "MiniFormik",
+            withStyles: false
+        };
+	
+	v07/app/react/component(&md)
+
+        state
+            @ values this.props.initialValues
+            { touched
+            { errors
+
+        => handleSubmit
+            param event
+            _ event.preventDefault
+            _ this.props.onSubmit
+                @ this.state.values
+
+        => handleChange
+            param event
+            const target = event.target
+            const name = target.name
+            const value = target.type === 'checkbox' ? target.checked : target.value
+            _ event.persist
+            _ this.setState
+                =>
+                    param prevState
+                    return
+                        {
+                            @ values
+                                {
+                                    @ ...prevState.values
+                                    @ [name] value
+
+        => handleBlur
+            param event
+            const target = event.target
+            const name = target.name
+            _ event.persist
+            _ this.setState
+                =>
+                    param prevState
+                    return
+                        {
+                            @ touched
+                                {
+                                    @ ...prevState.touched
+                                    @ [name] true
+
+        render
+            return
+                _ this.props.children
+                    {
+                        @ ...this.state
+                        @ handleChange this.handleChange
+                        @ handleBlur this.handleBlur
+                        @ handleSubmit this.handleSubmit
+

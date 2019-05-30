@@ -1,0 +1,73 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "App",
+            
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import MiniFormik from './MiniFormik'
+        
+        $append styles
+            { root
+                @ margin "200px"
+
+        render
+            prop classes
+            return
+                . {classes.root}
+                    < MiniFormik
+                        @ initialValues
+                            {
+                                @ isGoing true
+                                @ numberOfGuests 2
+                        @ onSubmit
+                            =>
+                                param values
+                                _ alert(JSON.stringify(values, null, 2))
+                        {
+                            =>
+                                param props
+                                const
+                                    { 
+                                        @ values
+                                        @ touched
+                                        @ errors
+                                        @ handleChange 
+                                        @ handleBlur 
+                                        @ handleSubmit
+                                    = props
+                                return
+                                    < form
+                                        @ onSubmit {handleSubmit}
+                                        label
+                                            + Is going   \b
+                                            input
+                                                @ name "isGoing"
+                                                @ type "checkbox"
+                                                @ value {values.isGoing}
+                                                @ checked {values.isGoing}
+                                                @ onChange {handleChange}
+                                                @ onBlur {handleBlur}
+                                        br
+                                        label
+                                            + Number of guests   \b
+                                            input
+                                                @ name "numberOfGuests"
+                                                @ type "number"
+                                                @ value {values.numberOfGuests}
+                                                @ onChange {handleChange}
+                                                @ onBlur {handleBlur}
+                                        br
+                                        button
+                                            type "submit"
+                                            + Submit
+                                        pre
+                                            + { JSON.stringify(props, null, 2) }
+                        
+            

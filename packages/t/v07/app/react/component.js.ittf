@@ -1,0 +1,148 @@
+﻿$group
+	$params &md
+
+	import React from 'react'
+	import PropTypes from 'prop-types'
+	
+	$if app.Build.react.useMaterialUi
+		import classNames from 'classnames'
+        $if md.withStyles
+		    import { withStyles } from '@material-ui/core/styles'
+
+	$if app.useNextjs
+		import withRoot from '../lib/withRoot'
+	
+	$if !(app.useNextjs) && (md.withWidth || md.connect || md.pure)
+		import compose from 'recompose/compose'
+	
+	$if md.withWidth
+		import withWidth, { isWidthUp } from 'material-ui/utils/withWidth'
+	
+	$if md.withContext
+		import { ${md.withContext.name} } from '${md.withContext.path}'
+	
+	$if md.connect
+		import { connect } from 'react-redux'
+	
+	$if md.pure
+		import pure from 'recompose/pure'
+
+    $if app.Build.react.redux.useForm && md.isReduxForm
+        import 
+            @ Field
+            @ FieldArray
+            from 'redux-form'
+
+    $if app.Build.react.useFormik && md.isFormikForm
+        import 
+            @ Formik
+            @ Form
+            @ Field
+            @ FastField
+            @ FieldArray
+            @ setFieldValue
+            @ setFieldTouched
+            @ ErrorMessage
+            from 'formik'
+
+    $if app.Build.useYup && md.useYup
+        import * as Yup from 'yup'
+
+    $if app.Build.react.useDraftJs && md.useDraftJs
+        import 
+            @ Editor
+            @ EditorState
+            @ RichUtils
+            from 'draft-js'
+
+	$hook imports
+
+    react ${md.name}
+
+		$hook
+        
+        $if md.withStyles
+            style
+                $hook styles
+
+    $if md.withStyles
+        set ${md.name}
+            _ withStyles
+                @ styles
+                ( 
+                    @ ${md.name}
+
+    export default ${md.name}
+
+    $*
+
+	$if app.Build.react.useRedux && app.useNextjs && md.connect
+		redux-maps(&app)
+	+
+
+	$
+		var nameSuffix = '';
+
+	$if md.withContext
+		const ${md.name}Contexted
+			_ ${md.withContext.name}
+				@ ${md.name + nameSuffix}
+		$
+			nameSuffix = 'Contexted'
+	
+	$if app.Build.react.useMaterialUi
+		
+		export default
+			$if md.withWidth || md.connect || md.pure
+				_ compose
+					$if md.pure
+						@ pure
+					_ withStyles
+						@ styles
+					$if md.withWidth
+						_ withWidth()
+					$if md.connect
+						_ connect()
+					( 
+						@ ${md.name + nameSuffix}
+			$elif app.useNextjs
+				_ withRoot
+					_ withStyles
+						@ styles
+						( 
+							@ ${md.name + nameSuffix}
+			$else
+				_ withStyles
+					@ styles
+					( 
+						@ ${md.name + nameSuffix}
+	
+	$elif app.Build.react.useRedux && app.useNextjs && md.connect
+		
+		export default
+			_ connect
+				@ mapStateToProps
+				@ mapDispatchToProps
+				@ mergeProps
+				(
+					@ ${md.name + nameSuffix}
+
+	$else
+		
+		export default
+			$if md.withWidth || md.connect || md.pure
+				_ compose
+					$if md.pure
+						@ pure
+					$if md.withWidth
+						_ withWidth()
+					$if md.connect
+						_ connect()
+					(
+						@ ${md.name + nameSuffix}
+			$else
+				+ ${md.name + nameSuffix}
+
+    
+
+    *$

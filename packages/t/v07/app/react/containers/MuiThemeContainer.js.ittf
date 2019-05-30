@@ -1,0 +1,79 @@
+﻿$group
+	
+    import React from 'react'
+	import PropTypes from 'prop-types'
+	
+	$if app.Build.react.useRedux
+		import { connect } from 'react-redux'
+	
+	import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+	import ${app.Styles.colors.primary} from '@material-ui/core/colors/${app.Styles.colors.primary}'
+	import ${app.Styles.colors.secondary} from '@material-ui/core/colors/${app.Styles.colors.secondary}'
+	
+	$if app.Build.react.materialUi.useCssBaseline
+		import CssBaseline from '@material-ui/core/CssBaseline'
+	
+	$if app.Build.react.materialUi.useCssBase
+		import CssBase from '../components/CssBase'
+
+    $if app.Build.react.materialUi.usePickers
+        import
+            @ MuiPickersUtilsProvider
+            from '@material-ui/pickers'
+        import DateFnsUtils from "@date-io/date-fns"
+	
+	$if app.Build.react.materialUi.useRouter
+		import AppContainer from '../components/AppRouter'
+	$else
+		import AppContainer from './AppContainer'
+
+	# A theme with custom primary and secondary color. It's optional.
+	const theme
+		_ createMuiTheme
+			{
+				{ palette
+					{ primary
+						@ light ${app.Styles.colors.primary}[300]
+						@ main ${app.Styles.colors.primary}[500]
+						@ dark ${app.Styles.colors.primary}[700]
+					{ secondary
+						@ light ${app.Styles.colors.secondary}[300]
+						@ main ${app.Styles.colors.secondary}[500]
+						@ dark ${app.Styles.colors.secondary}[700]
+					@ type '${app.Styles.theme.dark ? 'dark' : 'light'}'
+
+	react MuiThemeContainer
+
+		render
+			
+			$if app.Build.react.useRedux
+				prop dark
+			$else
+				const dark = false
+			
+			return
+				< MuiThemeProvider
+					@ theme {theme}
+					$if app.Build.react.materialUi.useCssBaseline
+						< CssBaseline
+					$if app.Build.react.materialUi.useCssBase
+						< CssBase
+                    $if app.Build.react.materialUi.usePickers
+                        < MuiPickersUtilsProvider
+                            @ utils {DateFnsUtils}
+                            < AppContainer
+                    $else
+                        < AppContainer
+
+	$if app.Build.react.useRedux
+		export default
+			_ connect
+				=>
+					param state
+					return
+						{
+							@ dark state.dark
+				(
+					@ MuiThemeContainer
+	$else
+		export default MuiThemeContainer

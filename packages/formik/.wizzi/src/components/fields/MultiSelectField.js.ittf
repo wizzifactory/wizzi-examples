@@ -1,0 +1,80 @@
+module
+	kind react
+	
+    $
+		var md = {
+            name: "SelectField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Select from '@material-ui/core/Select'
+            import MenuItem from '@material-ui/core/MenuItem'
+
+        => renderOptions
+            prop localProps
+            const 
+                { 
+                    @ options
+                    @ blankString
+                = localProps
+            let result = []
+            if options
+                let result = []
+                if !multiple && blankString
+                    # Note: the blankString doesn't make sense when we allow multiple selections
+                    _ result.push
+                        < MenuItem 
+                            @ value ""
+                            @ key ""
+                            em 
+                                + {blankString}
+                _ options.forEach
+                    => 
+                        param option
+                        if multiple
+                            const checked
+                                iif value
+                                    then value.indexOf(option.value) !== -1
+                                    else false
+                            _ result.push
+                                < MenuItem 
+                                    @ value {option.value}
+                                    @ key {option.value}
+                                    < Checkbox 
+                                        @ checked {checked}
+                                    < ListItemText 
+                                        @ primary {option.label}
+                        else
+                            _ result.push
+                                < MenuItem 
+                                    @ value {option.value}
+                                    @ key {option.value}
+                                    + {option.label}
+                return result
+
+
+        render
+            prop fkFieldProp
+            prop localProps
+            const 
+                {
+                    @ disabled
+                    @ accessForbidden
+                    @ fullWidth
+                    @ options
+                    @ ...optional
+                = localProps
+            const _disabled = accessForbidden || disabled
+            return
+                < Select 
+                    @ id { fkFieldProp.name }
+                    @ onChange {fkFieldProp.onChange}
+                    @ onBlur {fkFieldProp.onBlur}
+                    @ value {fkFieldProp.value}
+                    @ disabled {_disabled}
+                    @ fullWidth {fullWidth}
+                    @ {...optional}
+                    {
+                        _ renderOptions(options)

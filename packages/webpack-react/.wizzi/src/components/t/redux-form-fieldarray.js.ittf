@@ -1,0 +1,47 @@
+$group
+    $params &fields
+
+    $foreach control in fields
+        $if control.type === 'array'
+            const render${control.name}
+                => 
+                    { 
+                        @ fields
+                        { meta
+                            @ error
+                    ul 
+                        li 
+                            button 
+                                @ type "button"
+                                @ onClick
+                                    => 
+                                        _ fields.push
+                                + Add
+                        { 
+                            _ fields.map
+                                => 
+                                    param item
+                                    param index
+                                    li 
+                                        @ key {index}
+                                        button 
+                                            @ type "button"
+                                            @ title "Remove"
+                                            @ onClick
+                                                =>
+                                                    _ fields.remove(index)
+                                        < Field
+                                            @ name {item}
+                                            @ type "text"
+                                            @ component {renderField}
+                                            @ label
+                                                `lit 
+                                                    + Hobby #
+                                                    set index + 1
+                                                    + 
+                        { 
+                            && 
+                                + error
+                                li 
+                                    @ className "error"
+                                    + {error}

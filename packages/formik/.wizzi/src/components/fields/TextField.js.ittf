@@ -1,0 +1,46 @@
+module
+	kind react
+	
+    $
+		var md = {
+            name: "TextField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Input from '@material-ui/core/Input'
+
+        render
+            prop fkFieldProp
+            prop localProps
+            const 
+                {
+                    @ type
+                    @ disabled
+                    @ accessForbidden
+                    @ fullWidth
+                    @ maxLength
+                    @ multiline
+                    @ rows
+                    @ rowsMax
+                    @ ...optional
+                = localProps
+            const _disabled = accessForbidden || disabled
+            return
+                < Input 
+                    @ id { fkFieldProp.name }
+                    @ inputProps
+                        { 
+                            @ maxLength
+                    @ onChange {fkFieldProp.onChange}
+                    @ onBlur {fkFieldProp.onBlur}
+                    @ value {fkFieldProp.value}
+                    @ disabled {_disabled}
+                    @ fullWidth {fullWidth}
+                    @ type {type}
+                    @ multiline {multiline}
+                    @ rows {rows}
+                    @ rowsMax {rowsMax}
+                    @ {...optional}
+

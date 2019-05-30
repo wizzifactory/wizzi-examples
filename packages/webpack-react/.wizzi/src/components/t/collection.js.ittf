@@ -1,0 +1,132 @@
+module
+    kind react
+    import React from 'react'
+    
+    class CollectionField
+        super React.PureComponent
+        
+        p state
+            { 
+                @ confirmationOpen false
+                @ sortBy ''
+                @ sortOrder 'ASC'
+        m isOpen
+            return !!this.props.mode
+        m canCreate
+            return access.canCreate(this.props.component.get('form'))
+        m canUpdate
+            return access.canUpdate(this.props.component.get('form'))
+        m canArchive
+            return access.canArchive(this.props.component.get('form'))
+        m componentDidUpdate
+            param prevProps
+            if this.props.bufferTopId !== prevProps.bufferTopId
+                # Resize the spacer now that the newly prepended items have been rendered
+                _ this.props.component._infiniteLoader.resizeSpacer(this.props.bufferTopId)
+            if this.props.spacerHeight !== prevProps.spacerHeight
+                _ this.props.component._infiniteLoader.setSpacerResizing(false)
+            if this.props.change !== prevProps.change
+                _ this.props.component.set
+                    { 
+                        @ isLoading false
+        m canDrag
+            const 
+                { 
+                    @ forbidOrder
+                    @ showArchived
+                    @ searchString
+                    @ order
+                = this.props
+            # Can we order by dragging?
+            return !forbidOrder && !showArchived && !searchString && !order
+        
+        collection-handlers()
+        
+        collection-cards()
+        
+        m sortOptions
+            const 
+                { 
+                    @ component
+                = this.props
+            if component && component.get('form')
+                const form = component.get('form')
+                const fieldsCanAccess = access.fieldsCanAccess('read', form)
+                const fields = []
+                _ form.eachField
+                    => 
+                        param field
+                        const name = field.get('name')
+                        # Do we have access to the field? Allowed to sort? Not hidden? Not a button?
+                        if fieldsCanAccess[name] !== undefined && !field.get('forbidSort') && !field.get('hidden') && !(field instanceof ButtonField)
+                            _ fields.push
+                                { 
+                                    @ value
+                                        op+ 
+                                            iif form.isDefaultField(name)
+                                                then ''
+                                                else 'fieldValues.'
+                                            + name
+                                    @ label field.get('label')
+                return fields
+        
+        m render
+            const 
+                { 
+                    @ component
+                    @ hideLabel
+                    @ classes
+                = this.props
+            const isBlank
+                _ component.isBlank
+            return 
+                span 
+                    @ className {classes.root}
+                    { 
+                        && 
+                            + !hideLabel
+                            < CommonField 
+                                @ component {component}
+                                @ inlineLabel "true"
+                                @ shrinkLabel {!isBlank}
+                    { 
+                        _ this.field
+    
+    set CollectionField =
+        _ withStyles
+            @ styles
+            { 
+                @ withTheme true
+            (
+                @ CollectionField
+    
+    set CollectionField =
+        _ attach
+            [ 
+                @ 'change'
+                @ 'label'
+                @ 'singularLabel'
+                @ 'forbidCreate'
+                @ 'forbidUpdate'
+                @ 'forbidDelete'
+                @ 'forbidSort'
+                @ 'forbidOrder'
+                @ 'editable'
+                @ 'disabled'
+                @ 'spacerHeight'
+                @ 'bufferTopId'
+                @ 'isLoading'
+                @ 'form'
+                @ 'currentForm'
+                @ 'mode'
+                @ 'noResults'
+                @ 'store'
+                @ 'maxColumns'
+                @ 'useDisplayValue'
+                @ 'hideLabel'
+                @ 'showArchived'
+                @ 'searchString'
+                @ 'order'
+            (
+                @ CollectionField
+    export-default CollectionField

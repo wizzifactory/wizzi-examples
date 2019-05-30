@@ -1,0 +1,56 @@
+$group
+    
+    $append styles
+        { root
+            # Needed when field is nested in a form that is nested in a form, e.g. FormEditor
+            @ width '100%'
+        
+        { spacer
+            @ backgroundColor theme.palette.grey[300]
+            @ marginLeft theme.spacing.unit
+            @ marginRight theme.spacing.unit
+            @ animation 'fadeIn 1s infinite alternate'
+        
+        { footer
+            # Create space at the footer so that it is more evident to the user that the next page has been
+            # loaded
+            @ height 50
+            @ backgroundColor theme.palette.grey[300]
+            @ margin theme.spacing.unit
+            @ animation 'fadeIn 1s infinite alternate'
+
+    const getItemStyle
+        => 
+            param isDragging
+            param draggableStyle
+            param theme
+            (
+                { 
+                    # some basic styles to make the items look a bit nicer
+                    @ userSelect 'none'
+                    @ padding theme.spacing.unit / 8
+                    @ margin
+                        `lit 
+                            + 0 0\b
+                            set theme.spacing.unit / 8
+                            + px 0
+                    # change background colour if dragging
+                    @ background
+                        iif isDragging
+                            then theme.palette.secondary[400]
+                            else undefined
+                    # styles we need to apply on draggables
+                    @ ...draggableStyle
+    
+    const getListStyle
+        => 
+            param isDraggingOver
+            param theme
+            (
+                { 
+                    @ background
+                        iif isDraggingOver
+                            then theme.palette.grey[300]
+                            else undefined
+                    @ width '100%'    
+

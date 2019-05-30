@@ -1,0 +1,97 @@
+﻿$group
+	+
+	decl_rsf( app, load )
+    decl_rsf( userstate, change )
+	+
+	# Redux entry point
+	# Must be called once, at application start.
+	wz-function initialLoad
+		param user
+		param options
+		return
+			function
+				param dispatch
+				param getState
+				param extraArgument
+				log 'actions.initialLoad.extraArgument', extraArgument
+
+                _ dispatch
+                    _ requestAppLoad
+
+				var userState
+                    _ extraArgument.localStorage.get
+					    @ "userState"
+                
+                if !userState
+                    set userState
+                        {
+                            @ themeName 'dark'
+                    _ extraArgument.localStorage.set
+					    @ "userState"
+                        @ userState
+
+                _ dispatch
+                    _ completeAppLoad
+                        {
+                            @ userState
+
+	wz-const requestAppLoad
+		=>
+			log 'store.actions.app.requestAppLoad'
+			return
+				{
+					@ type LOAD_APP_REQUEST
+	
+	wz-const failAppLoad
+		=>
+			param error
+			log 'store.actions.app.failAppLoad', error
+			return
+				{
+					@ type LOAD_APP_FAILURE
+					@ error error
+	
+	wz-const completeAppLoad
+		=>
+			param initialData
+			log 'store.actions.app.completeAppLoad', initialData
+			return
+				{
+					@ type LOAD_APP_SUCCESS
+					@ initialData initialData
+
+	wz-function changeUserState
+		param userState
+		return
+			function
+				param dispatch
+				param getState
+				param extraArgument
+				log 'actions.changeUserState.userState', userState
+
+                _ dispatch
+                    _ requestUserStateChange
+
+                _ extraArgument.localStorage.set
+                    @ "userState"
+                    @ userState
+
+                _ dispatch
+                    _ completeUserStateChange
+                        @ userState
+
+	wz-const requestUserStateChange
+		=>
+			log 'store.actions.app.requestUserStateChange'
+			return
+				{
+					@ type CHANGE_USERSTATE_REQUEST
+
+	wz-const completeUserStateChange
+		=>
+			param userState
+			log 'store.actions.app.completeUserStateChange', userState
+			return
+				{
+					@ type CHANGE_USERSTATE_SUCCESS
+					@ userState userState

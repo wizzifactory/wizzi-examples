@@ -1,0 +1,13 @@
+< ErrorMessage
+    $params arrayName, fieldName
+    @ name
+        `lit
+            + ${arrayName}[
+            @ index
+            + ].${fieldName}
+    {
+        =>
+            param msg
+            return
+                . field-error
+                    + {msg}

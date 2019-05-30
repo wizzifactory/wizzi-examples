@@ -1,0 +1,11 @@
+module
+	kind react
+
+	import LocalStorage from '../store/db/localStorage'
+	
+	var localStorage = new LocalStorage("wr");
+    const extraArguments
+		{
+			@ localStorage localStorage
+
+	export default extraArguments

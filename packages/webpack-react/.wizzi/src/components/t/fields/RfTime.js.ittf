@@ -1,0 +1,42 @@
+$group
+
+    $if controlTypes.time
+        const RfTimePicker
+            => 
+                param props
+                # log 'RfTimePicker.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ meta { touched, error }
+                        @ ...rest
+                    = props
+                return
+                    < TimePicker
+                        @ label {label}
+                        @ value {input.value}
+                        @ helperText {touched && error}
+                        @ {...input}
+                        @ {...rest}
+        
+        const RfKeyboardTimePicker
+            => 
+                param props
+                # log 'RfKeyboardTimePicker.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        @ meta { touched, error }
+                        @ ...rest
+                    = props
+                return
+                    < KeyboardTimePicker
+                        @ className {classes.formControl}
+                        @ label {label}
+                        @ value {input.value}
+                        @ helperText {touched && error}
+                        @ {...input}
+                        @ {...rest}

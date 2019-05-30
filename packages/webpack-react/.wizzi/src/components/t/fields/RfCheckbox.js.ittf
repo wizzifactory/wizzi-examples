@@ -1,0 +1,32 @@
+$group
+
+    $if controlTypes.checkbox
+        const renderCheckboxControl
+            => 
+                param props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ ...rest
+                    = props
+                return
+                    < Checkbox
+                        @ checked
+                            iif input.value
+                                then true
+                                else false
+                        @ onChange {input.onChange}
+                        @ value {input.value}
+                        @ {...rest}
+
+        const RfCheckbox
+            => 
+                param props
+                log 'RfCheckbox.props', props
+                return
+                    < FormControlLabel
+                        @ className {props.classes.formControl}
+                        @ label {props.label}
+                        @ control {renderCheckboxControl(props)}
+    

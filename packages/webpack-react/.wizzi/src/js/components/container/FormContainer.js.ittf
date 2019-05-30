@@ -1,0 +1,43 @@
+module
+    kind react
+    import React
+        @ Component
+        from "react"
+    import ReactDOM from "react-dom"
+    import Input from "../presentational/Input"
+    class FormContainer
+        super Component
+        ctor 
+            _ super
+            set this.state =
+                { 
+                    @ seo_title ""
+            set this.handleChange = this.handleChange.bind(this)
+        m handleChange
+            param event
+            _ this.setState
+                { 
+                    @ [event.target.id] event.target.value
+        m render
+            const 
+                { 
+                    @ seo_title
+                = this.state
+            return 
+                form 
+                    @ id "article-form"
+                    < Input 
+                        @ text "SEO title"
+                        @ label "seo_title"
+                        @ type "text"
+                        @ id "seo_title"
+                        @ value {seo_title}
+                        @ handleChange {this.handleChange}
+    export-default FormContainer
+    const wrapper = document.getElementById("create-article-form")
+    iif wrapper
+        then
+            _ ReactDOM.render
+                < FormContainer 
+                @ wrapper
+        else false

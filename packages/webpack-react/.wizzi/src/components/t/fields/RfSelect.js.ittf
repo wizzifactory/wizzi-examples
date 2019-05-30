@@ -1,0 +1,36 @@
+$group
+
+    $if controlTypes.select
+        const RfSelect
+            => 
+                param props
+                # log 'RfSelect.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        { meta
+                            @ touched
+                            @ error
+                        @ children
+                        @ ...rest
+                    = props
+                return
+                    < FormControl
+                        @ className {classes.formControl}
+                        < InputLabel
+                            @ htmlFor {props.name}
+                            + {props.label}
+                        < Select 
+                            @ {...input}
+                            @ {...rest}
+                            @ value {input.value}
+                            @ onChange
+                                => 
+                                    param event
+                                    log 'Select.onChange.event.target', event.target
+                                    _ input.onChange(event.target.value)
+                            @ children {children}
+                        < FormHelperText
+                            + {touched && error}

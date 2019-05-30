@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/wizzifactory/wizzi-examples#readme",
   "devDependencies": {
-    "wizzi": "^0.7.5",
-    "wizzi-core": "^0.6.16",
-    "wizzi-js": "^0.7.1",
-    "wizzi-meta": "^0.6.6",
-    "wizzi-utils": "^0.7.3",
-    "wizzi-web": "^0.7.1"
+    "wizzi": "^0.7.6",
+    "wizzi-core": "^0.7.0",
+    "wizzi-js": "^0.7.3",
+    "wizzi-utils": "^0.7.2",
+    "wizzi-web": "^0.7.1",
+    "wizzi-meta": "^0.6.6"
   }
 }

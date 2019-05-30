@@ -1,0 +1,46 @@
+{
+	name "formik"
+	version "0.0.1"
+	description "Formik react template"
+	author "Stefano Bassoli"
+	license "MIT"
+
+    { Build
+        useWebpack true
+        { webpack
+            useCss true
+            useSass false
+            useHtml true
+            useDevServer true
+        useBabel true
+        { babel
+        useReact true
+        { react
+            rootContainer "AppContainer"
+            rootElementId "root"
+            useRouter false
+            { router
+            useRedux false
+            { redux
+            useMaterialUi true
+            { materialUi
+                useAutocomplete false
+                { autocomplete
+                    useReactSelect false
+                usePickers false
+                useLab false
+                useIcons false
+            useFormik true
+            { formik
+            useDraftJs true
+            { draftjs
+        useYup true
+        { yup
+    
+    { Styles
+        { theme
+            dark false
+        { colors
+            primary "green"
+            secondary "orange"
+    

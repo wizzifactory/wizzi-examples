@@ -1,0 +1,13 @@
+$group
+    $params &submit
+
+    div
+        button 
+            @ type "submit"
+            @ disabled {pristine || submitting}
+            + ${submit.submitLabel}
+        button 
+            @ type "button"
+            @ disabled {pristine || submitting}
+            @ onClick {reset}
+            + ${submit.resetLabel}

@@ -1,0 +1,25 @@
+$group
+
+    $if controlTypes.text
+        const RfTextField
+            => 
+                param props
+                # log 'RfTextField.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        @ meta { touched, error }
+                        @ ...rest
+                    = props
+                return
+                    < TextField 
+                        @ className {classes.formControl}
+                        @ touched {touched}
+                        @ err {error}
+                        @ input {input}
+                        @ label {label}
+                        @ editable {true}
+                        @ {...rest}
+    

@@ -1,0 +1,10 @@
+﻿$group
+
+	[ externals
+		$if app.Build.useReactExternals
+			{ 
+				@ "react" "React"
+				@ "react-dom" "ReactDOM"
+
+		$if app.Build.useRequireHttp
+			@ require('webpack-require-http')

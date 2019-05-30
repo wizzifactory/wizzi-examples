@@ -1,0 +1,7 @@
+$group
+    $params propName, msgRequired|required
+    @ ${propName}
+        _ Yup.string
+            ._ required
+                @ '${msgRequired}'
+            $hook

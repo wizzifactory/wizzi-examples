@@ -1,0 +1,34 @@
+$group
+
+    $if controlTypes.radiogroup
+        const RfRadioGroup
+            => 
+                param props
+                log 'RfRadioGroup.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        @ children
+                        @ ...rest
+                    = props
+                return
+                    < FormControl
+                        @ className {classes.formControl}
+                        @ component fieldset
+                        < FormLabel
+                            @ component legend
+                            + {label}
+                        < RadioGroup 
+                            @ {...input}
+                            @ {...rest}
+                            @ aria-label {label}
+                            @ value {input.value}
+                            @ children {children}
+                            @ onChange
+                                => 
+                                    param event
+                                    param value
+                                    _ input.onChange(value)
+

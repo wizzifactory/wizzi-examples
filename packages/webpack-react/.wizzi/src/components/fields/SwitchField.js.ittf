@@ -1,0 +1,89 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/boolean-field.js
+
+	$
+		var md = {
+            name: "SwitchField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Switch from '@material-ui/core/Switch'
+            import CommonField from './CommonField'
+            $if !!app.Build.react.useRedux == false
+                import attach from './attach'
+            import FormControlLabel from '@material-ui/core/FormControlLabel'
+            import DisplayValueTypography from './DisplayValueTypography'
+    
+        => handleChange
+            param event
+            $if app.Build.react.useRedux
+                prop input
+                _ input.onChange(event.target.checked)
+            $else
+                _ this.props.component.setValue(event.target.checked)
+        
+        render
+            const 
+                { 
+                    $if app.Build.react.useRedux
+                        @ input
+                        @ err
+                        @ touched
+                    $else
+                        @ component
+                    @ value
+                    @ disabled
+                    @ editable
+                    @ useDisplayValue
+                    @ label
+                = this.props
+            let hideLabelUI = null
+            let fld = null
+            if editable && !useDisplayValue
+                set hideLabelUI = true
+                set fld =
+                    < FormControlLabel 
+                        @ control
+                            < Switch
+                                $if app.Build.react.useRedux                             
+                                    @ checked {input.value}
+                                $else
+                                    @ checked
+                                        iif value
+                                            then value
+                                            else false
+                                @ onChange {this.handleChange}
+                                @ value "true"
+                                @ disabled {disabled}
+                        @ label {label}
+            else
+                set fld =
+                    < DisplayValueTypography 
+                        { 
+                            _ component.getDisplayValue
+            return 
+                < CommonField 
+                    $if app.Build.react.useRedux
+                        @ input {input}
+                        @ label {label}
+                        @ touched {touched}
+                        @ err {err}
+                    $else
+                        @ component {component}
+                    @ hideLabelUI {hideLabelUI}
+                    + {fld}
+    
+    $if !!app.Build.react.useRedux == false
+        _ attach
+            [ 
+                @ 'value'
+                @ 'err'
+                @ 'disabled'
+                @ 'editable'
+                @ 'useDisplayValue'
+                @ 'label'
+            (
+                @ ${md.name}

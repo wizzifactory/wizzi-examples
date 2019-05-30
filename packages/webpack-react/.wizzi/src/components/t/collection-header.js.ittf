@@ -1,0 +1,66 @@
+$group
+    m header
+        param numCards
+        const 
+            { 
+                @ forbidCreate
+                @ editable
+                @ disabled
+                @ component
+                @ forbidSort
+                @ store
+                @ useDisplayValue
+            = this.props
+        const 
+            { 
+                @ sortBy
+                @ sortOrder
+            = this.state
+        const singularLabel
+            _ component.getSingularLabel
+        const reachedMax
+            _ component.reachedMax
+        const canCreate
+            _ this.canCreate
+        const showNewButton = editable && !disabled && !useDisplayValue && !forbidCreate && !reachedMax && canCreate
+        const canOrder = !forbidSort
+        const sortOptions
+            _ this.sortOptions
+        # Sorting only works when there is a backing store
+        const hasStore = !!store
+        const showOrder = numCards > 0 && hasStore
+        return 
+            < Grid 
+                @ container
+                @ spacing {0}
+                < Grid 
+                    @ item
+                    @ xs {12}
+                    @ sm {6}
+                    @ lg {6}
+                    { 
+                        iif showNewButton
+                            then
+                                < Button 
+                                    @ aria-label "new"
+                                    @ onClick {this.handleNew}
+                                    @ icon "Add"
+                                    @ label {'New ' + singularLabel}
+                                    @ marginTop {false}
+                            else null
+                < Grid 
+                    @ item
+                    @ xs {12}
+                    @ sm {6}
+                    @ lg {6}
+                    @ align "right"
+                    { 
+                        iif showOrder && canOrder
+                            then
+                                < SelectOrder 
+                                    @ onChange {this.handleOrdering}
+                                    @ sortBy {sortBy}
+                                    @ sortOrder {sortOrder}
+                                    @ options {sortOptions}
+                            else null
+    

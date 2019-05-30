@@ -1,0 +1,27 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "ReduxMuiFormContainer"
+        };
+	
+	v07/app/react/container(&md)
+
+        $append imports
+            import ReduxMuiForm from '../components/ReduxMuiForm'
+
+        => showResults
+            param values
+            _ alert
+                _ JSON.stringify
+                    @ values
+                    @ null
+                    @ 4
+
+        render
+            return
+                div
+                    < ReduxMuiForm
+                        @ onSubmit {this.showResults}
+

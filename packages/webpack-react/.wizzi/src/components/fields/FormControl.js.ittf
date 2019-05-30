@@ -1,0 +1,57 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/form-control.js
+
+	$
+		var md = {
+            name: "FormControl",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import FormControlMui from '@material-ui/core/FormControl'
+        
+        $append styles
+            { formControl
+                @ margin theme.spacing.unit
+            { fullWidth
+                # TODO: bug in material ui?
+                @ width
+                    `lit 
+                        + calc(100% -\b
+                        set theme.spacing.unit * 2
+                        + px)
+            { noMarginBottom
+                @ marginBottom 0
+
+        render
+            prop classes
+            prop fullWidth
+            prop children
+            prop marginBottom
+            
+            const fullWidthClassName
+                iif fullWidth
+                    then classes.fullWidth
+                    else ''
+            
+            const noMarginBottomClassName
+                iif marginBottom === false
+                    then classes.noMarginBottom
+                    else ''
+            
+            return
+                < FormControlMui 
+                    @ fullWidth {fullWidth}
+                    @ className
+                        `lit 
+                            + 
+                            @ classes.formControl
+                            + \b
+                            @ fullWidthClassName
+                            + \b
+                            @ noMarginBottomClassName
+                            + 
+                    + {children}

@@ -1,0 +1,48 @@
+﻿module
+	kind react
+
+	$
+		var md = {};
+		md.name = "AppContainer";
+		md.withRouter = false;
+        md.withStyles = false;
+        md.withContext = false;
+	
+	v07/app/react/container(&md)
+
+        $append imports
+            import AppRouter from './AppRouter'
+            import App from '../components/app'
+            import
+                @ changeUserState
+                from '../store/actions'
+
+        => handleChangeUserState
+            param name
+            param value
+            _ this.props.dispatchChangeUserState
+                {
+                    @ ...this.props.userState
+                    @ [name] value
+
+        render
+            return
+                div
+                    < AppRouter
+                    < App
+                        @ userState {this.props.userState}
+                        @ onChangeUserState {this.handleChangeUserState}
+
+        $append dispatch-to-props
+            @ dispatchChangeUserState
+                =>
+                    param userState
+                    log 'dispatchChangeTheme', userState
+                    _ dispatch
+                        _ changeUserState
+                            @ userState
+
+        $append state-to-props
+            @ userState state.app.userState
+
+        $append merge-props

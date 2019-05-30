@@ -1,0 +1,27 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "ReduxFormContainer"
+        };
+	
+	v07/app/react/container(&md)
+
+        $append imports
+            import ReduxForm from '../components/ReduxForm'
+
+        => showResults
+            param values
+            _ alert
+                _ JSON.stringify
+                    @ values
+                    @ null
+                    @ 4
+
+        render
+            return
+                div
+                    < ReduxForm
+                        @ onSubmit {this.showResults}
+

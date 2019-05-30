@@ -1,0 +1,121 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "App",
+            isFormikForm: true,
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import './formik-example.css'
+            const initialValues
+                {
+                    [ friends
+                        {
+                            @ name ''
+                            @ email ''
+        
+        $append styles
+            { root
+                @ margin "200px"
+                @ width "400px"
+
+        render
+            prop classes
+            return
+                . {classes.root}
+                    . formik-example
+                        h1 Invite friends
+                        < Formik
+                            @ initialValues {initialValues}
+                            @ onSubmit
+                                =>
+                                    param values
+                                    _ setTimeout
+                                        =>
+                                            _ alert(JSON.stringify(values, null, 2))
+                                        @ 500
+                            {
+                                =>
+                                    param props
+                                    const
+                                        { 
+                                            @ isSubmitting
+                                        = props
+                                    return
+                                        < Form
+                                            . row
+                                                . col
+                                                    < Field
+                                                        @ name "name"
+                                                        {
+                                                            =>
+                                                                param field
+                                                                param form
+                                                                return
+                                                                    input
+                                                                        @ type "text"
+                                                                        @ {...field}
+                                                                        @ placeholder "Annie Dove"
+                                                . col
+                                                    < Field
+                                                        @ name "email"
+                                                        {
+                                                            =>
+                                                                param field
+                                                                param form
+                                                                return
+                                                                    input
+                                                                        @ type "email"
+                                                                        @ {...field}
+                                                                        @ placeholder "Annie@example.com"
+                                                . col
+                                                    button
+                                                        @ type "button"
+                                                        + X
+
+                                            $*
+                                            label
+                                                + Is going   \b
+                                                input
+                                                    @ name "isGoing"
+                                                    @ type "checkbox"
+                                                    @ value {values.isGoing}
+                                                    @ checked {values.isGoing}
+                                                    @ onChange {handleChange}
+                                                    @ onBlur {handleBlur}
+                                            br
+                                            label
+                                                + Number of guests   \b
+                                                input
+                                                    @ name "numberOfGuests"
+                                                    @ type "number"
+                                                    @ value {values.numberOfGuests}
+                                                    @ onChange {handleChange}
+                                                    @ onBlur {handleBlur}
+                                            br
+                                            *$
+                                            . row
+                                                button
+                                                    type "button"
+                                                    @ className "secondary"
+                                                    disabled {isSubmitting}
+                                                    + Add friend
+                                            . row
+                                                button
+                                                    type "submit"
+                                                    disabled {isSubmitting}
+                                                    + Submit
+                                            . row
+                                                button
+                                                    type "button"
+                                                    + Cancel
+                                            . row
+                                                pre
+                                                    + { JSON.stringify(props, null, 2) }
+                            
+                

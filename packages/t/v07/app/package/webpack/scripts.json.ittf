@@ -1,0 +1,5 @@
+﻿$group
+
+    start "webpack-dev-server --open --mode development"
+    build "webpack"
+    build:prod "webpack --mode production"

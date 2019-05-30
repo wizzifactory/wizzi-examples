@@ -1,0 +1,48 @@
+$group
+
+    $if controlTypes.datetime
+        const RfDateTimePicker
+            => 
+                param props
+                # log 'RfDateTimePicker.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ meta { touched, error }
+                        @ ...rest
+                    = props
+                return
+                    < DateTimePicker
+                        @ label {label}
+                        @ value {input.value}
+                        @ helperText {touched && error}
+                        @ onChange {input.onChange}
+                        @ {...input}
+                        @ {...rest}
+                        @ animateYearScrolling
+
+        const RfKeyboardDateTimePicker
+            => 
+                param props
+                # log 'RfDateTimePicker.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        @ meta { touched, error }
+                        @ ...rest
+                    = props
+                return
+                    < KeyboardDateTimePicker
+                        @ className {classes.formControl}
+                        @ label {label}
+                        @ value {input.value}
+                        @ helperText {touched && error}
+                        @ onChange {input.onChange}
+                        @ {...input}
+                        @ {...rest}
+                        @ animateYearScrolling
+                        @ format "yyyy/MM/dd hh:mm a"                        
+

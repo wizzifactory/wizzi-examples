@@ -1,0 +1,17 @@
+﻿module
+	kind react
+
+	$
+		var md = {
+            name: "AppContainer"
+        };
+	
+	v07/app/react/container(&md)
+
+        $append imports
+            import App from '../components/app'
+
+        render
+            return
+                div
+                    < App

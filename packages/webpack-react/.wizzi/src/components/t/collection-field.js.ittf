@@ -1,0 +1,115 @@
+$group
+    m field
+        # TODO: how to prevent re-rendering of all form-cards when dialog open state is changed? Or, does
+        # it not really matter as we are using PureComponents?
+        const 
+            { 
+                @ forbidUpdate
+                @ forbidDelete
+                @ component
+                @ spacerHeight
+                @ classes
+                @ isLoading
+                @ form
+                @ currentForm
+                @ noResults
+                @ disabled
+                @ accessEditable
+                @ useDisplayValue
+                @ theme
+            = this.props
+        
+        const dis = accessEditable === false || disabled
+        
+        const 
+            { 
+                @ confirmationOpen
+                @ confirmationTitle
+            = this.state
+        
+        const label
+            _ component.get('label').toLowerCase
+        
+        const canUpdate
+            _ this.canUpdate
+        
+        const canArchive
+            _ this.canArchive
+        
+        const spacerStyle
+            { 
+                @ height spacerHeight
+        
+        const spacerId = component.get('spacerId')
+        
+        let cards = this.cards(canUpdate, canArchive)
+        
+        let cardContainer = cards
+        if this.canDrag()
+            set cardContainer =
+                < DragDropContext 
+                    @ onDragEnd {this.onDragEnd}
+                    < Droppable 
+                        @ droppableId "droppable"
+                        { 
+                            => 
+                                param provided
+                                param snapshot
+                                div 
+                                    @ ref {provided.innerRef}
+                                    @ style {getListStyle(snapshot.isDraggingOver, theme)}
+                                    + {cards}
+                                    + {provided.placeholder}
+        
+        # Is the user searching and there are no records?
+        const searchString = component.get('searchString')
+        const showNoRecords = searchString && noResults
+        const header = this.header(cards.length)
+        return 
+            div 
+                + {header}
+                { 
+                    iif showNoRecords
+                        then
+                            < Typography 
+                                @ variant "h4"
+                                < Icon 
+                                    @ icon "Info"
+                                + \b No \b
+                                + {label}
+                                + \b found\n          \b
+                        else null
+                div 
+                    @ id {spacerId}
+                    @ className {classes.spacer}
+                    @ style {spacerStyle}
+                < Grid 
+                    @ container
+                    @ spacing {0}
+                    + {cardContainer}
+                { 
+                    iif isLoading
+                        then
+                            div 
+                                @ className {classes.footer}
+                        else null
+                { 
+                    # 
+                        # TODO: would it be better to have a single, global FormDialog instance? Or, is it better
+                        # to have multiple instances so that you can have different memory spaces. Currenly we have a
+                        # hybrid where we have a dialog per form. There is almost certainly more overhead in having an
+                        # instance per record, right?
+                < FormDialog 
+                    @ component {form}
+                    @ currentForm {currentForm}
+                    @ onClose {this.handleClose}
+                    @ onCancel {this.handleCancel}
+                    @ onSave {this.handleSave}
+                    @ onEdit {this.handleEdit}
+                    @ onDelete {this.handleDelete}
+                    @ forbidUpdate {forbidUpdate || !canUpdate || dis || useDisplayValue}
+                    @ forbidDelete {forbidDelete || !canArchive || dis || useDisplayValue}
+                < ConfirmationDialog 
+                    @ open {confirmationOpen}
+                    @ onClose {this.handleConfirmationClose}
+                    @ title {confirmationTitle}

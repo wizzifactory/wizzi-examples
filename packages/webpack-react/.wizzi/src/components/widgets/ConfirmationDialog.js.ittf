@@ -1,0 +1,72 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/confirmation-dialog.js
+
+	$
+		var md = {
+            name: "ConfirmationDialog",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Button from '@material-ui/core/Button'
+            import Dialog from '@material-ui/core/Dialog'
+            import DialogActions from '@material-ui/core/DialogActions'
+            import DialogContent from '@material-ui/core/DialogContent'
+            import DialogContentText from '@material-ui/core/DialogContentText'
+            import DialogTitle from '@material-ui/core/DialogTitle'
+
+        $append styles
+
+        => handleClose
+            param yes
+            if this.props.onClose
+                _ this.props.onClose(yes)
+        
+        m render
+            const 
+                { 
+                    @ title
+                    @ text
+                    @ open
+                    @ alert
+                = this.props
+            return 
+                div 
+                    < Dialog 
+                        @ open {open}
+                        @ onClose
+                            => 
+                                _ this.handleClose(false)
+                        @ aria-labelledby "alert-dialog-title"
+                        @ aria-describedby "alert-dialog-description"
+                        < DialogTitle 
+                            @ id "alert-dialog-title"
+                            + {title}
+                        < DialogContent 
+                            < DialogContentText 
+                                @ id "alert-dialog-description"
+                                + {text}
+                        < DialogActions 
+                            { 
+                                iif alert
+                                    then null
+                                    else
+                                        < Button 
+                                            @ onClick
+                                                => 
+                                                    _ this.handleClose(false)
+                                            @ color "primary"
+                                            + No
+                            < Button 
+                                @ onClick
+                                    => 
+                                        _ this.handleClose(true)
+                                @ color "primary"
+                                @ autoFocus
+                                { 
+                                    iif alert
+                                        then 'OK'
+                                        else 'Yes'

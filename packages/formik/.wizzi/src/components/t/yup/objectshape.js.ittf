@@ -1,0 +1,4 @@
+_ Yup.object
+    ._ shape
+        { 
+            $hook

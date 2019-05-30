@@ -1,0 +1,7 @@
+﻿$group
+
+	$if app.Build.isLibrary
+		@ library '${app.Build.libraryName}'
+		@ libraryTarget 'var'
+
+	

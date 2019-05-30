@@ -1,0 +1,5 @@
+button
+    $params label
+    type "submit"
+    disabled {isSubmitting}
+    + ${label}

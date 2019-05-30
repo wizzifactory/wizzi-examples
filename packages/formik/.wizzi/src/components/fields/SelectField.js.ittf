@@ -1,0 +1,80 @@
+module
+	kind react
+	
+    $
+		var md = {
+            name: "SelectField",
+            isFormikForm: true,
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Select from '@material-ui/core/Select'
+            import MenuItem from '@material-ui/core/MenuItem'
+
+        => renderOptions
+            param options
+            param blankString
+            let result = []
+            if options
+                # FIXME
+                if blankString
+                    _ result.push
+                        < MenuItem 
+                            @ value ""
+                            @ key ""
+                            em 
+                                + {blankString}
+                _ options.forEach
+                    => 
+                        param option
+                        _ result.push
+                            < MenuItem 
+                                @ value {option.value}
+                                @ key {option.value}
+                                + {option.label}
+            return result
+
+        => handleChange
+            param event
+            prop fkFieldProp
+            prop setFieldValue
+            # log 'Select.handleChange', event.target.value, setFieldValue
+            _ setFieldValue
+                @ fkFieldProp.name
+                @ event.target.value
+
+        => handleBlur
+            prop fkFieldProp
+            prop setFieldTouched
+            _ setFieldTouched
+                @ fkFieldProp.name
+
+        render
+            prop fkFieldProp
+            prop localProps
+            const 
+                {
+                    @ disabled
+                    @ blankString
+                    @ accessForbidden
+                    @ fullWidth
+                    @ options
+                    @ ...optional
+                = localProps
+            const _disabled = accessForbidden || disabled
+            log 'Select.fkFieldProp', fkFieldProp
+            return
+                < Select 
+                    @ id { fkFieldProp.name }
+                    @ onChange {this.handleChange}
+                    @ onBlur {this.handleBlur}
+                    @ value {fkFieldProp.value}
+                    @ disabled {_disabled}
+                    @ fullWidth {fullWidth}
+                    @ {...optional}
+                    {
+                        _ this.renderOptions
+                            @ options
+                            @ blankString

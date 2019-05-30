@@ -1,0 +1,48 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/form-label.js
+
+	$
+		var md = {
+            name: "FormLabel",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+
+        $append imports
+            import FormLabelMui from '@material-ui/core/FormLabel'
+        
+        $append styles
+            { shrink
+                _ ...Object.assign
+                    { 
+                    @ theme.typography.caption
+                    { 
+                        @ color undefined
+            { noShrink
+                _ ...Object.assign
+                    { 
+                    @ theme.typography.subtitle1
+                    { 
+                        @ color undefined
+        render
+            prop children
+            prop classes
+            prop shrink
+            const childProps
+                _ Object.assign
+                    { 
+                    @ this.props
+                    { 
+                        @ shrink undefined
+                        @ classes undefined
+            const className
+                iif shrink
+                    then classes.shrink
+                    else classes.noShrink
+            return
+                < FormLabelMui
+                    @ {...childProps}
+                    @ className {className}
+                    + {children}

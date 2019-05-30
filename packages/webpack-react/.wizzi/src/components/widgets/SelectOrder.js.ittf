@@ -1,0 +1,81 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/select-order.js
+
+	$
+		var md = {
+            name: "SelectOrder",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import IconButton from '@material-ui/core/IconButton'
+            import MenuItem from '@material-ui/core/MenuItem'
+            import FormControl from '@material-ui/core/FormControl'
+            import Select from '@material-ui/core/Select'
+            import Icon from './Icon'
+
+        $append styles
+            @ formControl {}
+            { flip
+                @ transform 'scaleY(-1)'
+        
+        => handleClick
+            const sortOrder
+                iif this.props.sortOrder === 'ASC'
+                    then 'DESC'
+                    else 'ASC'
+            _ this.props.onChange
+                { 
+                    @ sortOrder
+        
+        => handleChange
+            param event
+            _ this.props.onChange
+                { 
+                    @ sortBy event.target.value
+        render
+            const 
+                { 
+                    @ classes
+                    @ sortBy
+                    @ sortOrder
+                    @ options
+                = this.props
+            
+            const flipped = sortOrder !== 'DESC'
+            
+            const items
+                _ options.map
+                    => 
+                        param option
+                        return 
+                            < MenuItem 
+                                @ value {option.value}
+                                @ key {option.value}
+                                + {option.label}
+            
+            return 
+                div 
+                    < FormControl 
+                        @ className {classes.formControl}
+                        < Select 
+                            @ value {sortBy}
+                            @ onChange {this.handleChange}
+                            < MenuItem 
+                                @ value ""
+                                em 
+                                    + None
+                            + {items}
+                    < IconButton 
+                        @ color "primary"
+                        @ aria-label "sort order"
+                        @ onClick {this.handleClick}
+                        < Icon 
+                            @ icon "Sort"
+                            @ className
+                                iif flipped
+                                    then classes.flip
+                                    else null

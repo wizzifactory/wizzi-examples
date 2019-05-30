@@ -1,0 +1,11 @@
+button
+    $params label
+    type "button"
+    @ className "secondary"
+    disabled {isSubmitting}
+    @ onClick
+        =>
+            _ push
+                {
+                    $hook
+    + ${label}

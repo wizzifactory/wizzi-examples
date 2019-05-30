@@ -1,0 +1,217 @@
+module
+	kind react
+
+	$
+		var md = {
+            isForm: true,
+            name: "ReduxMuiArrayForm",
+            id: "reduxmuiarray",
+            withStyles: true,
+            validate: true,
+            asyncValidate: false
+        };
+        var fields = app.Forms.reduxmuiarray.fields; 
+        var submit = app.Forms.reduxmuiarray.submit
+	
+	v07/app/react/component(&md)
+        $append validate
+            if !values.clubName
+                set errors.clubName = 'Required'
+            if !values.members || !values.members.length
+                set errors.members =
+                    { 
+                        @ _error 'At least one member must be entered'
+            else
+                const membersArrayErrors = []
+                _ values.members.forEach
+                    => 
+                        param member
+                        param memberIndex
+                        const memberErrors = {}
+                        if !member || !member.firstName
+                            set memberErrors.firstName = 'Required'
+                            set membersArrayErrors[memberIndex] = memberErrors
+                        if !member || !member.lastName
+                            set memberErrors.lastName = 'Required'
+                            set membersArrayErrors[memberIndex] = memberErrors
+                        if member && member.hobbies && member.hobbies.length
+                            const hobbyArrayErrors = []
+                            _ member.hobbies.forEach
+                                => 
+                                    param hobby
+                                    param hobbyIndex
+                                    if !hobby || !hobby.length
+                                        set hobbyArrayErrors[hobbyIndex] = 'Required'
+                            if hobbyArrayErrors.length
+                                set memberErrors.hobbies = hobbyArrayErrors
+                                set membersArrayErrors[memberIndex] = memberErrors
+                            if member.hobbies.length > 5
+                                if !memberErrors.hobbies
+                                    set memberErrors.hobbies = []
+                                set memberErrors.hobbies._error = 'No more than five hobbies allowed'
+                                set membersArrayErrors[memberIndex] = memberErrors
+                if membersArrayErrors.length
+                    set errors.members = membersArrayErrors
+        $append styles
+        $append imports
+            const renderField
+                => 
+                    { 
+                        @ input
+                        @ label
+                        @ type
+                        { meta
+                            @ touched
+                            @ error
+                    div 
+                        label 
+                            + {label}
+                        div 
+                            input 
+                                @ {...input}
+                                @ type {type}
+                                @ placeholder {label}
+                            { 
+                                && 
+                                    + touched && error
+                                    span 
+                                        + {error}
+            const renderHobbies
+                => 
+                    { 
+                        @ fields
+                        { meta
+                            @ error
+                    ul 
+                        li 
+                            button 
+                                @ type "button"
+                                @ onClick
+                                    => 
+                                        _ fields.push
+                                + \n        Add Hobby\n      \b
+                        { 
+                            _ fields.map
+                                => 
+                                    param hobby
+                                    param index
+                                    li 
+                                        @ key {index}
+                                        button 
+                                            @ type "button"
+                                            @ title "Remove Hobby"
+                                            @ onClick
+                                                => 
+                                                    _ fields.remove(index)
+                                        < Field 
+                                            @ name {hobby}
+                                            @ type "text"
+                                            @ component {renderField}
+                                            @ label
+                                                `lit 
+                                                    + Hobby #
+                                                    set index + 1
+                                                    + 
+                        { 
+                            && 
+                                + error
+                                li 
+                                    @ className "error"
+                                    + {error}
+            const renderMembers
+                => 
+                    { 
+                        @ fields
+                        { meta
+                            @ error
+                            @ submitFailed
+                    ul 
+                        li 
+                            button 
+                                @ type "button"
+                                @ onClick
+                                    => 
+                                        _ fields.push({})
+                                + \n        Add Member\n      \b
+                            { 
+                                && 
+                                    + submitFailed && error
+                                    span 
+                                        + {error}
+                        { 
+                            _ fields.map
+                                => 
+                                    param member
+                                    param index
+                                    li 
+                                        @ key {index}
+                                        button 
+                                            @ type "button"
+                                            @ title "Remove Member"
+                                            @ onClick
+                                                => 
+                                                    _ fields.remove(index)
+                                        h4 
+                                            + Member #
+                                            + {index + 1}
+                                        < Field 
+                                            @ name
+                                                `lit 
+                                                    + 
+                                                    @ member
+                                                    + .firstName
+                                            @ type "text"
+                                            @ component {renderField}
+                                            @ label "First Name"
+                                        < Field 
+                                            @ name
+                                                `lit 
+                                                    + 
+                                                    @ member
+                                                    + .lastName
+                                            @ type "text"
+                                            @ component {renderField}
+                                            @ label "Last Name"
+                                        < FieldArray 
+                                            @ name
+                                                `lit 
+                                                    + 
+                                                    @ member
+                                                    + .hobbies
+                                            @ component {renderHobbies}
+        $append styles                                            
+        render
+            prop handleSubmit
+            prop pristine
+            prop reset
+            prop submitting
+            prop classes
+            return 
+                . { classes.root }
+                    form 
+                        @ onSubmit {handleSubmit}
+                        @ className { classes.form }
+                        $foreach field in fields
+                            field(&fields)
+                        redux-form-submit(&submit)
+
+                form 
+                    @ onSubmit {handleSubmit}
+                    < Field 
+                        @ name "clubName"
+                        @ type "text"
+                        @ component {renderField}
+                        @ label "Club Name"
+                    < FieldArray 
+                        @ name "members"
+                        @ component {renderMembers}
+                    div 
+                        button 
+                            @ type "submit"
+                            @ disabled {submitting}
+                            + \n          Submit\n        \b
+                        button 
+                            @ type "button"
+                            @ disabled {pristine || submitting}
+                            @ onClick {reset}
+                            + \n          Clear Values\n        \b

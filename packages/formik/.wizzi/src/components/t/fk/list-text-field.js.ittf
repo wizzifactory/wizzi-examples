@@ -1,0 +1,15 @@
+< Field
+    $params arrayName, fieldName, placeholder|@@null
+    @ name
+        `lit
+            + ${arrayName}[
+            @ index
+            + ].${fieldName}
+    {
+        =>
+            param {field, form}
+            input
+                @ type "text"
+                @ {...field}
+                $if placeholder != null
+                    @ placeholder "${placeholder}"

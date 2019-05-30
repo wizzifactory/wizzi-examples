@@ -1,0 +1,57 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "AgIMagesContainer",
+            id: "agimages",
+            isReduxForm: true,
+            connect: true
+        };
+	
+	v07/app/react/container(&md)
+
+        $append imports
+            import AgImages from '../components/AgImages'
+
+        $append connect
+
+        => showResults
+            param values
+            _ alert
+                _ JSON.stringify
+                    @ values
+                    @ null
+                    @ 4
+
+        => showChanges
+            param values
+            log 'changes', JSON.stringify(values, null, 4)
+
+        render
+            prop handleSubmit 
+            prop pristine
+            prop reset
+            prop submitting
+            prop dirty
+            prop valid
+            prop classes
+
+            log dirty, valid, pristine, fieldList
+
+            return
+                div
+                    < AgImages
+                        @ handleSubmit {handleSubmit}
+                        @ pristine {pristine}
+                        @ reset {reset}
+                        @ submitting {submitting}
+                        @ onSubmit {this.showResults}
+                        @ onChange {this.showChanges}
+                    ul
+                        li dirty
+                            p {JSON.stringify(dirty)}
+                        li pristine
+                            p {JSON.stringify(pristine)}
+                        li valid
+                            p {JSON.stringify(valid)}

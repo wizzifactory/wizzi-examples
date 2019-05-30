@@ -1,0 +1,135 @@
+$group
+    => handleClose
+        _ this.props.component.set
+            { 
+                @ mode null
+    
+    => handleCancel
+        param form
+        const 
+            { 
+                @ component
+            = this.props
+        if component.get('skipRead')
+            _ component.set
+                { 
+                    @ mode null
+        else
+            _ component.set
+                { 
+                    @ currentForm form
+                    @ mode 'read'
+    
+    => handleClick
+        param form
+        const 
+            { 
+                @ component
+            = this.props
+        if component.get('skipRead')
+            _ component.set
+                { 
+                    @ currentForm form
+                    @ mode 'update'
+        else
+            _ component.set
+                { 
+                    @ currentForm form
+                    @ mode 'read'
+    
+    => handleEdit
+        param form
+        _ this.props.component.set
+            { 
+                @ currentForm form
+                @ mode 'update'
+    
+    => handleNew
+        _ this.props.component.set
+            { 
+                @ currentForm null
+                @ mode 'create'
+    
+    p handleSave
+        async=> 
+            await 
+                _ this.props.component.save
+
+    p handleDelete
+        async=> 
+            param formToDelete
+            const 
+                { 
+                    @ component
+                = this.props
+            const open
+                _ this.isOpen
+            if formToDelete
+                _ component.set
+                    { 
+                        @ currentForm formToDelete
+            else
+                # Are we already focussed on this form
+                set formToDelete = component.get('form')
+            const archivedAt = formToDelete.getValue('archivedAt')
+            # Are we restoring?
+            if archivedAt
+                await 
+                    _ component.restore(formToDelete)
+                # Is the dialog open?
+                if open
+                    # Close it
+                    _ component.set
+                        { 
+                            @ mode null
+            else
+                _ this.setState
+                    { 
+                        @ confirmationOpen true
+                        # confirmationTitle: `Are you sure you want to delete this ${singularLabel}?`
+                        @ confirmationTitle 'Delete this?'
+                _ component.set
+                    { 
+                        @ mode null
+    
+    p handleConfirmationClose
+        async=> 
+            param yes
+            if yes
+                const 
+                    { 
+                        @ component
+                    = this.props
+                await 
+                    _ component.archive(component.get('form'))
+            _ this.setState
+                { 
+                    @ confirmationOpen false
+    
+    => handleOrdering
+        param props
+        # TODO: shouldn't the ordering just be in the field and not have to be in this state?
+        _ this.setState
+            @ props
+            => 
+                _ this.props.component.set
+                    { 
+                        @ order
+                            iif this.state.sortBy
+                                then
+                                    [ 
+                                        [ 
+                                            @ this.state.sortBy
+                                            @ this.state.sortOrder
+                                else null
+
+    => onDragEnd
+        param result
+        # dropped outside the list
+        if !result.destination
+            return 
+        if result.destination.index !== result.source.index
+            _ this.props.component.moveAndSaveForm
+                { 
+                    @ sourceIndex result.source.index
+                    @ destinationIndex result.destination.index

@@ -1,0 +1,61 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/form-card-buttons.js
+
+	$
+		var md = {
+            name: "FormCardButtons"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import IconButton from '@material-ui/core/IconButton'
+            import Grid from '@material-ui/core/Grid'
+            import Icon from './Icon'
+        
+        render
+            const 
+                { 
+                    @ forbidUpdate
+                    @ forbidDelete
+                    @ editable
+                    @ disabled
+                    @ archivedAt
+                    @ onEdit
+                    @ onDelete
+                = this.props
+            
+            # NOTE: using Tooltips below when we have 100 more items leads to a significant latency. In the
+            # future, if we wish to support tooltips then we'll probably need to lazy load the tooltip on
+            # mouse over.
+            
+            let updateButton = null
+            if !forbidUpdate
+                # <Tooltip title="Edit">
+                set updateButton =
+                    < IconButton 
+                        @ onClick {onEdit}
+                        < Icon 
+                            @ icon "Edit"
+                # </Tooltip>
+            
+            let deleteButton = null
+            if !forbidDelete
+                set deleteButton =
+                    < IconButton 
+                        @ onClick {onDelete}
+                        < Icon 
+                            @ icon
+                                iif archivedAt
+                                    then 'Restore'
+                                    else 'Delete'
+            
+            if editable && !disabled && !forbidUpdate || !forbidDelete
+                return 
+                    < Grid 
+                        @ item
+                        + {updateButton}
+                        + {deleteButton}
+            else
+                return null

@@ -1,0 +1,72 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "App",
+            isFormikForm: true,
+            useYup: true,
+            useDraftJs: true,
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import Debug from './Debug'
+            import RichEditorExample from './RichEditorExample'
+            import './formik-example.css'
+            import './RichEditor.css'
+            const initialValues
+                {
+                    [ friends
+                        {
+                            @ name ''
+                            @ email ''
+                    @ editorState new EditorState.createEmpty()
+            
+            const validationSchema
+                yup/object()
+                    yup/array( friends )
+                        yup/object()
+                            yup/string( name
+                            yup/string( email
+                                ._ email
+                                    @ 'Invalid email!'
+        
+        $append styles
+            { root
+                @ margin "200px"
+                @ width "400px"
+
+        render
+            prop classes
+            return
+                . {classes.root}
+                    . formik-example
+                        h1 Invite friends
+                        fk/formik( debug )
+                            < RichEditorExample 
+                                @ editorState {values.editorState}
+                                @ onChange {setFieldValue}
+                                @ onBlur {handleBlur}
+                            fk/array( friend )
+                                . row
+                                    @ key {index}
+                                    . col
+                                        fk/list-text-field( friends, name, Annie Dove )
+                                        fk/list-field-error-message( friends, name )
+                                    . col
+                                        fk/list-email-field( friends, email, Annie@example.com )
+                                        fk/list-field-error-message( friends, email )
+                                    . col
+                                        fk/list-button-delete( )
+                                $append footer
+                                    . row
+                                        fk/list-footer-button-add( Add friend )
+                                            @ name ''
+                                            @ email ''
+                            . row
+                                fk/form-footer-button-submit( Submit )
+                            . row
+                                fk/form-footer-button-cancel( Cancel )

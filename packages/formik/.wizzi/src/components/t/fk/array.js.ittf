@@ -1,0 +1,21 @@
+< FieldArray
+    $params name|items
+    $
+        var names = _.pluralize(name)
+
+    @ name "${names}"
+    {
+        =>
+            param {push, remove}
+            < React.Fragment
+                {
+                    &&
+                        + values.${names} && values.${names}.length > 0
+                        _ values.${names}.map
+                            =>
+                                param ${name}
+                                param index
+                                return
+                                    $hook
+                $hook footer
+

@@ -1,0 +1,6 @@
+﻿module
+	kind react
+
+	v07/app/react/store/actions/index( )
+
+		$include app

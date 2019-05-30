@@ -1,0 +1,17 @@
+module
+	kind react
+
+	$
+		var md = {
+            isCollection: true,
+            name: "AgMessages",
+            id: "agmessages",
+            withStyles: true
+        };
+        var meta = app.Collections.anticipatoryGuideMessages;
+        var columns = meta.columns;
+        var form = meta.form;
+	
+	v07/app/react/component(&md)
+
+        $append imports

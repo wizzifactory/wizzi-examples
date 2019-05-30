@@ -1,0 +1,9 @@
+﻿module
+	kind react
+
+	v07/app/react/store/reducers/index()
+
+		$append imports
+			import appReducer from './appReducer'
+
+		@ app appReducer

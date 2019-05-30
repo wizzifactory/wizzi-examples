@@ -1,0 +1,9 @@
+< ErrorMessage
+    $params fieldName
+    @ name {${fieldName}}
+    {
+        =>
+            param msg
+            return
+                . field-error
+                    + {msg}

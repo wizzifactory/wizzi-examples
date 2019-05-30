@@ -1,0 +1,204 @@
+{
+	name "webpack-react"
+	version "0.0.1"
+	description "Webpack react template"
+	author "Stefano Bassoli"
+	license "MIT"
+
+    { Build
+        useWebpack true
+        { webpack
+            useCss false
+            useSass false
+            useHtml true
+            useDevServer true
+        useBabel true
+        { babel
+        useReact true
+        { react
+            rootContainer "AppContainer"
+            rootElementId "root"
+            useRouter true
+            { router
+            useRedux true
+            { redux
+                useInitialLoad true
+                { initialLoad
+                useThunk true
+                { thunk
+                    useExtraArgument true
+                useFirestore true
+                { firestore
+                useAuth true
+                { auth
+                useForm true
+                { form
+            useMaterialUi true
+            { materialUi
+                useAutocomplete true
+                { autocomplete
+                    useReactSelect true
+                usePickers true
+                useLab true
+                useIcons true
+    
+    { Styles
+        { colors
+            primary "green"
+            secondary "orange"
+    
+    { Forms
+        { redux
+            [ fields
+        { reduxmui
+            { submit
+                submitLabel "Submit"
+                resetLabel "Clear values"
+            [ fields
+                {
+                    type "text"
+                    name "firstName"
+                    label "First Name"
+                { 
+                    type "text"
+                    name "lastName"
+                    label "Last Name"
+                {
+                    type "text"
+                    name "email"
+                    label "Email"
+                { 
+                    type "radiogroup"
+                    name "sex"
+                    label "Sex"
+                    [ items
+                        {
+                            value "male"
+                            label "male"
+                        {
+                            value "female"
+                            label "female"
+                { 
+                    type "select"
+                    name "favoriteColor"
+                    label "Favorite Color"
+                    [ items
+                        {
+                            value "ff0000"
+                            label "Red"
+                        {
+                            value "00ff00"
+                            label "Green"
+                        {
+                            value "0000ff"
+                            label "Blue"
+                {
+                    type "checkbox"
+                    name "employed"
+                    label "Employed"
+                { 
+                    type "autocomplete"
+                    name "country"
+                    label "Country"
+                    [ items
+                        {
+                            value "italy"
+                            label "Italy"
+                        {
+                            value "finland"
+                            label "Finland"
+                        {
+                            value "france"
+                            label "France"
+                {
+                    type "switch"
+                    name "onboard"
+                    label "On board"
+                {
+                    type "slider"
+                    name "englishLevel"
+                    label "English level"
+                {
+                    type "date"
+                    name "memberFrom"
+                    label "Member from"
+                {
+                    type "memo"
+                    name "notes"
+                    label "Notes"
+                    rows 2
+    { Collections
+        { tags
+            sortOrder "ASC"
+            sortBy "tagName"
+            [ columns
+                {
+                    component "ListTextField"
+                    name "tagName"
+            { form
+                [ fields
+                    {
+                        component "TextField"
+                        name "tagName"
+                        maxLength 40
+        { anticipatoryGuideImages
+            sortOrder "ASC"
+            sortBy "name"
+            [ columns
+                {
+                    component "ListTextField"
+                    name "name"
+            { form
+                [ fields
+                    {
+                        component "TextField"
+                        name "name"
+                    {
+                        component "TextField"
+                        name "src"
+        { anticipatoryGuidePhrase
+            sortOrder "ASC"
+            sortBy "order"
+            [ columns
+                {
+                    component "ListIntegerField"
+                    name "order"
+                {
+                    component "ListMemoField"
+                    name "content"
+            { form
+                [ fields
+                    {
+                        component "MemoField"
+                        name "content"
+        { anticipatoryGuideMessages
+            [ columns
+                {
+                    name "childTweet"
+            { form
+                [ fields
+                    {
+                        name "childTweet"
+                        component "TextField"
+                        maxLength 130
+                    {
+                        name "childPhrases"
+                        component "Collection"
+                        collectionName "anticipatoryGuidePhrase"
+                    {
+                        name "pediatricianTweet"
+                        component "TextField"
+                        maxLength 130
+                    {
+                        name "pediatricianPhrases"
+                        component "Collection"
+                        collectionName "anticipatoryGuidePhrase"
+                    {
+                        name "messageImages"
+                        component "Collection"
+                        collectionName "images"
+                    {
+                        name "messageTags"
+                        component "Collection"
+                        collectionName "images"
+

@@ -1,0 +1,6 @@
+$group
+    $params propName
+    @ ${propName}
+        _ Yup.array
+            ._ of
+                $hook

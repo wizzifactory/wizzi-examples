@@ -1,0 +1,34 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/boolean-field.js
+
+	$
+		var md = {
+            name: "SwitchField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Switch from '@material-ui/core/Switch'
+
+        render
+            prop fkFieldProp
+            prop localProps
+            const 
+                {
+                    @ disabled
+                    @ accessForbidden
+                    @ ...optional
+                = localProps
+            const _disabled = accessForbidden || disabled
+
+            return
+                < Switch
+                    @ id { fkFieldProp.name }
+                    @ checked {fkFieldProp.value}
+                    @ onChange {fkFieldProp.onChange}
+                    @ onBlur {fkFieldProp.onBlur}
+                    @ value "true"
+                    @ disabled {_disabled}
+                    @ {...optional}

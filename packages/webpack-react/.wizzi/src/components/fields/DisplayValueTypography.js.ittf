@@ -1,0 +1,29 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/display-value-typography.js
+
+	$
+		var md = {
+            name: "DisplayValueTypography",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+
+        $append imports
+            import TypographyMui from '@material-ui/core/Typography'
+        
+        $append styles
+            { root
+                @ display 'inline-block'
+        
+        render
+            prop children
+            prop classes
+            # We use a span tag so that the element is inline
+            return 
+                < TypographyMui 
+                    @ variant "subtitle1"
+                    @ component "span"
+                    @ className {classes.root}
+                    + {children}

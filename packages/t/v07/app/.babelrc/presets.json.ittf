@@ -1,0 +1,16 @@
+﻿$group
+	
+	$if app.Build.useNextjs
+		
+		"next/babel"
+
+	$else
+
+		"@babel/env"
+
+		$if app.Build.useReact
+			"@babel/react"
+        $if app.Build.useStage2
+			"@babel/stage-2"
+		$if app.Build.useTypescript
+			"@babel/typescript"

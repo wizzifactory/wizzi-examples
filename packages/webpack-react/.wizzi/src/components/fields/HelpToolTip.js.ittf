@@ -1,0 +1,30 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/help-tool-tip.js
+
+	$
+		var md = {
+            name: "HelpToolTip"
+        };
+
+	# TODO: make full width of field include right margin if there is help?
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import IconButton from '@material-ui/core/IconButton'
+            import Tooltip from '@material-ui/core/Tooltip'
+            import Icon from '../widgets/Icon'
+        
+        render
+            prop help
+            # Note: we use disableTouchListener as otherwise the user needs to press and hold before the
+            # tooltip appears, something that is not intuitive. With this configuration, the user can just
+            # click the button to view the tooltip.
+            return 
+                < Tooltip 
+                    @ disableTouchListener
+                    @ title {help}
+                    < IconButton 
+                        @ aria-label "Help"
+                        < Icon 
+                            @ icon "HelpOutline"

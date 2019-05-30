@@ -1,0 +1,3 @@
+module
+    kind react
+    import FormContainer from "./js/components/container/FormContainer"

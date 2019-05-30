@@ -1,0 +1,89 @@
+$group
+    m cards
+        param canUpdate
+        param canArchive
+        const 
+            { 
+                @ component
+                @ forbidUpdate
+                @ forbidDelete
+                @ forbidOrder
+                @ editable
+                @ disabled
+                @ useDisplayValue
+                @ theme
+            = this.props
+        
+        # Force to 1 colum when ordering allowed
+        const maxColumns
+            iif forbidOrder === false
+                then 1
+                else this.props.maxColumns
+        
+        const maxGrids = 12 / maxColumns
+        
+        let cards = []
+        let index = 0
+        
+        for 
+            of
+                _ component.getForms
+            
+            # TODO: Rendering should not change form. Use utils.getIfDefined() in form to allow passing
+            # in of editable via React layer
+            
+            _ form.setEditable(false)
+            
+            # We need to use the id for the key as we use the same list of cards when toggling
+            # showArchive
+            
+            const key
+                _ form.getUniqueId
+            
+            # Note: we use an id instead of ref so that more of our logic can be reused across different
+            # frameworks. We use the form id so that we have a consistent way of referencing the element
+            # for things like infinite loading.
+            
+            const id = component.getUniqueItemId(form.getValue('id'))
+            const item
+                < Grid 
+                    @ item
+                    @ xs {12}
+                    @ sm {maxGrids}
+                    @ lg {maxGrids}
+                    @ key {key}
+                    @ id {id}
+                    < FormCard 
+                        @ onClick
+                            => 
+                                _ this.handleClick(form)
+                        @ onEdit
+                            => 
+                                _ this.handleEdit(form)
+                        @ onDelete {this.handleDelete}
+                        @ component {form}
+                        @ forbidUpdate {forbidUpdate || !canUpdate || useDisplayValue}
+                        @ forbidDelete {forbidDelete || !canArchive || useDisplayValue}
+                        @ editable {editable}
+                        @ disabled {disabled}
+            
+            if this.canDrag()
+                _ cards.push
+                    < Draggable 
+                        @ key {id}
+                        @ draggableId {id}
+                        @ index {index++}
+                        { 
+                            => 
+                                param provided
+                                param snapshot
+                                div 
+                                    @ ref {provided.innerRef}
+                                    @ {...provided.draggableProps}
+                                    @ {...provided.dragHandleProps}
+                                    @ style {getItemStyle(snapshot.isDragging, provided.draggableProps.style, theme)}
+                                    + {item}
+            else
+                _ cards.push(item)
+        
+        return cards

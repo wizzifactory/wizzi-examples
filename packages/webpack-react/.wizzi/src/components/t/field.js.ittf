@@ -1,0 +1,64 @@
+$group
+    $params &field
+
+    div
+        < Field 
+            @ classes {classes}
+            @ name "${field.name}"
+            @ label "${field.label}"
+            @ style {{width: '50%'}}
+            $if field.type === 'text'
+                @ component {RfTextField}
+            $elif field.type === 'memo'
+                @ component {RfTextField}
+                @ multiline {true}
+                @ rows {${field.rows}}
+            $elif field.type === 'select'
+                @ component {RfSelect}
+                $foreach item in field.items
+                    < MenuItem 
+                        @ value "${item.value}"
+                        + ${item.label}
+            $elif field.type === 'radiogroup'
+                @ component {RfRadioGroup}
+                $foreach item in field.items
+                    < FormControlLabel 
+                        @ value "${item.value}"
+                        @ label "${item.label}"
+                        @ control
+                            < Radio 
+                                @ color "primary"
+                        @ labelPlacement "start"
+            $elif field.type === 'checkbox'
+                @ component {RfCheckbox}
+            $elif field.type === 'switch'
+                @ component {RfSwitch}
+            $elif field.type === 'date'
+                $if field.variant === 'keyboard'
+                    @ component {RfKeyboardDatePicker}
+                $else
+                    @ component {RfDatePicker}
+            $elif field.type === 'time'
+                $if field.variant === 'keyboard'
+                    @ component {RfKeyboardTimePicker}
+                $else
+                    @ component {RfTimePicker}
+            $elif field.type === 'datetime'
+                $if field.variant === 'keyboard'
+                    @ component {RfKeyboardDateTimePicker}
+                $else
+                    @ component {RfDateTimePicker}
+                @ name "${field.name}"
+                @ label "${field.label}"
+            $elif field.type === 'slider'
+                @ component {RfSlider}
+            $elif field.type === 'autocomplete'
+                @ component {RfAutocomplete}
+                @ options
+                    [
+                        $foreach item in field.items
+                            {
+                                @ value "${item.value}"
+                                @ label "${item.label}"
+            $else
+                h1 Error. Field type unknown: ${field.type}
