@@ -1,0 +1,13 @@
+< Tooltip 
+    $params title, icon, linkto
+    @ title {t('${title}')}
+    @ enterDelay {300}
+    < IconButton 
+        @ aria-label {t('${title}')}
+        @ component {Link}
+        @ naked
+        @ to "${linkto}"
+        $$ @ data-ga-event-category "..."
+        $$ @ data-ga-event-action "..."
+        < Icon
+            + ${icon}

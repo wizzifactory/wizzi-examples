@@ -3,7 +3,6 @@
     primary source IttfDocument: C:\My\wizzi\wizzi-examples\packages\formik\.wizzi\src\components\fields\SwitchField.js.ittf
 */
 'use strict';
-// Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/boolean-field.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';

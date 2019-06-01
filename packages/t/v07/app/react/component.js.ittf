@@ -6,17 +6,19 @@
 	
 	$if app.Build.react.useMaterialUi
 		import classNames from 'classnames'
-        $if md.withStyles
-		    import { withStyles } from '@material-ui/core/styles'
+        $if md.withStyles || md.withWidth
+		    import
+                $if md.withStyles
+                    @ withStyles
+                $if md.withWidth
+                    @ withWidth
+                from '@material-ui/core'
 
 	$if app.useNextjs
 		import withRoot from '../lib/withRoot'
 	
-	$if !(app.useNextjs) && (md.withWidth || md.connect || md.pure)
+	$if !(app.useNextjs) && (md.withWidth || md.withStyles || md.connect || md.pure)
 		import compose from 'recompose/compose'
-	
-	$if md.withWidth
-		import withWidth, { isWidthUp } from 'material-ui/utils/withWidth'
 	
 	$if md.withContext
 		import { ${md.withContext.name} } from '${md.withContext.path}'
@@ -59,16 +61,23 @@
 
     react ${md.name}
 
+        ctor
+            $hook ctor
+
 		$hook
         
         $if md.withStyles
             style
                 $hook styles
 
-    $if md.withStyles
+    $if md.withStyles || md.withWidth
         set ${md.name}
-            _ withStyles
-                @ styles
+            _ compose
+                $if md.withStyles
+                    _ withStyles
+                        @ styles
+                $if md.withWidth
+                    _ withWidth
                 ( 
                     @ ${md.name}
 

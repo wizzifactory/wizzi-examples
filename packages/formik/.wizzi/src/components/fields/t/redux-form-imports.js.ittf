@@ -1,0 +1,78 @@
+$group
+    $params &fields
+
+    $
+        var compMap = {},
+            compMap2 = {},
+            pickMap = {},
+            labMap = {}, 
+            autocomplete = false,
+            item, 
+            type;
+        for (var i=0; i<fields.length; i++) {
+            item = fields[i];
+            type = item.type;
+            if (type === 'text') {
+                compMap2['TextField'] = true;
+            } else if (type === 'checkbox') {
+                compMap['Checkbox'] = true;
+                compMap['FormControlLabel'] = true;
+            } else if (type === 'switch') {
+                compMap2['SwitchField'] = true;
+                // compMap['FormControlLabel'] = true;
+            } else if (type === 'radiogroup') {
+                compMap['FormControl'] = true;
+                compMap['FormLabel'] = true;
+                compMap['FormControlLabel'] = true;
+                compMap['RadioGroup'] = true;
+                compMap['Radio'] = true;
+            } else if (type === 'select') {
+                compMap['FormControl'] = true;
+                compMap['FormLabel'] = true;
+                compMap['FormControlLabel'] = true;
+                compMap['Select'] = true;
+                compMap['InputLabel'] = true;
+                compMap['FormHelperText'] = true;
+                compMap['MenuItem'] = true;
+            } else if (type === 'date') {
+                if (item.variant === 'keyboard') {
+                    pickMap['KeyboardDatePicker'] = true;
+                } else {
+                    pickMap['DatePicker'] = true;
+                }
+            } else if (type === 'time') {
+                if (item.variant === 'keyboard') {
+                    pickMap['KeyboardTimePicker'] = true;
+                } else {
+                    pickMap['TimePicker'] = true;
+                }
+            } else if (type === 'datetime') {
+                if (item.variant === 'keyboard') {
+                    pickMap['KeyboardDateTimePicker'] = true;
+                } else {
+                    pickMap['DateTimePicker'] = true;
+                }
+            } else if (type === 'slider') {
+                labMap['Slider'] = true;
+            } else if (type === 'autocomplete') {
+                autocomplete = true;
+            }
+        }
+
+    $foreach comp in Object.keys(compMap)
+        import ${comp} from '@material-ui/core/${comp}'
+
+    $foreach comp in Object.keys(compMap2)
+        import ${comp} from './fields/${comp}'
+
+    $if Object.keys(pickMap).length > 0
+        import
+            $foreach comp in Object.keys(pickMap)
+                @ ${comp}
+            from "@material-ui/pickers"
+
+    $foreach comp in Object.keys(labMap)
+        import ${comp} from '@material-ui/lab/${comp}'
+
+    $if autocomplete
+        import ReactSelect from 'react-select'

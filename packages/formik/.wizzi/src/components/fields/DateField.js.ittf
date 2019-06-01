@@ -1,0 +1,73 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "DateField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import
+                @ DatePicker
+                @ KeyboardDatePicker
+                from "@material-ui/pickers"
+
+        => handleChange
+            param date
+            param value
+            prop fkFieldProp
+            prop setFieldValue
+            log 'Date.handleChange', date, value, setFieldValue
+            _ setFieldValue
+                @ fkFieldProp.name
+                @ date
+
+        => handleBlur
+            prop fkFieldProp
+            prop setFieldTouched
+            log 'Date.handleBlur', fkFieldProp
+            _ setFieldTouched
+                @ fkFieldProp.name
+
+        render
+            prop fkFieldProp
+            prop localProps
+            const 
+                {
+                    @ disabled
+                    @ accessForbidden
+                    @ className
+                    @ variant
+                    @ format
+                    @ ...optional
+                = localProps
+            const _disabled = accessForbidden || disabled
+
+            if variant === 'keyboard'
+                return
+                    < KeyboardDatePicker
+                        @ id { fkFieldProp.name }
+                        @ className {className}
+                        @ onChange {this.handleChange}
+                        @ onClose {this.handleBlur}
+                        @ value {fkFieldProp.value}
+                        @ disabled {_disabled}
+                        @ format {format || "dd/MM/yyyy"}
+                        $$ @ label {label}
+                        $$ @ helperText {touched && error}
+                        @ {...optional}
+            else
+                return
+                    < DatePicker
+                        @ id { fkFieldProp.name }
+                        @ className {className}
+                        @ onChange {this.handleChange}
+                        @ onClose {this.handleBlur}
+                        @ value {fkFieldProp.value}
+                        @ disabled {_disabled}
+                        @ format {format || "dd/MM/yyyy"}
+                        $$ @ label {label}
+                        $$ @ helperText {touched && error}
+                        @ {...optional}

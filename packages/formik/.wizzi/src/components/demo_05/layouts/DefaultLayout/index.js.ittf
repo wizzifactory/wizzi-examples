@@ -1,0 +1,138 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "DefaultLayout",
+            withStyles: true,
+            withWidth: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Drawer
+                from '@material-ui/core'
+            import Topbar from './components/Topbar'
+            import Sidebar from './components/Sidebar'
+            import Footer from './components/Footer'
+
+        $append ctor
+            const isMobile
+                [ 
+                    @ 'xs'
+                    @ 'sm'
+                    @ 'md'
+                    ._ includes
+                        @ props.width
+            set this.state =
+                { 
+                    @ isOpen !isMobile
+        
+        => handleClose
+            _ this.setState
+                { 
+                    @ isOpen false
+        
+        => handleToggleOpen
+            _ this.setState
+                => 
+                    param prevState
+                    return
+                        { 
+                            @ ...prevState 
+                            @ isOpen !prevState.isOpen
+        
+        render
+            prop classes
+            prop width
+            prop title
+            prop children
+            
+            const 
+                { 
+                    @ isOpen
+                = this.state
+            
+            const isMobile
+                [ 
+                    @ 'xs'
+                    @ 'sm'
+                    @ 'md'
+                    ._ includes
+                        @ width
+            
+            const shiftTopbar = isOpen && !isMobile
+            const shiftContent = isOpen && !isMobile
+            
+            const topbarClassName
+                _ classNames
+                    @ classes.topbar
+                    { 
+                        @ [classes.topbarShift] shiftTopbar
+            log 'width,isMobile,isOpen,shiftTopbar,shiftContent', width,isMobile,isOpen,shiftTopbar,shiftContent, topbarClassName
+            
+            return
+                < React.Fragment
+                    < Topbar 
+                        @ className {topbarClassName}
+                        @ isSidebarOpen {isOpen}
+                        @ onToggleSidebar {this.handleToggleOpen}
+                        @ title {title}
+                    < Drawer 
+                        @ anchor "left"
+                        @ classes
+                            { 
+                                @ paper classes.drawerPaper
+                        @ onClose {this.handleClose}
+                        @ open {isOpen}
+                        @ variant
+                            iif isMobile
+                                then 'temporary'
+                                else 'persistent'
+                        < Sidebar 
+                            @ className {classes.sidebar}
+                    main 
+                        @ className
+                            _ classNames
+                                @ classes.content
+                                { 
+                                    @ [classes.contentShift] shiftContent
+                        + {children}
+                        < Footer 
+
+        $append styles
+            { topbar
+                @ position 'fixed'
+                @ width '100%'
+                @ top 0
+                @ left 0
+                @ right 'auto'
+                @ transition
+                    _ theme.transitions.create
+                        [ 
+                            @ 'margin'
+                            @ 'width'
+                        { 
+                            @ easing theme.transitions.easing.sharp
+                            @ duration theme.transitions.duration.leavingScreen
+            { topbarShift
+                @ marginLeft '271px'
+                @ width 'calc(-271px + 100vw)'
+            { drawerPaper
+                @ zIndex 1200
+                @ width '271px'
+            { sidebar
+                @ width '270px'
+            { content
+                @ marginTop '64px'
+                @ backgroundColor theme.palette.background.default
+                @ transition
+                    _ theme.transitions.create
+                        @ 'margin'
+                        { 
+                            @ easing theme.transitions.easing.sharp
+                            @ duration theme.transitions.duration.leavingScreen
+            { contentShift
+                @ marginLeft '270px'

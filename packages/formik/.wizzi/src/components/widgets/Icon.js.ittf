@@ -1,0 +1,45 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/icon.js
+
+	$
+		var md = {
+            name: "Icon"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            # Note: we use font icons instead of SVG icons as this allows us to support any icon dynamically
+            # without adding all icons to the JS bundle. The MaterialUI icons are about 54KB which is
+            # substantially smaller than their SVG counterparts.
+            # 
+            # import * as Icons from '@material-ui/icons';
+            import IconMui from '@material-ui/core/Icon'
+            import snakeCase from 'lodash/snakeCase'
+        
+        => handleClick
+            param event
+            if this.props.onClick
+                _ this.props.onClick(event)
+        
+        m toFontIconName
+            param svgIconName
+            # Convert to the font icon name so that we can use the SVG Icon names. This allows us to make
+            # changes to this logic without changing the calling code.
+            return snakeCase(svgIconName)
+        
+        render
+            prop className
+            prop icon
+            
+            const iconContents
+                iif icon
+                    then this.toFontIconName(icon)
+                    else null
+            
+            return 
+                < IconMui 
+                    @ className {className}
+                    @ onClick {this.handleClick}
+                    + {iconContents}

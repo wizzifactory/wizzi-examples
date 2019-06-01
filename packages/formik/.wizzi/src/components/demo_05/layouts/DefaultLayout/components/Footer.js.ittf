@@ -1,0 +1,40 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Footer",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Divider
+                @ Typography
+                from '@material-ui/core'
+        
+        render
+            prop classes
+            prop className
+            const rootClassName = classNames(classes.root, className)
+            return 
+                div 
+                    @ className {rootClassName}
+                    < Divider 
+                    < Typography 
+                        @ className {classes.company}
+                        @ variant "body1"
+                        + © Wizzi factory. 2019
+                    < Typography 
+                        @ variant "caption"
+                        + Created with love. By designers and developers who
+                        + love to work together!
+
+        $append styles
+            { root
+                @ padding theme.spacing.unit * 4
+            { company
+                @ marginTop theme.spacing.unit * 2
+                @ marginBottom theme.spacing.unit * 0.5

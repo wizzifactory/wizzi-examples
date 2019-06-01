@@ -1,0 +1,29 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "WrappedLink"
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Link
+                    as RouterLink
+                from 'react-router-dom'
+            import Link from '@material-ui/core/Link'
+
+        render
+            const
+                {
+                    @ to
+                    @ children
+                = this.props
+            return
+                < Link
+                    @ color "inherit"
+                    @ component {RouterLink}
+                    @ to {to}
+                    + {children}

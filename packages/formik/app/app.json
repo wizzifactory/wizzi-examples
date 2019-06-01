@@ -18,7 +18,7 @@
         "react": {
             "rootContainer": "AppContainer",
             "rootElementId": "root",
-            "useRouter": false,
+            "useRouter": true,
             "router": {},
             "useRedux": false,
             "redux": {},
@@ -28,25 +28,44 @@
                 "autocomplete": {
                     "useReactSelect": false
                 },
-                "usePickers": false,
-                "useLab": false,
-                "useIcons": false
+                "usePickers": true,
+                "useLab": true,
+                "useIcons": true
             },
             "useFormik": true,
             "formik": {},
             "useDraftJs": true,
-            "draftjs": {}
+            "draftjs": {},
+            "usePerfectScrollbar": true,
+            "perfectScrollbar": {}
         },
         "useYup": true,
         "yup": {}
     },
     "Styles": {
+        "useCustomTheme": true,
         "theme": {
             "dark": false
         },
         "colors": {
-            "primary": "green",
+            "primary": "blue",
             "secondary": "orange"
         }
+    },
+    "Portal": {
+        "views": [
+            {
+                "name": "Dashboard",
+                "path": "/dashboard"
+            },
+            {
+                "name": "FormikForm",
+                "path": "/formikform"
+            },
+            {
+                "name": "NotFound",
+                "path": "/not-found"
+            }
+        ]
     }
 }

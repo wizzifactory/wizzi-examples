@@ -6,32 +6,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
+import blue from '@material-ui/core/colors/blue';
 import orange from '@material-ui/core/colors/orange';
+import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+import DateFnsUtils from "@date-io/date-fns";
 import AppContainer from './AppContainer';
+import customTheme from '../theme';
 // A theme with custom primary and secondary color. It's optional.
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            light: green[300], 
-            main: green[500], 
-            dark: green[700]
-        }, 
-        secondary: {
-            light: orange[300], 
-            main: orange[500], 
-            dark: orange[700]
-        }, 
-        type: 'light'
-    }
-});
+const theme = createMuiTheme(customTheme);
 class MuiThemeContainer extends React.Component {
     render() {
         const dark = false;
         return  (
                 <MuiThemeProvider theme={theme}>
-                    <AppContainer>
-                    </AppContainer>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <AppContainer>
+                        </AppContainer>
+                    
+                    </MuiPickersUtilsProvider>
                 
                 </MuiThemeProvider>
             )

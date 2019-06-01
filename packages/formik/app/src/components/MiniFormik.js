@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 class MiniFormik extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     state = {
         values: this.props.initialValues, 
         touched: {

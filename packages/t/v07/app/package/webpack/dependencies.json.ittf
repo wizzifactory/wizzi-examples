@@ -22,6 +22,8 @@
             formik "^1.5.7"
         react "^16.8.6"
         react-dom "^16.8.6"
+        $if app.Build.react.usePerfectScrollbar
+            react-perfect-scrollbar "^1.4.4"
 		$if app.Build.react.useRedux
                 react-redux "^7.0.3"
                 $if app.Build.react.redux.useFirestore
@@ -30,6 +32,8 @@
             $if app.Build.react.materialUi.useAutocomplete
                 $if app.Build.react.materialUi.autocomplete.useReactSelect
                     react-select "^3.0.3"
+
+            recompose "^0.30.0"
 		
     $if app.Build.useReact
         $if app.Build.react.useRedux

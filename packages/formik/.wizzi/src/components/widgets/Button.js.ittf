@@ -1,0 +1,61 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/button.js
+
+	$
+		var md = {
+            name: "Button",
+            withStyles: true
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import ButtonMui from '@material-ui/core/Button'
+            import Icon from './Icon'
+
+        $append styles
+            { leftIcon
+                @ marginRight theme.spacing.unit
+            { marginTop
+                @ marginTop theme.spacing.unit * 3
+
+        => handleClick
+            if this.props.onClick
+                _ this.props.onClick
+        
+        render
+            const 
+                { 
+                    @ classes
+                    @ type
+                    @ disabled
+                    @ label
+                    @ icon
+                    @ fullWidth
+                    @ variant
+                    @ marginTop
+                = this.props
+            
+            const className
+                iif marginTop !== false
+                    then classes.marginTop
+                    else null
+            
+            return 
+                < ButtonMui 
+                    @ className {className}
+                    @ type {type}
+                    @ color "primary"
+                    @ disabled {disabled}
+                    @ onClick {this.handleClick}
+                    @ fullWidth {fullWidth}
+                    @ variant {variant}
+                    { 
+                        iif icon
+                            then
+                                < Icon 
+                                    @ className {classes.leftIcon}
+                                    @ icon {icon}
+                            else null
+                    + {label}

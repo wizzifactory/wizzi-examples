@@ -1,0 +1,158 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "App",
+            withStyles: true,
+            withWidth: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ BrowserRouter
+                    as Router
+                from "react-router-dom"
+            import AppBar from "@material-ui/core/AppBar"
+            import Toolbar from "@material-ui/core/Toolbar"
+            import IconButton from "@material-ui/core/IconButton"
+            import Button from "@material-ui/core/Button"
+            import Icon from "@material-ui/core/Icon"
+            import Tooltip from "@material-ui/core/Tooltip"
+            import Link from "./widgets/Link"
+            import Drawer from "@material-ui/core/Drawer"
+            import Sidebar from "./demo_05/Sidebar"
+            import Topbar from "./demo_05/Topbar"
+
+            function t
+                param text
+                return text
+
+        $append ctor
+            const isMobile
+                [ 
+                    @ 'xs'
+                    @ 'sm'
+                    @ 'md'
+                    ._ includes
+                        @ props.width
+            set this.state =
+                { 
+                    @ isOpen !isMobile
+        
+        => handleClose
+            _ this.setState
+                { 
+                    @ isOpen false
+        
+        => handleToggleOpen
+            _ this.setState
+                => 
+                    param prevState
+                    return
+                        { 
+                            @ ...prevState 
+                            @ isOpen !prevState.isOpen
+        
+        render  
+            prop classes
+            prop width
+            prop title
+            prop children
+            const 
+                { 
+                    @ isOpen
+                = this.state
+            const isMobile
+                [ 
+                    @ 'xs'
+                    @ 'sm'
+                    @ 'md'
+                    ._ includes
+                        @ width
+            const shiftTopbar = isOpen && !isMobile
+            const shiftContent = isOpen && !isMobile
+            log 'width,isMobile,isOpen', width,isMobile,isOpen
+            return
+                < Router
+                    < AppBar
+                        @ position "static"
+                        < Toolbar 
+                            < IconButton 
+                                className {classes.menuButton}
+                                @ color "inherit"
+                                @ aria-label "Menu"
+                                @ component {Link}
+                                @ to "/home"
+                                < Icon 
+                                    + menu
+                            . { classes.grow }
+                            tooltip-icon-link( Profile, person, /profile )
+                            < Button
+                                @ color "inherit"
+                                @ component {Link}
+                                @ to "/login"
+                                + Login
+                    < Topbar 
+                        @ className
+                            _ classNames
+                                @ classes.topbar
+                                { 
+                                    @ [classes.topbarShift] shiftTopbar
+                        @ isSidebarOpen {isOpen}
+                        @ onToggleSidebar {this.handleToggleOpen}
+                        @ title {title}
+                    < Drawer 
+                        @ anchor "left"
+                        @ classes
+                            { 
+                                @ paper classes.drawerPaper
+                        @ onClose {this.handleClose}
+                        @ open {isOpen}
+                        @ variant
+                            iif isMobile
+                                then 'temporary'
+                                else 'persistent'
+                        < Sidebar 
+                            @ className {classes.sidebar}
+
+
+        $append styles
+            { topbar
+                @ position 'fixed'
+                @ width '100%'
+                @ top 0
+                @ left 0
+                @ right 'auto'
+                @ transition
+                    _ theme.transitions.create
+                        [ 
+                            @ 'margin'
+                            @ 'width'
+                        { 
+                            @ easing theme.transitions.easing.sharp
+                            @ duration theme.transitions.duration.leavingScreen
+            { grow
+                @ flex "1 1 auto"
+            { topbarShift
+                @ marginLeft '271px'
+                @ width 'calc(-271px + 100vw)'
+            { drawerPaper
+                @ zIndex 1200
+                @ width '271px'
+            { sidebar
+                @ width '270px'
+            { content
+                @ marginTop '64px'
+                @ backgroundColor theme.palette.background.default
+                @ transition
+                    _ theme.transitions.create
+                        @ 'margin'
+                        { 
+                            @ easing theme.transitions.easing.sharp
+                            @ duration theme.transitions.duration.leavingScreen
+            { contentShift
+                @ marginLeft '270px'
+

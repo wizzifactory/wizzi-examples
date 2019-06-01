@@ -1,0 +1,35 @@
+$group
+
+    $if controlTypes.autocomplete
+        const RfAutocomplete
+            => 
+                param props
+                # log 'RfAutocomplete.props', props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ classes
+                        { meta
+                            @ touched
+                            @ error
+                        @ children
+                        @ ...rest
+                    = props
+                return
+                    < FormControl
+                        @ className {classes.formControl}
+                        < InputLabel
+                            @ htmlFor {props.name}
+                            + {props.label}
+                        < ReactSelect 
+                            @ {...input}
+                            @ {...rest}
+                            @ value {input.value}
+                            @ onChange
+                                => 
+                                    param event
+                                    log 'ReactSelect.onChange.event.target', event.target
+                                    _ input.onChange(event.target.value)
+                        < FormHelperText
+                            + {touched && error}

@@ -60,7 +60,7 @@ class SelectField extends React.Component {
             ...optional
         } = localProps;
         const _disabled = accessForbidden || disabled;
-        console.log('Select.fkFieldProp', fkFieldProp);
+        // log 'Select.fkFieldProp', fkFieldProp
         return  (
                 <Select id={ fkFieldProp.name } onChange={this.handleChange} onBlur={this.handleBlur} value={fkFieldProp.value} disabled={_disabled} fullWidth={fullWidth} {...optional}>
                 {

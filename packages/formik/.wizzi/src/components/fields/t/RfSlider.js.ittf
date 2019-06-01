@@ -1,0 +1,33 @@
+$group
+
+    $if controlTypes.slider
+        const renderSlider
+            => 
+                param props
+                const
+                    { 
+                        @ input
+                        @ label
+                        @ ...rest
+                    = props
+                return
+                    < Slider
+                        @ value {input.value}
+                        @ onChange
+                            => 
+                                param event
+                                param value
+                                _ input.onChange
+                                    @ value
+                        @ {...rest}
+
+        const RfSlider
+            => 
+                param props
+                log 'RfSlider.props', props
+                return
+                    < FormControlLabel
+                        @ className {props.classes.formControl}
+                        @ label {props.label}
+                        @ control {renderSlider(props)}
+    

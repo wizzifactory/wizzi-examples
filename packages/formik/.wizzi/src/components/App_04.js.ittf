@@ -1,0 +1,158 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "App",
+            isFormikForm: true,
+            useYup: true,
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append styles
+            { root
+                $$ @ backgroundColor "#222"
+                $$ @ color "#ddd"
+                @ margin "50px"
+                @ padding "30px"
+            { form
+                $$ @ backgroundColor "#444"
+                @ padding "10px"
+            { formControl
+                @ width "100%"
+
+        $append imports
+            import Button from "@material-ui/core/Button"
+            import TextField from "./fields/TextField"
+            import SwitchField from "./fields/SwitchField"
+            import SelectField from "./fields/SelectField"
+            import DateField from "./fields/DateField"
+            import SliderField from "./fields/SliderField"
+            import Debug from './Debug'
+            import FormControl from './FormControl'
+            import FormLabel from './FormLabel'
+            import './formik-example.css'
+            
+            const initialValues
+                {
+                    @ firstName ''
+                    @ lastName ''
+                    @ email ''
+                    @ isMember false
+                    @ ageRange ''
+                    @ memberFrom null
+                    @ memberTo null
+                    @ englishLevel 0
+        
+            const validationSchema
+                yup/objectshape()
+                    yup/string( firstName )
+                    yup/string( lastName )
+                    yup/string( email )
+                        ._ email
+                            @ 'Invalid email'
+            
+            const Fieldset
+                => 
+                    param props
+                    const
+                        { 
+                            @ label
+                            @ name
+                            @ component
+                            @ setFieldValue
+                            @ setFieldTouched
+                            @ ...localProps
+                        = props
+                    const Component = component ? component : TextField
+                    return
+                        < React.Fragment 
+                            < FormControl
+                                < FormLabel 
+                                    @ htmlFor {name}
+                                    + {label}
+                                < Field 
+                                    @ name {name}
+                                    {
+                                        =>
+                                            param {field, form}
+                                            # log 'Fieldset.field', field
+                                            return
+                                                < Component
+                                                    @ fkFieldProp {field}
+                                                    @ localProps {localProps}
+                                                    @ setFieldValue {setFieldValue}
+                                                    @ setFieldTouched {setFieldTouched}
+                                fk/field-error-message( name )
+        
+        render  
+            prop classes                          
+            return
+                . {classes.form} 
+                    h1 Sign Up
+                    fk/formik( debug )
+                        < Fieldset 
+                            @ name "firstName"
+                            @ label "First Name"
+                            @ type "text"
+                            @ placeholder "jane"
+                            @ component {TextField}
+                        < Fieldset 
+                            @ name "lastName"
+                            @ label "Last Name"
+                            @ type "text"
+                            @ placeholder "Doe"
+                            @ component {TextField}
+                        < Fieldset 
+                            @ name "email"
+                            @ label "Email"
+                            @ placeholder "jane@acme.com"
+                            @ type "email"
+                            @ component {TextField}
+                        < Fieldset 
+                            @ name "isMember"
+                            @ label "Is member"
+                            @ component {SwitchField}
+                        < Fieldset 
+                            @ name "ageRange"
+                            @ label "Age range"
+                            @ component {SelectField}
+                            @ setFieldValue {setFieldValue}
+                            @ setFieldTouched {setFieldTouched}
+                            @ options
+                                [
+                                    {
+                                        @ value '0-20'
+                                        @ label '0 - 20'
+                                    {
+                                        @ value '21-60'
+                                        @ label '21 - 60'
+                                    {
+                                        @ value '61-Oltre'
+                                        @ label '61 - Oltre'
+                        br
+                        < Fieldset 
+                            @ name "memberFrom"
+                            @ label "Member from"
+                            @ component {DateField}
+                            @ setFieldValue {setFieldValue}
+                            @ setFieldTouched {setFieldTouched}
+                        < Fieldset 
+                            @ name "memberTo"
+                            @ label "Member to"
+                            @ component {DateField}
+                            @ variant "keyboard"
+                            @ setFieldValue {setFieldValue}
+                            @ setFieldTouched {setFieldTouched}
+                        br
+                        < Fieldset 
+                            @ name "englishLevel"
+                            @ label "English level"
+                            @ component {SliderField}
+                            @ setFieldValue {setFieldValue}
+                            @ setFieldTouched {setFieldTouched}
+                        br
+                        fk/form-footer-button-reset( Reset )
+                        fk/form-footer-button-submit( Submit ) 

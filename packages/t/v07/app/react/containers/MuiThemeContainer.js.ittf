@@ -27,20 +27,29 @@
 	$else
 		import AppContainer from './AppContainer'
 
-	# A theme with custom primary and secondary color. It's optional.
+    $if app.Styles.useCustomTheme
+        import customTheme from '../theme'
+
+	$if app.Styles.useCustomTheme
+        # A theme with custom primary and secondary color. It's optional.
+    $else
+        # A custom theme.  It's optional.
 	const theme
 		_ createMuiTheme
-			{
-				{ palette
-					{ primary
-						@ light ${app.Styles.colors.primary}[300]
-						@ main ${app.Styles.colors.primary}[500]
-						@ dark ${app.Styles.colors.primary}[700]
-					{ secondary
-						@ light ${app.Styles.colors.secondary}[300]
-						@ main ${app.Styles.colors.secondary}[500]
-						@ dark ${app.Styles.colors.secondary}[700]
-					@ type '${app.Styles.theme.dark ? 'dark' : 'light'}'
+            $if app.Styles.useCustomTheme
+                @ customTheme
+            $else
+                {
+                    { palette
+                        { primary
+                            @ light ${app.Styles.colors.primary}[300]
+                            @ main ${app.Styles.colors.primary}[500]
+                            @ dark ${app.Styles.colors.primary}[700]
+                        { secondary
+                            @ light ${app.Styles.colors.secondary}[300]
+                            @ main ${app.Styles.colors.secondary}[500]
+                            @ dark ${app.Styles.colors.secondary}[700]
+                        @ type '${app.Styles.theme.dark ? 'dark' : 'light'}'
 
 	react MuiThemeContainer
 

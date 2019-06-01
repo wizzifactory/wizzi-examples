@@ -1,0 +1,48 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "SliderField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Slider from '@material-ui/lab/Slider'
+
+        => handleChange
+            param event
+            param value
+            prop fkFieldProp
+            prop setFieldValue
+            log 'Slider.handleChange', event, value, setFieldValue
+            _ setFieldValue
+                @ fkFieldProp.name
+                @ value
+
+        => handleBlur
+            prop fkFieldProp
+            prop setFieldTouched
+            _ setFieldTouched
+                @ fkFieldProp.name
+        
+        render
+            prop fkFieldProp
+            prop localProps
+            const 
+                {
+                    @ disabled
+                    @ accessForbidden
+                    @ ...optional
+                = localProps
+            const _disabled = accessForbidden || disabled
+
+            return
+                < Slider
+                    @ id { fkFieldProp.name }
+                    @ onChange {this.handleChange}
+                    @ onDragEnd {this.handleBlur}
+                    @ value {fkFieldProp.value}
+                    @ disabled {_disabled}
+                    @ {...optional}

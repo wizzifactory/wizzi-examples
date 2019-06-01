@@ -64,7 +64,7 @@ module
                     @ ...optional
                 = localProps
             const _disabled = accessForbidden || disabled
-            log 'Select.fkFieldProp', fkFieldProp
+            # log 'Select.fkFieldProp', fkFieldProp
             return
                 < Select 
                     @ id { fkFieldProp.name }

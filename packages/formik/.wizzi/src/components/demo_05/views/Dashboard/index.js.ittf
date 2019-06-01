@@ -1,0 +1,115 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Dashboard",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Grid
+                from '@material-ui/core'
+            import 
+                @ DefaultLayout
+                from 'components/demo_05/layouts'
+            import 
+                @ Users
+                $*
+                @ Budget
+                @ Progress
+                @ Profit
+                @ SalesChart
+                @ DevicesChart
+                @ ProductList
+                @ OrdersTable
+                *$
+                from './components'
+        
+        render
+            prop classes
+            return 
+                < DefaultLayout 
+                    @ title "Dashboard"
+                    div 
+                        @ className {classes.root}
+                        < Grid 
+                            @ container
+                            @ spacing {4}
+                            $*
+                            < Grid 
+                                @ item
+                                @ lg {3}
+                                @ sm {6}
+                                @ xl {3}
+                                @ xs {12}
+                                < Budget 
+                                    @ className {classes.item}
+                            *$
+                            < Grid 
+                                @ item
+                                @ lg {3}
+                                @ sm {6}
+                                @ xl {3}
+                                @ xs {12}
+                                < Users 
+                                    @ className {classes.item}
+                            $*
+                            < Grid 
+                                @ item
+                                @ lg {3}
+                                @ sm {6}
+                                @ xl {3}
+                                @ xs {12}
+                                < Progress 
+                                    @ className {classes.item}
+                            < Grid 
+                                @ item
+                                @ lg {3}
+                                @ sm {6}
+                                @ xl {3}
+                                @ xs {12}
+                                < Profit 
+                                    @ className {classes.item}
+                            < Grid 
+                                @ item
+                                @ lg {8}
+                                @ md {12}
+                                @ xl {9}
+                                @ xs {12}
+                                < SalesChart 
+                                    @ className {classes.item}
+                            < Grid 
+                                @ item
+                                @ lg {4}
+                                @ md {6}
+                                @ xl {3}
+                                @ xs {12}
+                                < DevicesChart 
+                                    @ className {classes.item}
+                            < Grid 
+                                @ item
+                                @ lg {4}
+                                @ md {6}
+                                @ xl {3}
+                                @ xs {12}
+                                < ProductList 
+                                    @ className {classes.item}
+                            < Grid 
+                                @ item
+                                @ lg {8}
+                                @ md {12}
+                                @ xl {9}
+                                @ xs {12}
+                                < OrdersTable 
+                                    @ className {classes.item}
+                            *$                                    
+        $append styles
+            { root
+                @ padding theme.spacing.unit * 4
+            { item
+                @ height '100%'
+

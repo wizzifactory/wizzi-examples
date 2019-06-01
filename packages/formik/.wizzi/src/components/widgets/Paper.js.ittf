@@ -1,0 +1,62 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Paper",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import PaperMui from '@material-ui/core/Paper'
+
+        prop elevation
+            number
+            default 0
+        prop outlined
+            boolean
+            default true
+        prop squared
+            boolean
+            default false
+
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    @ outlined
+                    @ squared
+                    @ children
+                    ... rest
+                = this.props
+            
+            const rootClassName
+                _ classNames
+                    { 
+                        @ [classes.root] true
+                        @ [classes.squared] squared
+                        @ [classes.outlined] outlined
+                    @ className
+            
+            return 
+                < PaperMui 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    + {children}
+
+        $append styles
+            { root
+                @ borderRadius '4px'
+            { squared
+                @ borderRadius 0
+            { outlined
+                @ border
+                    `lit 
+                        + 1px solid\b
+                        @ theme.palette.border
+    
+
+    

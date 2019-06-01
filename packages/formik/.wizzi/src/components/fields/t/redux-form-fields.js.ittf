@@ -1,0 +1,270 @@
+$group
+    $params &fields
+
+    $
+        var controlTypes = {}, item, type;
+        for (var i=0; i<fields.length; i++) {
+            item = fields[i];
+            type = item.type;
+            controlTypes[type] = true;
+        }
+
+    $include fields/RfAutocomplete
+    $include fields/RfCheckbox
+    $include fields/RfDate
+    $include fields/RfDateTime
+    $include fields/RfRadioGroup
+    $include fields/RfSelect
+    $include fields/RfSlider
+    $include fields/RfSwitch
+    $include fields/RfTextField
+    $include fields/RfTime
+
+    $*
+    const renderTextField
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < TextField 
+                    @ label {label}
+                    @ helperText {touched && error}
+                    @ {...input}
+                    @ {...custom}
+    
+    const renderCheckboxControl
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                = props
+            return
+                < Checkbox
+                    @ checked
+                        iif input.value
+                            then true
+                            else false
+                    @ onChange {input.onChange}
+                    @ value input.value
+
+
+    const renderCheckbox
+        => 
+            param props
+            log 'renderCheckbox.props', props
+            return
+                < FormControlLabel
+                    @ label {props.label}
+                    @ control {renderCheckboxControl(props)}
+    
+    const renderSwitchControl
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                = props
+            return
+                < Switch
+                    @ checked
+                        iif input.value
+                            then true
+                            else false
+                    @ onChange {input.onChange}
+                    @ value input.value
+
+    const renderSwitch
+        => 
+            param props
+            # log 'renderSwitch.props', props
+            return
+                < FormControlLabel
+                    @ label {props.label}
+                    @ control {renderSwitchControl(props)}
+
+    const renderRadioGroup
+        => 
+            param props
+            log 'renderRadioGroup.props', props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ children
+                    @ ...rest
+                = props
+            return
+                < FormControl
+                    @ component fieldset
+                    < FormLabel
+                        @ component legend
+                        + {label}
+                    < RadioGroup 
+                        @ {...input}
+                        @ {...rest}
+                        @ aria-label {label}
+                        @ value {input.value}
+                        @ children {children}
+                        @ onChange
+                            => 
+                                param event
+                                param value
+                                _ input.onChange(value)
+
+    const renderSelect
+        => 
+            param props
+            # log 'renderSelect.props', props
+            const
+                { 
+                    @ input
+                    @ label
+                    { meta
+                        @ touched
+                        @ error
+                    @ children
+                    @ ...rest
+                = props
+            return
+                < FormControl
+                    < InputLabel
+                        @ htmlFor {props.name}
+                        + {props.label}
+                    < Select 
+                        @ {...input}
+                        @ {...rest}
+                        @ value {input.value}
+                        @ onChange
+                            => 
+                                param event
+                                log 'Select.onChange.event.target', event.target
+                                _ input.onChange(event.target.value)
+                        @ children {children}
+                    < FormHelperText
+                        + {touched && error}
+
+    const renderDatePicker
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < DatePicker
+                    @ label {label}
+                    @ value {input.value}
+                    @ helperText {touched && error}
+                    @ {...input}
+                    @ {...custom}
+                    @ animateYearScrolling
+
+    const renderKeyboardDatePicker
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < KeyboardDatePicker
+                    @ label {label}
+                    @ value {input.value}
+                    @ helperText {touched && error}
+                    @ {...input}
+                    @ {...custom}
+                    @ animateYearScrolling
+
+    const renderDateTimePicker
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < DateTimePicker
+                    @ label {label}
+                    @ value {input.value}
+                    @ helperText {touched && error}
+                    @ onChange {input.onChange}
+                    @ {...input}
+                    @ {...custom}
+                    @ animateYearScrolling
+
+    const renderTimePicker
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < TimePicker
+                    @ label {label}
+                    @ value {input.value}
+                    @ helperText {touched && error}
+                    @ {...input}
+                    @ {...custom}
+    
+    const renderKeyboardTimePicker
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < KeyboardTimePicker
+                    @ label {label}
+                    @ value {input.value}
+                    @ helperText {touched && error}
+                    @ {...input}
+                    @ {...custom}
+                    @ animateYearScrolling
+
+    const renderKeyboardDateTimePicker
+        => 
+            param props
+            const
+                { 
+                    @ input
+                    @ label
+                    @ meta { touched, error }
+                    @ ...custom
+                = props
+            return
+                < KeyboardDateTimePicker
+                    @ label {label}
+                    @ value {input.value}
+                    @ helperText {touched && error}
+                    @ onChange {input.onChange}
+                    @ {...input}
+                    @ {...custom}
+                    @ animateYearScrolling
+                    @ format "yyyy/MM/dd hh:mm a"
+    *$                    

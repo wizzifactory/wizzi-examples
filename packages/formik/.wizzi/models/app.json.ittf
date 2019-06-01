@@ -18,7 +18,7 @@
         { react
             rootContainer "AppContainer"
             rootElementId "root"
-            useRouter false
+            useRouter true
             { router
             useRedux false
             { redux
@@ -27,20 +27,60 @@
                 useAutocomplete false
                 { autocomplete
                     useReactSelect false
-                usePickers false
-                useLab false
-                useIcons false
+                usePickers true
+                useLab true
+                useIcons true
             useFormik true
             { formik
             useDraftJs true
             { draftjs
+            usePerfectScrollbar true
+            { perfectScrollbar
         useYup true
         { yup
     
     { Styles
+        useCustomTheme true
         { theme
             dark false
         { colors
-            primary "green"
+            primary "blue"
             secondary "orange"
-    
+
+    { Portal
+        [ views
+            {
+                name "Dashboard"
+                path "/dashboard"
+            {
+                name "FormikForm"
+                path "/formikform"
+            $*
+            {
+                name "UserList"
+                path "/users"
+            {
+                name "ProductList"
+                path "/products"
+            {
+                name "Typography"
+                path "/typography"
+            {
+                name "Icons"
+                path "/icons"
+            {
+                name "Account"
+                path "/account"
+            {
+                name "Settings"
+                path "/settings"
+            {
+                name "SignUp"
+                path "/sign-up"
+            {
+                name "SignIn"
+                path "/sign-in"
+            *$
+            {
+                name "NotFound"
+                path "/not-found"   

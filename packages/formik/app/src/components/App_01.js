@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core';
+import compose from 'recompose/compose';
 import MiniFormik from './MiniFormik';
 const styles = theme => (
     {
@@ -16,6 +17,9 @@ const styles = theme => (
     });
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         const {
             classes
@@ -74,6 +78,6 @@ class App extends React.Component {
         ;
     }
 }
-App = withStyles(styles)(App)
+App = compose(withStyles(styles))(App)
 ;
 export default App;

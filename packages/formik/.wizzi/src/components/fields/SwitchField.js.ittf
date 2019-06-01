@@ -1,6 +1,5 @@
 module
 	kind react
-    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/boolean-field.js
 
 	$
 		var md = {

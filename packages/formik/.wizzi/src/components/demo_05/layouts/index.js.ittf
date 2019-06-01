@@ -1,0 +1,7 @@
+module
+	kind react
+
+	import DefaultLayout from './DefaultLayout'
+    export
+        {
+            @ DefaultLayout

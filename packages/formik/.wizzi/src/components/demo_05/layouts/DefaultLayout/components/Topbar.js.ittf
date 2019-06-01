@@ -1,0 +1,43 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Topbar",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import AppBar from "@material-ui/core/AppBar"
+            import Toolbar from "@material-ui/core/Toolbar"
+            import IconButton from "@material-ui/core/IconButton"
+            import Button from "@material-ui/core/Button"
+            import Icon from "@material-ui/core/Icon"
+            import Tooltip from "@material-ui/core/Tooltip"
+            import Link from "components/widgets/Link"
+
+            function t
+                param text
+                return text
+        
+        render
+            prop classes
+            prop className
+            return
+                < AppBar
+                    @ position "static"
+                    @ className {className}
+                    < Toolbar 
+                        tooltip-icon-link( Menu, menu, /home )
+                        . { classes.grow }
+                        tooltip-icon-link( Profile, person, /profile )
+                        < Button
+                            @ color "inherit"
+                            @ component {Link}
+                            @ to "/login"
+                            + Login
+        $append styles
+            { grow
+                @ flex '1 1 auto'        

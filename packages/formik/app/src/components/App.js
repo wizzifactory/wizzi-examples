@@ -6,159 +6,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import {Formik, Form, Field, FastField, FieldArray, setFieldValue, setFieldTouched, ErrorMessage} from 'formik';
-import * as Yup from 'yup';
-import Button from "@material-ui/core/Button";
-import TextField from "./fields/TextField";
-import SwitchField from "./fields/SwitchField";
-import SelectField from "./fields/SelectField";
-import Debug from './Debug';
-import FormControl from './FormControl';
-import FormLabel from './FormLabel';
-import './formik-example.css';
-const initialValues = {
-    firstName: '', 
-    lastName: '', 
-    email: '', 
-    isMember: false, 
-    ageRange: ''
-};
-const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required('required')
-    , 
-    lastName: Yup.string().required('required')
-    , 
-    email: Yup.string().required('required').email('Invalid email')
-    
-})
-;
-const Fieldset = (props) => {
-    const {
-        label, 
-        name, 
-        component, 
-        setFieldValue, 
-        setFieldTouched, 
-        ...localProps
-    } = props;
-    const Component = component ? component : TextField;
-    return  (
-            <React.Fragment>
-                <FormControl>
-                    <FormLabel htmlFor={name}>
-                    {label}</FormLabel>
-                
-                    <Field name={name}>
-                    {
-                        ({field, form}) => {
-                            // log 'Fieldset.field', field
-                            return  (
-                                    <Component fkFieldProp={field} localProps={localProps} setFieldValue={setFieldValue} setFieldTouched={setFieldTouched}>
-                                    </Component>
-                                )
-                            ;
-                        }
-                    }</Field>
-                
-                    <ErrorMessage name={name}>
-                    {
-                        (msg) => {
-                            return  (
-                                    <div className="field-error">
-                                    {msg}</div>
-                                )
-                            ;
-                        }
-                    }</ErrorMessage>
-                
-                </FormControl>
-            
-            </React.Fragment>
-        )
-    ;
-};
-const styles = theme => (
-    {
-        root: {
-            margin: "50px", 
-            padding: "30px"
-        }, 
-        form: {
-            padding: "10px"
-        }, 
-        formControl: {
-            width: "100%"
-        }
-    });
-
+import {Router} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import Routes from "./demo_05/Routes";
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'assets/css/index.css';
+const browserHistory = createBrowserHistory();
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
-        const {
-            classes
-        } = this.props;
         return  (
-                <div className={classes.form}>
-                    <h1>
-                    Sign Up
-                    </h1>
+                <Router history={browserHistory}>
+                    <Routes>
+                    </Routes>
                 
-                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={(values) =>
-                        setTimeout(() =>
-                            alert(JSON.stringify(values, null, 2)), 500)}>
-                    {
-                        ({ values, errors, touched, handleBlur, handleChange, handleReset, setFieldValue, setFieldTouched, isSubmitting }) =>  (
-                                <Form>
-                                    <Fieldset name="firstName" label="First Name" type="text" placeholder="jane" component={TextField}>
-                                    </Fieldset>
-                                
-                                    <Fieldset name="lastName" label="Last Name" type="text" placeholder="Doe" component={TextField}>
-                                    </Fieldset>
-                                
-                                    <Fieldset name="email" label="Email" placeholder="jane@acme.com" type="email" component={TextField}>
-                                    </Fieldset>
-                                
-                                    <Fieldset name="isMember" label="Is member" component={SwitchField}>
-                                    </Fieldset>
-                                
-                                    <Fieldset name="ageRange" label="Age range" component={SelectField} setFieldValue={setFieldValue} setFieldTouched={setFieldTouched} options={[
-                                        {
-                                            value: '0-20', 
-                                            label: '0 - 20'
-                                        }, 
-                                        {
-                                            value: '21-60', 
-                                            label: '21 - 60'
-                                        }, 
-                                        {
-                                            value: '61-Oltre', 
-                                            label: '61 - Oltre'
-                                        }
-                                    ]}>
-                                    </Fieldset>
-                                
-                                    <br>
-                                    </br>
-                                
-                                    <button type="reset" disabled={isSubmitting} className="secondary" onClick={handleReset}>
-                                    Reset</button>
-                                
-                                    <button type="submit" disabled={isSubmitting}>
-                                    Submit</button>
-                                
-                                    <Debug>
-                                    </Debug>
-                                
-                                </Form>
-                            )
-                        
-                    }</Formik>
-                
-                </div>
+                </Router>
             )
         ;
     }
 }
-App = withStyles(styles)(App)
-;
 export default App;
