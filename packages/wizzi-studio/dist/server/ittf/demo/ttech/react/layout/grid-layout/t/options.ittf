@@ -3,6 +3,6 @@
 	$
 		var opt = {};
 		opt.title = "React-grid-layoyut example";
-		opt.useMaterialUi = true;
+		opt.useMaterialUI = true;
 		opt.mainJs = true;
 		opt.useReactGrid = true;

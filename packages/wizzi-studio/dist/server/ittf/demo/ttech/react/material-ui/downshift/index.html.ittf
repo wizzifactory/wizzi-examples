@@ -6,7 +6,7 @@
 			local: false,
 			production: false,
 			useRouter: true,
-			useMaterialUi: true,
+			useMaterialUI: true,
 			useDownshift: true,
 			useKeycode: true,
 		}

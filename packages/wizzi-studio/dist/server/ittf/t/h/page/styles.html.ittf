@@ -21,7 +21,7 @@ $group
 	$if opt.useMonaco
 		$$ j( /static/lib/monaco-editor/package/min/vs/editor/editor.main.css
 		
-	$if opt.useMaterialUi
+	$if opt.useMaterialUI
 		s( https://fonts.googleapis.com/icon?family=Material+Icons
 	
 	$if opt.useRoboto

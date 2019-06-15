@@ -7,7 +7,7 @@
 		opt.useReact = true;
 		opt.useClassNames = true;
 		opt.useMonaco = true;
-		opt.useMaterialUi = true;
+		opt.useMaterialUI = true;
 		opt.mainJs = true
 
 	h/root/empty_layout_opt(&opt)

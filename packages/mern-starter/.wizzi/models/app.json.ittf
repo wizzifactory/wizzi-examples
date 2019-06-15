@@ -1,0 +1,16 @@
+{
+	name "mern-starter"
+	version "0.0.1"
+	description "MERN (MongoDB, Express, React, and Node.js) starter template"
+	author "Stefano Bassoli"
+	license "MIT"
+
+    { Build
+        useNextJs true
+        { nextjs
+        useReact true
+        { react
+            useMaterialUI true
+            { materialUI
+        useIsomorphicUnfetch true
+        { isomorphicUnfetch

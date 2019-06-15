@@ -1,0 +1,62 @@
+﻿module
+	kind react
+
+	import React from "react"
+    import { graphql } from 'gatsby'     
+	import Link from "gatsby-link"
+	import Helmet from "react-helmet"
+	import '../styles/blog-listing.css'; 
+
+	export default
+		=>
+			param { data }
+			log 'blog graphql data', data
+			const { edges: posts } = data.allContentfulBlogPost;
+
+			return
+				div
+					@ className "blog-posts"
+					{
+						_ posts.filter
+							=>
+								param { node: post }
+								log 'post', post
+								return post.title.length > 0
+							._ map
+								=>
+									param { node: post }
+									return
+										div
+											@ className "blog-post-preview"
+											@ key {post.id}
+											h1
+												< Link
+													@ to {post.slug}
+													+ {post.title}
+											h2 {post.createdAt}
+											p {post.body.childMarkdownRemark.excerpt}
+
+	export const pageQuery =
+		graphql-query blogIndexQuery
+			{ allContentfulBlogPost
+				: filter
+					{
+						@ node_locale
+							{
+								@ eq "en-US"
+				: sort
+					{
+						@ order DESC
+						@ fields
+							[
+								@ createdAt
+				{ edges 
+					{ node 
+						@ id
+						@ title
+						@ slug
+                        @ createdAt
+							: formatString "MMMM DD, YYYY"
+						{ body
+							{ childMarkdownRemark
+								@ excerpt

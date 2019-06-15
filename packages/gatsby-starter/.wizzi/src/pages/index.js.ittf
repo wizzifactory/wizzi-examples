@@ -1,0 +1,48 @@
+module
+	kind react
+
+	import React from "react"
+    import 
+        @ Link
+        @ graphql
+        from 'gatsby'
+    import DefaultLayout from '@layouts/DefaultLayout'
+
+	export default
+		=>
+			return
+                < DefaultLayout
+                    h1 Home page
+                    ul
+                        li
+                            < Link 
+                                @ to "/blog"
+                                + Blog
+                        li
+                            < Link 
+                                @ to "/about"
+                                + About
+                        li
+                            < Link 
+                                @ to "/mui-index"
+                                + Mui
+                        li
+                            < Link 
+                                @ to "/mui-about"
+                                + Mui about                                    
+                        li
+                            < Link 
+                                @ to "/resolver"
+                                + Resolver module
+                        li
+                            < Link 
+                                @ to "/medium"
+                                + Medium
+                        li
+                            < Link 
+                                @ to "/cheatsheet"
+                                + Cheatsheet
+                        li
+                            < Link 
+                                @ to "/__graphql"
+                                + Graphql

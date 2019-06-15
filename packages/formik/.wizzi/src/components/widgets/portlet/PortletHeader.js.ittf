@@ -1,0 +1,58 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "PortletHeader",
+            withStyles: true
+        };
+	
+	v07/app/react/purecomponent(&md)
+
+        $append imports
+
+        $append styles
+            { root
+                @ alignItems 'center'
+                @ borderBottom
+                    `lit 
+                        + 1px solid\b
+                        @ theme.palette.border
+                        + 
+                @ borderTopLeftRadius '2px'
+                @ borderTopRightRadius '2px'
+                @ display 'flex'
+                @ height '64px'
+                @ justifyContent 'space-between'
+                @ paddingLeft theme.spacing.unit * 3
+                @ paddingRight theme.spacing.unit * 3
+                @ position 'relative'
+            { noDivider
+                @ borderBottom 'none'
+            { noPadding
+                @ padding 0
+    
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    @ noDivider
+                    @ noPadding
+                    @ children
+                    ... rest
+                = this.props
+            
+            const rootClassName
+                _ classNames
+                    { 
+                        @ [classes.root] true
+                        @ [classes.noDivider] noDivider
+                        @ [classes.noPadding] noPadding
+                    @ className
+            
+            return 
+                div 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    + {children}

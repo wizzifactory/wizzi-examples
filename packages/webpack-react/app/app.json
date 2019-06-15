@@ -35,8 +35,8 @@
                 "useForm": true,
                 "form": {}
             },
-            "useMaterialUi": true,
-            "materialUi": {
+            "useMaterialUI": true,
+            "materialUI": {
                 "useAutocomplete": true,
                 "autocomplete": {
                     "useReactSelect": true

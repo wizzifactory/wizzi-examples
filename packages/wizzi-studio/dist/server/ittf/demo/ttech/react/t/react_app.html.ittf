@@ -14,7 +14,7 @@
 			module
 				kind react
 
-				$if opt.useMaterialUi
+				$if opt.useMaterialUI
 					const {
 						\b colors,
 						\b createMuiTheme,
@@ -25,7 +25,7 @@
 
 				$hook imports
 
-				$if opt.useMaterialUi
+				$if opt.useMaterialUI
 					const theme
 						_ createMuiTheme
 							{
@@ -45,7 +45,7 @@
 					style
 					$hook
 
-				$if opt.useMaterialUi
+				$if opt.useMaterialUI
 					const StyledApp
 						_ withStyles
 							@ styles

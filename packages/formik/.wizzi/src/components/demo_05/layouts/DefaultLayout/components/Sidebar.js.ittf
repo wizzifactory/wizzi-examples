@@ -90,110 +90,21 @@ module
                         @ component "div"
                         @ disablePadding
                         $foreach view in app.Portal.views
-                            < ListItem 
-                                @ activeClassName {classes.activeListItem}
-                                @ className {classes.listItem}
-                                @ component {NavLink}
-                                @ to "${view.path}"
-                                < ListItemIcon 
-                                    @ className {classes.listItemIcon}
-                                    < DashboardIcon 
-                                < ListItemText 
-                                    @ classes
-                                        { 
-                                            @ primary classes.listItemText
-                                    @ primary "${view.name}"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/users"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < PeopleIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Users"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/products"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < ShoppingBasketIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Products"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/sign-in"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < LockOpenIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Authentication"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/typography"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < TextFieldsIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Typography"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/icons"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < ImageIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Icons and Images"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/account"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < AccountBoxIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Account"
-                        < ListItem 
-                            @ activeClassName {classes.activeListItem}
-                            @ className {classes.listItem}
-                            @ component {NavLink}
-                            @ to "/settings"
-                            < ListItemIcon 
-                                @ className {classes.listItemIcon}
-                                < SettingsIcon 
-                            < ListItemText 
-                                @ classes
-                                    { 
-                                        @ primary classes.listItemText
-                                @ primary "Settings"
+                            $if view.label && view.label.length > 0
+                                < ListItem 
+                                    @ activeClassName {classes.activeListItem}
+                                    @ className {classes.listItem}
+                                    @ component {NavLink}
+                                    @ to "${view.path}"
+                                    $if view.icon && view.icon.length > 0
+                                        < ListItemIcon 
+                                            @ className {classes.listItemIcon}
+                                            < ${view.icon}Icon 
+                                    < ListItemText 
+                                        @ classes
+                                            { 
+                                                @ primary classes.listItemText
+                                        @ primary "${view.label}"
                     < Divider 
                         @ className {classes.listDivider}
                     < List 

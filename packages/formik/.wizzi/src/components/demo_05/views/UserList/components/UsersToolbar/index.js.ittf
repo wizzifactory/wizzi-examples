@@ -1,0 +1,104 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "UserToolbars",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Button
+                @ IconButton
+                from '@material-ui/core'
+            import 
+                @ ArrowDownward
+                    as ArrowDownwardIcon
+                @ ArrowUpward
+                    as ArrowUpwardIcon
+                @ Delete
+                    as DeleteIcon
+                from '@material-ui/icons'
+            import DisplayMode from 'components/widgets/DisplayMode'
+            import SearchInput from 'components/widgets/SearchInput'
+        
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    @ selectedUsers
+                = this.props
+            const rootClassName = classNames(classes.root, className)
+            return 
+                div 
+                    @ className {rootClassName}
+                    div 
+                        @ className {classes.row}
+                        span 
+                            @ className {classes.spacer}
+                        { 
+                            && 
+                                + selectedUsers.length > 0
+                                < IconButton 
+                                    @ className {classes.deleteButton}
+                                    @ onClick {this.handleDeleteUsers}
+                                    < DeleteIcon 
+                        < Button 
+                            @ className {classes.importButton}
+                            @ size "small"
+                            @ variant "outlined"
+                            < ArrowDownwardIcon 
+                                @ className {classes.importIcon}
+                            + Import
+                        < Button 
+                            @ className {classes.exportButton}
+                            @ size "small"
+                            @ variant "outlined"
+                            < ArrowUpwardIcon 
+                                @ className {classes.exportIcon}
+                            + Export
+                        < Button 
+                            @ color "primary"
+                            @ size "small"
+                            @ variant "outlined"
+                            + Add
+                    div 
+                        @ className {classes.row}
+                        < SearchInput 
+                            @ className {classes.searchInput}
+                            @ placeholder "Search user"
+                        span 
+                            @ className {classes.spacer}
+                        < DisplayMode 
+                            @ mode "list"
+        
+        prop selectedUsers
+            [
+            default []
+
+        $append styles
+            @ root {}
+            { row
+                @ height '42px'
+                @ display 'flex'
+                @ alignItems 'center'
+                @ marginTop theme.spacing.unit
+            { spacer
+                @ flexGrow 1
+            { deleteButton
+                @ color theme.palette.danger.main
+                @ marginRight theme.spacing.unit
+            { importButton
+                @ marginRight theme.spacing.unit
+            { importIcon
+                @ marginRight theme.spacing.unit
+            { exportButton
+                @ marginRight theme.spacing.unit
+            { exportIcon
+                @ marginRight theme.spacing.unit
+            { searchInput
+                @ marginRight theme.spacing.unit

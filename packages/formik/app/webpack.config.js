@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: "development", 
     entry: [
+        'babel-polyfill', 
         './src/index.js'
     ], 
     module: {
@@ -69,6 +70,6 @@ module.exports = {
     ], 
     devtool: 'cheap-module-source-map', 
     devServer: {
-        contentBase: './dist'
+        contentBase: './assets'
     }
 };

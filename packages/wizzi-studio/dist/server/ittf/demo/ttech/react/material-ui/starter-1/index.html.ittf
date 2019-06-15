@@ -3,7 +3,7 @@
 	$include options-init
 	
 	$
-		opt.useMaterialUi = true;
+		opt.useMaterialUI = true;
 
 	h/root/empty_layout_opt(&opt)
 	

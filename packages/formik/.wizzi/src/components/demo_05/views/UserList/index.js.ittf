@@ -1,0 +1,138 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "UserList",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ CircularProgress
+                @ Typography
+                from '@material-ui/core'
+            import 
+                @ DefaultLayout
+                from 'components/demo_05/layouts'
+            import 
+                @ getUsers
+                from 'components/demo_05/services/user'
+            import 
+                @ UsersToolbar
+                @ UsersTable
+                from './components'
+        
+        $append ctor
+            set this.signal = true
+        
+        state
+            @ isLoading false
+            @ limit 10
+            @ users []
+            @ selectedUsers []
+            @ error null
+        
+        async-m getUsers
+            try 
+                _ this.setState
+                    { 
+                        @ isLoading true
+                const 
+                    { 
+                        @ limit
+                    = this.state
+                const 
+                    { 
+                        @ users
+                    =
+                        await 
+                            _ getUsers(limit)
+                if this.signal
+                    _ this.setState
+                        { 
+                            @ isLoading false
+                            @ users
+            catch error
+                if this.signal
+                    _ this.setState
+                        { 
+                            @ isLoading false
+                            @ error
+        
+        did-mount
+            set this.signal = true
+            _ this.getUsers
+        
+        will-mount
+            set this.signal = false
+        
+        => handleSelect
+            param selectedUsers
+            _ this.setState
+                { 
+                    @ selectedUsers
+        
+        m renderUsers
+            const 
+                { 
+                    @ classes
+                = this.props
+            const 
+                { 
+                    @ isLoading
+                    @ users
+                    @ error
+                = this.state
+            if isLoading
+                return 
+                    div 
+                        @ className {classes.progressWrapper}
+                        < CircularProgress 
+            if error
+                return 
+                    < Typography 
+                        @ variant "h6"
+                        + {error}
+            if users.length === 0
+                return 
+                    < Typography 
+                        @ variant "h6"
+                        + There are no users
+            return 
+                < UsersTable 
+                    # 
+                    # 
+                    @ onSelect {this.handleSelect}
+                    @ users {users}
+        
+        render
+            prop classes
+            const 
+                { 
+                    @ selectedUsers
+                = this.state
+            return 
+                < DefaultLayout 
+                    @ title "Users"
+                    div 
+                        @ className {classes.root}
+                        < UsersToolbar 
+                            @ selectedUsers {selectedUsers}
+                        div 
+                            @ className {classes.content}
+                            { 
+                                _ this.renderUsers
+        
+        $append styles
+            { root
+                @ padding theme.spacing.unit * 3
+            { content
+                @ marginTop theme.spacing.unit * 2
+            { progressWrapper
+                @ paddingTop '48px'
+                @ paddingBottom '24px'
+                @ display 'flex'
+                @ justifyContent 'center'

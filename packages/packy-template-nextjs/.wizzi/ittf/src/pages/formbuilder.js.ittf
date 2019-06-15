@@ -1,0 +1,10 @@
+module
+    kind react
+    import React from 'react'
+    import FormBuilderRoot from '../modules/mui/formbuilder'
+
+    export-default 
+        function FormBuilder
+            return
+                < FormBuilderRoot
+    

@@ -40,7 +40,7 @@
 			}
 		}
 
-		if (app.useMaterialUi) {
+		if (app.useMaterialUI) {
 			app.useReact = true;
 			if (!app.rootContainer) {
 				app.rootContainer = 'MuiThemeContainer';
@@ -67,7 +67,7 @@
 			}
 		}
 
-		if (app.useMaterialUi) {
+		if (app.useMaterialUI) {
 			if (!app.primaryColor) {
 				app.primaryColor = 'orange';
 				app.secondaryColor = 'green';

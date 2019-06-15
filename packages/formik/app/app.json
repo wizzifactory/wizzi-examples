@@ -22,8 +22,8 @@
             "router": {},
             "useRedux": false,
             "redux": {},
-            "useMaterialUi": true,
-            "materialUi": {
+            "useMaterialUI": true,
+            "materialUI": {
                 "useAutocomplete": false,
                 "autocomplete": {
                     "useReactSelect": false
@@ -40,7 +40,13 @@
             "perfectScrollbar": {}
         },
         "useYup": true,
-        "yup": {}
+        "yup": {},
+        "useMoment": true,
+        "moment": {},
+        "useUnderscore": true,
+        "underscore": {},
+        "useValidateJs": true,
+        "validateJs": {}
     },
     "Styles": {
         "useCustomTheme": true,
@@ -55,15 +61,74 @@
     "Portal": {
         "views": [
             {
-                "name": "Dashboard",
-                "path": "/dashboard"
+                "component": "Dashboard",
+                "label": "Dashboard",
+                "path": "/dashboard",
+                "icon": "Dashboard"
             },
             {
-                "name": "FormikForm",
-                "path": "/formikform"
+                "component": "FormikForm",
+                "label": "FormikForm",
+                "path": "/formikform",
+                "icon": "Dashboard"
             },
             {
-                "name": "NotFound",
+                "component": "Settings",
+                "label": "Settings",
+                "path": "/settings",
+                "icon": "Settings"
+            },
+            {
+                "component": "Account",
+                "path": "/account",
+                "label": "Account",
+                "icon": "AccountBox"
+            },
+            {
+                "component": "UserList",
+                "path": "/users",
+                "label": "Users",
+                "icon": "People"
+            },
+            {
+                "component": "ProductList",
+                "path": "/products",
+                "label": "Products",
+                "icon": "ShoppingBasket"
+            },
+            {
+                "component": "Icons",
+                "path": "/icons",
+                "label": "Icons",
+                "icon": "Image"
+            },
+            {
+                "component": "Colors",
+                "path": "/colors",
+                "label": "Colors",
+                "icon": "Image"
+            },
+            {
+                "path": "/sign-in",
+                "label": "Authentication",
+                "icon": "LockOpen"
+            },
+            {
+                "component": "SignIn",
+                "path": "/sign-in"
+            },
+            {
+                "component": "SignUp",
+                "path": "/sign-up"
+            },
+            {
+                "component": "Typography",
+                "path": "/typography",
+                "label": "Typography",
+                "icon": "TextFields"
+            },
+            {
+                "component": "NotFound",
                 "path": "/not-found"
             }
         ]

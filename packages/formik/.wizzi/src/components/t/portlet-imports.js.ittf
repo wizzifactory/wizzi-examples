@@ -1,0 +1,7 @@
+$group
+
+    import Portlet from 'components/widgets/portlet/Portlet'
+    import PortletHeader from 'components/widgets/portlet/PortletHeader'
+    import PortletLabel from 'components/widgets/portlet/PortletLabel'
+    import PortletContent from 'components/widgets/portlet/PortletContent'
+    import PortletFooter from 'components/widgets/portlet/PortletFooter'

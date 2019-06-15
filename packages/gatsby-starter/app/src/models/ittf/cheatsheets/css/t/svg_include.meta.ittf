@@ -1,0 +1,54 @@
+element include svg
+	tag background-image + svg
+	ast
+	category
+
+	item
+		title color function
+		ittf
+			css
+                . forecolor
+                    background color(red a(90%))
+    
+	item
+		title background-image + svg wizzi model
+		ittf
+			css
+                . alpha
+                    background-image
+                        svg
+                            preserve-aspect-ratio none
+                            view-box 0 0 1024 800
+                            circle
+                                cx 220
+                                cy 70
+                                r 50
+                                stroke red
+                                fill green
+
+	
+	item
+		title background-image + svg wizzi model 2
+		ittf
+			css
+				< body
+					background-image
+						svg
+							width 100%
+							height 100%
+							view-box 0 0 1600 900
+							path
+								fill #A0E2DB
+								d M0 504 0 899 1600 899 1600 120z
+							path
+								fill #CBF2F3
+								d M1600 567 1600 899 0 899 0 165z
+							path
+								fill #719D71
+								d M0 680 0 899 1600 899 1600 300z
+							path
+								fill # 37EB67E
+								d M1600 719 1600 899 0 899 0 353z
+							path
+								fill #004D66
+								d M0 788 0 899 1600 899 1600 625z

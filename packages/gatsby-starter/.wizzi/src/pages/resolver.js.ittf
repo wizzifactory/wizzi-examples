@@ -1,0 +1,14 @@
+﻿module
+	kind react
+
+	import React from "react";
+    import ResolvedCounter from '@components/ResolvedCounter'
+
+	export default
+		=>
+			param
+			return
+				div
+					h1 Resolved counter
+                    < ResolvedCounter
+

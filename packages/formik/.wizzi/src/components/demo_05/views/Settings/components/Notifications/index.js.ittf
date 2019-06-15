@@ -1,0 +1,136 @@
+module
+    kind react
+    import React
+        @ Component
+        from 'react'
+    # Externals
+    import PropTypes from 'prop-types'
+    import classNames from 'classnames'
+    # Material helpers
+    import 
+        @ withStyles
+        from '@material-ui/core'
+    # Material components
+    import 
+        @ Checkbox
+        @ Typography
+        @ Button
+        from '@material-ui/core'
+    # Shared components
+    import 
+        @ Portlet
+        @ PortletHeader
+        @ PortletLabel
+        @ PortletContent
+        @ PortletFooter
+        from 'components'
+    # Component styles
+    import styles from './styles'
+    class Notifications
+        super Component
+        m render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    ... rest
+                = this.props
+            const rootClassName = classNames(classes.root, className)
+            return 
+                < Portlet 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    < PortletHeader 
+                        < PortletLabel 
+                            @ subtitle "Manage the notifications"
+                            @ title "Notifications"
+                    < PortletContent 
+                        @ noPadding
+                        form 
+                            @ className {classes.form}
+                            div 
+                                @ className {classes.group}
+                                < Typography 
+                                    @ className {classes.groupLabel}
+                                    @ variant "h6"
+                                    + \n                Notifications\n              \b
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Email
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                        @ defaultChecked
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Push Notifications
+                                        < Typography 
+                                            @ variant "caption"
+                                            + \n                    For your mobile or tablet device\n                  \b
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                        @ defaultChecked
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Text Messages
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                        @ defaultChecked
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Phone calls
+                            div 
+                                @ className {classes.group}
+                                < Typography 
+                                    @ className {classes.groupLabel}
+                                    @ variant "h6"
+                                    + \n                Messages\n              \b
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Email
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Push Notifications
+                                div 
+                                    @ className {classes.field}
+                                    < Checkbox 
+                                        @ color "primary"
+                                        @ defaultChecked
+                                    div 
+                                        < Typography 
+                                            @ variant "body1"
+                                            + Phone calls
+                    < PortletFooter 
+                        @ className {classes.portletFooter}
+                        < Button 
+                            @ color "primary"
+                            @ variant "outlined"
+                            + \n            Save\n          \b
+    set Notifications.propTypes =
+        { 
+            @ className PropTypes.string
+            @ classes PropTypes.object.isRequired
+    export-default withStyles(styles)(Notifications)

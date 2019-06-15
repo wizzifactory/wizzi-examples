@@ -1,0 +1,13 @@
+module
+    kind react
+    export-default 
+        => 
+            param name = ''
+            _ name.replace(/\s+/, ' ').split(' ').slice(0, 2).map
+                => 
+                    param v
+                    && 
+                        + v
+                        _ v[0].toUpperCase
+                ._ join
+                    @ ''

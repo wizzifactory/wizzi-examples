@@ -42,7 +42,7 @@ $group
 	
 	import { render } from 'react-dom'
 
-	$if app.Build.react.useMaterialUi
+	$if app.Build.react.useMaterialUI
 		import MuiThemeContainer from './containers/MuiThemeContainer'
 	$else
 		import ${rootContainer} from './containers/${rootContainer}'
@@ -72,7 +72,7 @@ $group
 		_ render
 			< ApolloProvider
 				@ client {client}
-				$if app.Build.react.useMaterialUi
+				$if app.Build.react.useMaterialUI
 					< MuiThemeContainer
 				$else
 					< ${rootContainer}
@@ -84,12 +84,12 @@ $group
 			$if app.Build.react.useRedux
 				< Provider
 					@ store {store}
-					$if app.Build.react.useMaterialUi
+					$if app.Build.react.useMaterialUI
 						< MuiThemeContainer
 					$else
 						< ${rootContainer}
 			$else
-				$if app.Build.react.useMaterialUi
+				$if app.Build.react.useMaterialUI
 					< MuiThemeContainer
 				$else
 					< ${rootContainer}

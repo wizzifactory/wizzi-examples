@@ -1,0 +1,64 @@
+﻿module
+	kind react
+
+	import React from "react"
+	import Helmet from "react-helmet"
+    import CheatsheetLayout from '@layouts/CheatsheetLayout'
+
+	export default
+		function Template
+			param {data}
+			log 'cheatsheet-template', data
+			const cheat = data.cheatsheet
+			return
+                < CheatsheetLayout
+                    @ slug { cheat.slug }
+					< Helmet
+						@ title {`Cheatsheet schema - ${cheat.csName}`}
+                    {
+                        _ cheat.elements.map
+                            =>
+                                param element
+                                return
+                                    div
+                                        . cheatsheet-element-title
+                                            + {element.name}
+                                        {
+                                            _ element.items.map
+                                                =>
+                                                    param item
+                                                    return
+                                                        div
+                                                            . cheatsheet-item-title
+                                                                id {item.itemSlug}
+                                                                + { item.title }
+                                                            . cheatsheet-item
+                                                                . cheatsheet-ittf
+                                                                    pre
+                                                                        class prettyprint
+                                                                        @ dangerouslySetInnerHTML
+                                                                            {
+                                                                                @ __html item.ittfPretty
+                                                                . cheatsheet-generated
+                                                                    pre
+                                                                        @ dangerouslySetInnerHTML
+                                                                            {
+                                                                                @ __html item.generatedHighlighted
+
+	export const pageQuery =
+		graphql-query cheatsheetBySlug($slug: String!)
+			{ cheatsheet
+				: slug
+					{
+						@ eq $slug
+                @ id
+                @ csName
+                @ slug
+                { elements
+                    @ name
+                    { items
+                        @ title
+                        @ itemSlug
+                        @ generated
+                        @ generatedHighlighted
+                        @ ittfPretty

@@ -1,0 +1,82 @@
+module
+    kind es6
+    # credits https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-remark-prismjs/src/highlight-code.js
+    const Prism = require('prismjs')
+    const _ = require('lodash')
+    const loadPrismLanguage = require('./loadPrismLanguage')
+    $$ const handleDirectives = require('./directives')
+    const unsupportedLanguages = new Set()
+    set module.exports =
+        => 
+            param language
+            param code
+            param lineNumbersHighlight = []
+            param noInlineHighlight = false
+            # (Try to) load languages on demand.
+            if !Prism.languages[language]
+                try 
+                    _ loadPrismLanguage(language)
+                catch e
+                    # Language wasn't loaded so let's bail.
+                    let message = null
+                    switch language
+                        case 'none'
+                            return code
+                        case 'text'
+                            set message =
+                                iif noInlineHighlight
+                                    then
+                                        `lit 
+                                            + code block language not specified in markdown.
+                                    else
+                                        `lit 
+                                            + code block or inline code language not specified in markdown.
+                            break 
+                        default 
+                            set message =
+                                `lit 
+                                    + unable to find prism language '
+                                    @ language
+                                    + ' for highlighting.
+                    const lang
+                        _ language.toLowerCase
+                    if !unsupportedLanguages.has(lang)
+                        _ console.warn
+                            @ message
+                            `lit 
+                                + applying generic code block
+                        _ unsupportedLanguages.add(lang)
+                    return _.escape(code)
+            const grammar = Prism.languages[language]
+            const highlighted = Prism.highlight(code, grammar, language)
+            return highlighted
+            $*
+            const codeSplits = handleDirectives(highlighted, lineNumbersHighlight)
+            let finalCode
+                `lit 
+                    + 
+            const lastIdx = codeSplits.length - 1
+            # Don't add back the new line character after highlighted lines
+            # as they need to be display: block and full-width.
+            _ codeSplits.forEach
+                => 
+                    param split
+                    param idx
+                    set finalCode +=
+                        iif split.highlight
+                            then split.code
+                            else
+                                `lit 
+                                    + 
+                                    @ split.code
+                                    + 
+                                    iif idx == lastIdx
+                                        then
+                                            `lit 
+                                                + 
+                                        else
+                                            `lit 
+                                                + \n
+                                    + 
+            return finalCode
+            *$

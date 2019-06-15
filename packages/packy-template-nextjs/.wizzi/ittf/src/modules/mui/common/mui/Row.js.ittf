@@ -1,0 +1,19 @@
+﻿app/mui-function(Row)
+
+	const { children } = props
+
+	const getStyle
+		=>
+			param span
+			return
+				{
+					@ marginLeft '5px'
+					@ marginRight '5px'
+	return
+		div
+			@ style {getStyle()}
+			row_before()
+			+ {children}
+			row_after()
+
+	

@@ -6,7 +6,7 @@
 			production: false,
 			title: 'Downshift component',
 			useRouter: true,
-			useMaterialUi: true,
+			useMaterialUI: true,
 			useDownshift: true,
 			useKeycode: true,
 		}

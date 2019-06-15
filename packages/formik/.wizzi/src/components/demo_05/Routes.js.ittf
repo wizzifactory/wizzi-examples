@@ -16,7 +16,8 @@ module
                 from 'react-router-dom'
             # Views
             $foreach view in app.Portal.views
-                import ${view.name} from './views/${view.name}'
+                $if view.component && view.component.length > 0
+                    import ${view.component} from './views/${view.component}'
         render
             return 
                 < Switch 
@@ -31,10 +32,11 @@ module
                         @ exact
                         @ path "/"
                     $foreach view in app.Portal.views
-                        < Route 
-                            @ component {${view.name}}
-                            @ exact
-                            @ path "${view.path}"
+                        $if view.component && view.component.length > 0
+                            < Route 
+                                @ component {${view.component}}
+                                @ exact
+                                @ path "${view.path}"
                     < Route 
                         @ component {NotFound}
                         @ path "/"

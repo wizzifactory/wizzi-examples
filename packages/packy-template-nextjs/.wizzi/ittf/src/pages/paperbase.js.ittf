@@ -1,0 +1,10 @@
+module
+    kind react
+
+    import React from 'react'
+    import PaperbaseRoot from '../modules/mui/paperbase'
+
+    export-default
+        function Paperbase
+            return
+                < PaperbaseRoot

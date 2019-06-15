@@ -1,0 +1,96 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Password",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Button
+                @ TextField
+                from '@material-ui/core'
+
+            $include portlet-imports
+
+        state
+            { values
+                @ password ''
+                @ confirm ''
+        
+        => handleFieldChange
+            param field
+            param value
+            const newState
+                { 
+                    @ ...this.state
+            set newState.values[field] = value
+            _ this.setState(newState, this.validateForm)
+        
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    ... rest
+                = this.props
+            const 
+                { 
+                    @ values
+                = this.state
+            const rootClassName = classNames(classes.root, className)
+            return 
+                < Portlet 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    < PortletHeader 
+                        < PortletLabel 
+                            @ subtitle "Update password"
+                            @ title "Password"
+                    < PortletContent 
+                        < form 
+                            @ className {classes.form}
+                            < TextField 
+                                @ className {classes.textField}
+                                @ label "Password"
+                                @ name "password"
+                                @ onChange
+                                    => 
+                                        param event
+                                        _ this.handleFieldChange('password', event.target.value)
+                                @ type "password"
+                                @ value {values.password}
+                                @ variant "outlined"
+                            < TextField 
+                                @ className {classes.textField}
+                                @ label "Confirm password"
+                                @ name "confirm"
+                                @ onChange
+                                    => 
+                                        param event
+                                        _ this.handleFieldChange('confirm', event.target.value)
+                                @ type "password"
+                                @ value {values.confirm}
+                                @ variant "outlined"
+                    < PortletFooter 
+                        @ className {classes.portletFooter}
+                        < Button 
+                            @ color "primary"
+                            @ variant "outlined"
+                            + Update
+
+        $append styles
+            @ root {}
+            @ form {}
+            { textField
+                @ width '100%'
+                @ marginBottom theme.spacing.unit * 2
+            { portletFooter
+                @ paddingLeft theme.spacing.unit * 3
+                @ paddingRight theme.spacing.unit * 3
+                @ paddingTop theme.spacing.unit * 2
+                @ paddingBottom theme.spacing.unit * 2

@@ -1,0 +1,17 @@
+﻿module
+	kind react
+
+	import React from "react";
+
+	export default
+		=>
+			param { data }
+			return
+				div
+					h1 About {data.site.siteMetadata.title}
+
+	export const query =
+		graphql-query AboutQuery
+			{ site
+				{ siteMetadata
+					@ title

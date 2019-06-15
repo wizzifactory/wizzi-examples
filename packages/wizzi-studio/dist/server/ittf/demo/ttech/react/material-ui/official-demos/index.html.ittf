@@ -3,7 +3,7 @@ html
 	$include options-init
 	
 	$
-		opt.useMaterialUi = true;
+		opt.useMaterialUI = true;
         var isCdn = true;
 
 	h/root/empty_layout_opt(&opt)

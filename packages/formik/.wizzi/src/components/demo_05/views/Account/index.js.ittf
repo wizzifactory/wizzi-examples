@@ -1,0 +1,52 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Account",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Grid
+                from '@material-ui/core'
+            import 
+                @ DefaultLayout
+                from 'components/demo_05/layouts'
+            import AccountProfile from './components/AccountProfile'
+            import AccountDetails from './components/AccountDetails'
+    
+        $append styles
+            { root
+                @ padding theme.spacing.unit * 4
+    
+        state
+            @ tabIndex 0
+        
+        render
+            prop classes
+            return 
+                < DefaultLayout 
+                    @ title "Account"
+                    div 
+                        @ className {classes.root}
+                        < Grid 
+                            @ container
+                            @ spacing {4}
+                            < Grid 
+                                @ item
+                                @ lg {4}
+                                @ md {6}
+                                @ xl {4}
+                                @ xs {12}
+                                < AccountProfile 
+                            < Grid 
+                                @ item
+                                @ lg {8}
+                                @ md {6}
+                                @ xl {8}
+                                @ xs {12}
+                                < AccountDetails 

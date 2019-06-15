@@ -10,19 +10,19 @@
 	import ${app.Styles.colors.primary} from '@material-ui/core/colors/${app.Styles.colors.primary}'
 	import ${app.Styles.colors.secondary} from '@material-ui/core/colors/${app.Styles.colors.secondary}'
 	
-	$if app.Build.react.materialUi.useCssBaseline
+	$if app.Build.react.materialUI.useCssBaseline
 		import CssBaseline from '@material-ui/core/CssBaseline'
 	
-	$if app.Build.react.materialUi.useCssBase
+	$if app.Build.react.materialUI.useCssBase
 		import CssBase from '../components/CssBase'
 
-    $if app.Build.react.materialUi.usePickers
+    $if app.Build.react.materialUI.usePickers
         import
             @ MuiPickersUtilsProvider
             from '@material-ui/pickers'
         import DateFnsUtils from "@date-io/date-fns"
 	
-	$if app.Build.react.materialUi.useRouter
+	$if app.Build.react.materialUI.useRouter
 		import AppContainer from '../components/AppRouter'
 	$else
 		import AppContainer from './AppContainer'
@@ -63,11 +63,11 @@
 			return
 				< MuiThemeProvider
 					@ theme {theme}
-					$if app.Build.react.materialUi.useCssBaseline
+					$if app.Build.react.materialUI.useCssBaseline
 						< CssBaseline
-					$if app.Build.react.materialUi.useCssBase
+					$if app.Build.react.materialUI.useCssBase
 						< CssBase
-                    $if app.Build.react.materialUi.usePickers
+                    $if app.Build.react.materialUI.usePickers
                         < MuiPickersUtilsProvider
                             @ utils {DateFnsUtils}
                             < AppContainer

@@ -10,6 +10,15 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 // Views
 import Dashboard from './views/Dashboard';
 import FormikForm from './views/FormikForm';
+import Settings from './views/Settings';
+import Account from './views/Account';
+import UserList from './views/UserList';
+import ProductList from './views/ProductList';
+import Icons from './views/Icons';
+import Colors from './views/Colors';
+import SignIn from './views/SignIn';
+import SignUp from './views/SignUp';
+import Typography from './views/Typography';
 import NotFound from './views/NotFound';
 class Routes extends React.Component {
     constructor(props) {
@@ -25,6 +34,33 @@ class Routes extends React.Component {
                     </Route>
                 
                     <Route component={FormikForm} exact path="/formikform">
+                    </Route>
+                
+                    <Route component={Settings} exact path="/settings">
+                    </Route>
+                
+                    <Route component={Account} exact path="/account">
+                    </Route>
+                
+                    <Route component={UserList} exact path="/users">
+                    </Route>
+                
+                    <Route component={ProductList} exact path="/products">
+                    </Route>
+                
+                    <Route component={Icons} exact path="/icons">
+                    </Route>
+                
+                    <Route component={Colors} exact path="/colors">
+                    </Route>
+                
+                    <Route component={SignIn} exact path="/sign-in">
+                    </Route>
+                
+                    <Route component={SignUp} exact path="/sign-up">
+                    </Route>
+                
+                    <Route component={Typography} exact path="/typography">
                     </Route>
                 
                     <Route component={NotFound} exact path="/not-found">

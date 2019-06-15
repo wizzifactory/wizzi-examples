@@ -1,0 +1,158 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "ProductList",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Link
+                from 'react-router-dom'
+            import 
+                @ IconButton
+                @ CircularProgress
+                @ Grid
+                @ Typography
+                from '@material-ui/core'
+            import 
+                @ ChevronRight
+                    as ChevronRightIcon
+                @ ChevronLeft
+                    as ChevronLeftIcon
+                from '@material-ui/icons'
+            import 
+                @ DefaultLayout
+                from 'components/demo_05/layouts'
+            import ProductsToolbar from './components/ProductsToolbar'
+            import ProductCard from './components/ProductCard'
+            import 
+                @ getProducts
+                from 'components/demo_05/services/product'
+
+        state
+            @ isLoading false
+            @ limit 6
+            @ products []
+            @ productsTotal 0
+            @ error null
+        
+        p signal = true
+
+        async-m getProducts
+            param limit
+            try 
+                _ this.setState
+                    { 
+                        @ isLoading true
+                const 
+                    { 
+                        @ products
+                        @ productsTotal
+                    =
+                        await 
+                            _ getProducts(limit)
+                if this.signal
+                    _ this.setState
+                        { 
+                            @ isLoading false
+                            @ products
+                            @ productsTotal
+                            @ limit
+            catch error
+                if this.signal
+                    _ this.setState
+                        { 
+                            @ isLoading false
+                            @ error
+        
+        will-mount
+            set this.signal = true
+            const 
+                { 
+                    @ limit
+                = this.state
+            _ this.getProducts(limit)
+        
+        will-unmount
+            set this.signal = false
+        
+        m renderProducts
+            const 
+                { 
+                    @ classes
+                = this.props
+            const 
+                { 
+                    @ isLoading
+                    @ products
+                = this.state
+            if isLoading
+                return 
+                    div 
+                        @ className {classes.progressWrapper}
+                        < CircularProgress 
+            if products.length === 0
+                return 
+                    < Typography 
+                        @ variant "h6"
+                        + There are no products available
+            return 
+                < Grid 
+                    @ container
+                    @ spacing {3}
+                    { 
+                        _ products.map
+                            => 
+                                param product
+                                < Grid 
+                                    @ item
+                                    @ key {product.id}
+                                    @ lg {4}
+                                    @ md {6}
+                                    @ xs {12}
+                                    < Link 
+                                        @ to "#"
+                                        < ProductCard 
+                                            @ product {product}
+        render
+            prop classes
+            return 
+                < DefaultLayout 
+                    @ title "Products"
+                    div 
+                        @ className {classes.root}
+                        < ProductsToolbar 
+                        div 
+                            @ className {classes.content}
+                            { 
+                                _ this.renderProducts
+                        div 
+                            @ className {classes.pagination}
+                            < Typography 
+                                @ variant "caption"
+                                + 1-6 of 20
+                            < IconButton 
+                                < ChevronLeftIcon 
+                            < IconButton 
+                                < ChevronRightIcon 
+
+        $append styles    
+            { root
+                @ padding theme.spacing.unit * 3
+            { content
+                @ marginTop theme.spacing.unit * 2
+            { progressWrapper
+                @ paddingTop '48px'
+                @ paddingBottom '24px'
+                @ display 'flex'
+                @ justifyContent 'center'
+            { pagination
+                @ marginTop '24px'
+                @ display 'flex'
+                @ alignItems 'center'
+                @ justifyContent 'flex-end'

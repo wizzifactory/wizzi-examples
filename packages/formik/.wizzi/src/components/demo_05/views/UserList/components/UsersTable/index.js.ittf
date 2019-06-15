@@ -1,0 +1,255 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "UserTable",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Link
+                from 'react-router-dom'
+            import moment from 'moment'
+            import PerfectScrollbar from 'react-perfect-scrollbar'
+            import 
+                @ Avatar
+                @ Checkbox
+                @ Table
+                @ TableBody
+                @ TableCell
+                @ TableHead
+                @ TableRow
+                @ Typography
+                @ TablePagination
+                from '@material-ui/core'
+            import 
+                @ getInitials
+                from 'components/demo_05/helpers'
+
+            import Portlet from 'components/widgets/portlet/Portlet'
+            import PortletHeader from 'components/widgets/portlet/PortletHeader'
+            import PortletLabel from 'components/widgets/portlet/PortletLabel'
+            import PortletContent from 'components/widgets/portlet/PortletContent'
+            import PortletFooter from 'components/widgets/portlet/PortletFooter'
+    
+        prop onSelect
+            func
+            default () => {}
+        prop onShowDetails
+            func
+            default () => {}
+        prop users
+            [
+            default []        
+        
+        state
+            @ selectedUsers []
+            @ rowsPerPage 10
+            @ page 0
+        
+        => handleSelectAll
+            param event
+            const 
+                { 
+                    @ users
+                    @ onSelect
+                = this.props
+            let selectedUsers
+            if event.target.checked
+                set selectedUsers =
+                    _ users.map
+                        => 
+                            param user
+                            + user.id
+            else
+                set selectedUsers = []
+            _ this.setState
+                { 
+                    @ selectedUsers
+            _ onSelect(selectedUsers)
+        
+        => handleSelectOne
+            param event
+            param id
+            const 
+                { 
+                    @ onSelect
+                = this.props
+            const 
+                { 
+                    @ selectedUsers
+                = this.state
+            const selectedIndex = selectedUsers.indexOf(id)
+            let newSelectedUsers = []
+            if selectedIndex === -1
+                set newSelectedUsers = newSelectedUsers.concat(selectedUsers, id)
+            else
+                if selectedIndex === 0
+                    set newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(1))
+                else
+                    if selectedIndex === selectedUsers.length - 1
+                        set newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(0, -1))
+                    else
+                        if selectedIndex > 0
+                            set newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(0, selectedIndex), selectedUsers.slice(selectedIndex + 1))
+            _ this.setState
+                { 
+                    @ selectedUsers newSelectedUsers
+            _ onSelect(newSelectedUsers)
+        
+        => handleChangePage
+            param event
+            param page
+            _ this.setState
+                { 
+                    @ page
+        
+        => handleChangeRowsPerPage
+            param event
+            _ this.setState
+                { 
+                    @ rowsPerPage event.target.value
+        
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    @ users
+                = this.props
+            const 
+                { 
+                    @ activeTab
+                    @ selectedUsers
+                    @ rowsPerPage
+                    @ page
+                = this.state
+            const rootClassName = classNames(classes.root, className)
+            return 
+                < Portlet 
+                    @ className {rootClassName}
+                    < PortletContent 
+                        @ noPadding
+                        < PerfectScrollbar 
+                            < Table 
+                                < TableHead 
+                                    < TableRow 
+                                        < TableCell 
+                                            @ align "left"
+                                            < Checkbox 
+                                                @ checked {selectedUsers.length === users.length}
+                                                @ color "primary"
+                                                @ indeterminate {selectedUsers.length > 0 && selectedUsers.length < users.length}
+                                                @ onChange {this.handleSelectAll}
+                                            + Name
+                                        < TableCell 
+                                            @ align "left"
+                                            + ID
+                                        < TableCell 
+                                            @ align "left"
+                                            + State
+                                        < TableCell 
+                                            @ align "left"
+                                            + Phone
+                                        < TableCell 
+                                            @ align "left"
+                                            + Registration date
+                                < TableBody 
+                                    { 
+                                        _ users.filter
+                                            => 
+                                                param user
+                                                if activeTab === 1
+                                                    return !user.returning
+                                                if activeTab === 2
+                                                    return user.returning
+                                                return user
+                                            ._ slice
+                                                @ 0
+                                                @ rowsPerPage
+                                            ._ map
+                                                => 
+                                                    param user
+                                                    < TableRow 
+                                                        @ className {classes.tableRow}
+                                                        @ hover
+                                                        @ key {user.id}
+                                                        @ selected {selectedUsers.indexOf(user.id) !== -1}
+                                                        < TableCell 
+                                                            @ className {classes.tableCell}
+                                                            div 
+                                                                @ className {classes.tableCellInner}
+                                                                < Checkbox 
+                                                                    @ checked {selectedUsers.indexOf(user.id) !== -1}
+                                                                    @ color "primary"
+                                                                    @ onChange
+                                                                        => 
+                                                                            param event
+                                                                            _ this.handleSelectOne(event, user.id)
+                                                                    @ value "true"
+                                                                < Avatar 
+                                                                    @ className {classes.avatar}
+                                                                    @ src {user.avatarUrl}
+                                                                    + {getInitials(user.name)}
+                                                                < Link 
+                                                                    @ to "#"
+                                                                    < Typography 
+                                                                        @ className {classes.nameText}
+                                                                        @ variant "body1"
+                                                                        + {user.name}
+                                                        < TableCell 
+                                                            @ className {classes.tableCell}
+                                                            + {user.id}
+                                                        < TableCell 
+                                                            @ className {classes.tableCell}
+                                                            + {user.address.state}
+                                                        < TableCell 
+                                                            @ className {classes.tableCell}
+                                                            + {user.phone}
+                                                        < TableCell 
+                                                            @ className {classes.tableCell}
+                                                            + {moment(user.createdAt).format('DD/MM/YYYY')}
+                        < TablePagination 
+                            @ backIconButtonProps
+                                { 
+                                    @ 'aria-label' 'Previous Page'
+                            @ component "div"
+                            @ count {users.length}
+                            @ nextIconButtonProps
+                                { 
+                                    @ 'aria-label' 'Next Page'
+                            @ onChangePage {this.handleChangePage}
+                            @ onChangeRowsPerPage {this.handleChangeRowsPerPage}
+                            @ page {page}
+                            @ rowsPerPage {rowsPerPage}
+                            @ rowsPerPageOptions
+                                [ 
+                                    @ 5
+                                    @ 10
+                                    @ 25
+
+        $append styles
+            @ root {}
+            { tableRow
+                @ height '64px'
+            { tableCell
+                @ whiteSpace 'nowrap'
+            { tableCellInner
+                @ display 'flex'
+                @ alignItems 'center'
+            { avatar
+                @ backgroundColor theme.palette.primary.main
+                @ display 'inline-flex'
+                @ fontSize '14px'
+                @ fontWeight 500
+                @ height '36px'
+                @ width '36px'
+            { nameText
+                @ display 'inline-block'
+                @ marginLeft theme.spacing.unit * 2
+                @ fontWeight 500
+                @ cursor 'pointer'

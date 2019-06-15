@@ -1,0 +1,35 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Icons",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ DefaultLayout
+                from 'components/demo_05/layouts'
+        
+        $append styles
+            { root
+                @ padding theme.spacing.unit * 4
+            { iframe
+                @ width '100%'
+                @ minHeight '640px'
+                @ border 0
+        
+        render
+            prop classes
+            return 
+                < DefaultLayout 
+                    @ title "Colors"
+                    div 
+                        @ className {classes.root}
+                        iframe 
+                            @ className {classes.iframe}
+                            @ src "https://material.io/tools/color/"
+                            @ title "Material Design icons"

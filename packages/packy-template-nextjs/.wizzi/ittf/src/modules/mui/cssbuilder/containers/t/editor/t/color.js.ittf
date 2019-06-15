@@ -1,0 +1,6 @@
+{
+    $params id, defaultValue|@@null
+    @ id '${id}'
+    @ type 'color'
+    $if defaultValue != null
+        @ defaultValue '${defaultValue}'

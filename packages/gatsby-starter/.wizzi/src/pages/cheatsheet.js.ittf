@@ -1,0 +1,69 @@
+﻿module
+	kind react
+
+	import React from "react"
+    import { graphql } from 'gatsby'     
+	import Link from "gatsby-link"
+	import Helmet from "react-helmet"
+	
+
+	export default
+		=>
+			param { data }
+			log 'cheatsheet data', data
+			const { edges: cheats } = data.allCheatsheet;
+			return
+				div
+					@ className "blog-posts"
+					{
+						_ cheats.map
+                            =>
+                                param { node: cheat }
+                                _ cheat.elements.map
+                                    =>
+                                        param element
+                                        return
+                                            div
+                                                h1 {element.name}
+                                                {
+                                                    _ element.items.map
+                                                        =>
+                                                            param item
+                                                            return
+                                                                div
+                                                                    h3 { item.title }
+                                                                    . cheatsheet-item
+                                                                        pre
+                                                                            style
+                                                                                {
+                                                                                    @ width '50%'
+                                                                            class prettyprint
+                                                                            @ dangerouslySetInnerHTML
+                                                                                {
+                                                                                    @ __html item.ittfPretty
+                                                                        pre
+                                                                            style
+                                                                                {
+                                                                                    @ width '50%'
+                                                                            @ dangerouslySetInnerHTML
+                                                                                {
+                                                                                    @ __html item.generated
+
+	export const pageQuery =
+		graphql-query csQuery
+			{ allCheatsheet
+				: filter
+					{
+						@ csName
+							{
+								@ eq "html"
+				{ edges 
+					{ node 
+						@ id
+						@ csName
+						{ elements
+                            @ name
+                            { items
+                                @ title
+                                @ generated
+                                @ ittfPretty

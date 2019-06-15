@@ -1,0 +1,11 @@
+module
+    kind react
+    const checked
+        => 
+            param value
+            param options
+            if value !== true
+                return options.message || 'must be checked'
+    export-default 
+        { 
+            @ checked

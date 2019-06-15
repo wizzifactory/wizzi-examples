@@ -156,16 +156,114 @@ class Sidebar extends React.Component {
                         
                         </ListItem>
                     
-                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/not-found">
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/settings">
                             <ListItemIcon className={classes.listItemIcon}>
-                                <DashboardIcon>
-                                </DashboardIcon>
+                                <SettingsIcon>
+                                </SettingsIcon>
                             
                             </ListItemIcon>
                         
                             <ListItemText classes={{
                                 primary: classes.listItemText
-                            }} primary="NotFound">
+                            }} primary="Settings">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/account">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <AccountBoxIcon>
+                                </AccountBoxIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Account">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/users">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <PeopleIcon>
+                                </PeopleIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Users">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/products">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <ShoppingBasketIcon>
+                                </ShoppingBasketIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Products">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/icons">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <ImageIcon>
+                                </ImageIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Icons">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/colors">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <ImageIcon>
+                                </ImageIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Colors">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/sign-in">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <LockOpenIcon>
+                                </LockOpenIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Authentication">
+                            </ListItemText>
+                        
+                        </ListItem>
+                    
+                        <ListItem activeClassName={classes.activeListItem} className={classes.listItem} component={NavLink} to="/typography">
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <TextFieldsIcon>
+                                </TextFieldsIcon>
+                            
+                            </ListItemIcon>
+                        
+                            <ListItemText classes={{
+                                primary: classes.listItemText
+                            }} primary="Typography">
                             </ListItemText>
                         
                         </ListItem>

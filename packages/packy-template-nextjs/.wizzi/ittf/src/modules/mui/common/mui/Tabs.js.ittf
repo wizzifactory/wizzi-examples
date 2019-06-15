@@ -1,0 +1,116 @@
+﻿app/mui-component( Tabs )
+	
+	$append imports
+
+	prop tabActive
+		number
+		default 1
+	prop onMount
+		func
+	prop onBeforeChange
+		func
+	prop onAfterChange
+		func
+	prop children
+		one-of-type
+			[
+			element
+		required
+
+	state
+		@ tabActive this.props.tabActive
+		
+	did-mount
+		var index = this.state.tabActive
+		var $selectedPanel = this.refs['tab-panel']
+		var $selectedTabMenu = this.refs['tab-menu-' + index]
+		if this.props.onMount
+			_ this.props.onMount(index, $selectedPanel, $selectedTabMenu)
+
+	will-receive-props
+		if newProps.tabActive && newProps.tabActive !== this.props.tabActive
+			_ this.setState
+				{
+					@ tabActive newProps.tabActive
+
+	m setActive
+		param index
+		param e
+		_ e.preventDefault()
+		
+		var onAfterChange = this.props.onAfterChange;
+		var onBeforeChange = this.props.onBeforeChange;
+		var $selectedPanel = this.refs['tab-panel'];
+		var $selectedTabMenu = this.refs['tab-menu-' + index']
+
+		if onBeforeChange
+			var cancel = onBeforeChange(index, $selectedPanel, $selectedTabMenu)
+			if cancel === false
+				return
+			_ this.setState
+				{
+					@ tabActive index
+				=>
+					if onAfterChange
+						_ onAfterChange(index, $selectedPanel, $selectedTabMenu)
+	
+	m _getMenuItems
+		if !this.props.children
+			throw new Error('Tabs must contain at least one TabPanel
+
+		if !Array.isArray(this.props.children)
+			set this.props.children = [this.props.children]
+
+		var $menuItems
+			_ this.props.children.map
+				=>
+					param $panel
+					return typeof $panel === 'function' ? $panel() : $panel
+				. filter
+					=>
+						param $panel
+						return $panel
+				. map
+					=>
+						param $panel
+						param index
+						var title = $panel.props.title
+						return
+							< TabItem
+								@ index {index}
+								@ title {title}
+								@ isActive {isActive}
+								@ onClick
+									=>
+										_ this.setActive.bind(this, index + 1)
+		return
+			nav
+				class tabs-navigation
+				ul
+					class tabs-menu
+					+ {$menuItems}
+
+	m _getSelectedPanel
+		var index = this.state.tabActive - 1
+		var $panel = this.props.children[index]
+		return
+			article
+				@ ref tab-panel
+				class tab-panel
+				+ {$panel}
+
+	m get_div_Style
+		return
+			{
+				@ float 'left'
+				@ marginRight 20
+
+	render
+		var className = classNames('tabs', this.props.className)
+		return
+			div
+				class {className}
+				+ {this._getMenuItems()}
+				+ {this._getSelectedPanel()}
+
+

@@ -1,0 +1,53 @@
+﻿module
+	kind react
+
+	import React from "react"
+	import { StyleSheet, css } from 'aphrodite'
+	import Link from "gatsby-link"
+	import { rhythm } from "../utils/typography"
+	import "./index.css"
+    
+
+	export default
+		=>
+			param { children, data }
+            log 'data', data
+			const linkStyle = css(styles.link)
+			return
+				div
+                    div
+                        @ className {css(styles.container)}
+                        < Link
+                            @ to {`/`}
+                            h3
+                                @ className {css(styles.linkTitle)}
+                        < Link
+                            @ className {linkStyle}
+                            @ to {`/about/`}
+                            + About
+                        < Link
+                            @ className {linkStyle}
+                            @ to {`/projects/`}
+                            + Projects
+                        < Link
+                            @ className {linkStyle}
+                            @ to {`/blog/`}
+                            + Blog
+					+ { children }
+
+	const styles
+		_ StyleSheet.create
+			{
+				{ link
+					@ float `right`
+					@ paddingLeft `10px`
+				{ linkTitle
+					@ marginBottom rhythm(2)
+					@ display `inline-block`
+				{ container
+					@ float `right`
+					@ paddingLeft `10px`		
+					@ margin `0 auto`
+					@ maxWidth 1000
+					@ padding rhythm(2)
+					@ paddingTop rhythm(1.5)

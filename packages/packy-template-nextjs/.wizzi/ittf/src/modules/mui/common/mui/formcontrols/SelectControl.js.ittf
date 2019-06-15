@@ -1,0 +1,133 @@
+﻿app/mui-component( SelectControl )
+
+	$append imports
+		import MuiSelect from '@material-ui/core/Select'
+		import MenuItem from '@material-ui/core/MenuItem'
+		import InputBase from '@material-ui/core/InputBase'
+
+		function normalizeOptions
+			param options
+			param value
+
+			# log 'normalizeOptions', options, value
+			
+			if !options
+				return []
+			
+			function getValue
+				param o
+				if o.val
+					return o.val
+				elif o.id
+					return o.id
+				elif o.key
+					return o.key
+				return o.value
+			
+			function getText
+				param o
+				if o.label
+					return o.label
+				elif o.name
+					return o.name
+				elif o.key
+					return o.key
+				return o.text
+
+			var j = 0
+
+			return
+				map( options, o )
+					isObject( o )
+						return 
+							{
+								@ key 'k' + (++j)
+								@ value getValue(o)
+								@ text getText(o)
+								@ selected getValue(o) === value
+					else
+						return 
+							{
+								@ key 'k' + (++j)
+								@ value o
+								@ text o
+								@ selected o === value
+
+	state
+		@ value undefined
+		@ optionTags []
+	
+	did-mount
+		prop id
+		prop value
+		prop data
+
+		const { options } = data
+
+		# log 'cssbuilder.SelectControl.did-mount.id,value', id, value
+
+		if !(options && options.length)
+			throw new Error('Missing options array on SelectControl ' + id)
+		
+		_ this.setState
+			{
+				@ value value
+
+	will-receive-props
+		const {id, value} = nextProps
+		# log '--- cssbuilder.SelectControl.will-receive.props.id,value', id, value
+		if value !== this.state.value
+			_ this.setState
+				{
+					@ value value
+
+	=> handleChange
+		param e
+		prop id
+		prop onChange
+		const value = e.target.value
+		_ this.setState
+			{
+				@ value value
+		if onChange
+			# log 'cssbuilder.SelectControl.onChange', id, value
+			_ onChange(value) 
+
+	render
+		prop classes
+		prop id
+		prop data
+
+		# log '++++ cssbuilder.SelectControl.render.id,value', id, this.state.value
+
+		const { value } = this.state
+		const { options } = data
+		const nroptions = normalizeOptions(options, value)
+		const optionTags
+			map( nroptions, o )
+				return
+					< MenuItem
+						@ value {o.value}
+						@ key {o.value}
+						@ className {classes.menuitem}
+						+ {o.text}
+
+		return
+			< MuiSelect
+				id {id}
+				value {value || ''}
+				@ onChange {this.handleChange}
+				+ {optionTags}
+				@ classes
+					{
+						@ root classes.root
+						@ select classes.input
+
+	$append styles
+		{ root
+			@ fontSize '${style.fonts.controls}'
+		{ input
+			@ padding '2px 32px 1px 0'
+		{ menuitem
+			@ padding '1px 10px'
+			@ fontSize '${style.fonts.controls}'

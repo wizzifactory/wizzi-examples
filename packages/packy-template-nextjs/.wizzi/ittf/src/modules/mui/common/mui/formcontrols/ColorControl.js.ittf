@@ -1,0 +1,42 @@
+﻿app/mui-component( ColorControl )
+
+	$append imports
+	
+	state
+		@ value ''
+	
+	did-mount
+		prop value
+		_ this.setState
+			{
+				@ value value
+
+	will-receive-props
+		const {value} = nextProps
+		# log 'ColorControl.will-receive-props-1.id.value', nextProps.id, nextProps.value
+		if value !== this.state.value
+			# log 'ColorControl.will-receive-props-2.id.value', nextProps.id, nextProps.value
+			_ this.setState
+				{
+					@ value value
+
+	=> handleChange
+		param e
+		prop id
+		prop onChange
+		const value = e.target.value
+		_ this.setState
+			{
+				@ value value
+		if onChange
+			log 'cssbuilder.ColorControl.onChange', id, value
+			_ onChange(value)
+
+	render
+		prop id
+		return
+			< input
+				id {id}
+				type color
+				value {this.state.value || '#000000'}
+				@ onChange {this.handleChange}

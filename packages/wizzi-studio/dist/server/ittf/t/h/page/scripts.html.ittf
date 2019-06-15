@@ -78,7 +78,7 @@ $group
 	
 		
 
-	$if opt.useReact || opt.useMaterialUi
+	$if opt.useReact || opt.useMaterialUI
 		$if opt.production
 			j( https://unpkg.com/prop-types@15.6/prop-types.min.js
 		$else
@@ -92,7 +92,7 @@ $group
 		$if opt.useClassNames
 			j( /static/lib/react/classnames.js
 
-		$if opt.useMaterialUi
+		$if opt.useMaterialUI
 			$$ j( https://cdn.jsdelivr.net/npm/material-ui@1.0.0-beta.47/umd/material-ui.development.js
 			j( https://unpkg.com/@material-ui/core/umd/material-ui.development.js
 
@@ -130,7 +130,7 @@ $group
 	$if opt.useVue
 		j( https://unpkg.com/vue
 		
-	$if opt.useReact || opt.useMaterialUi
+	$if opt.useReact || opt.useMaterialUI
 		$$ j( https://cdn.jsdelivr.net/npm/@babel/standalone@7.0.0-beta.51/babel.min.js
 		j( https://unpkg.com/babel-standalone@latest/babel.min.js
 

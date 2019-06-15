@@ -1,0 +1,16 @@
+module
+    kind es6
+    const path = require("path")
+
+    set module.exports
+        {
+            @ webpack
+                function
+                    param config
+                    _ config.module.rules.push
+                        {
+                            { resolve
+                                { alias
+                                    @ ...(config.resolve.alias||{})
+                                    @ 'layouts' path.resolve(__dirname, 'layouts')
+                    return config

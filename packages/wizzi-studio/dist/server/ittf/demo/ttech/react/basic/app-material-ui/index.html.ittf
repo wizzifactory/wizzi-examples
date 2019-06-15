@@ -3,7 +3,7 @@ html
 	$
 		var opt = {}
 		opt.title = 'Basic react app';
-		opt.useMaterialUi = true;
+		opt.useMaterialUI = true;
 	
 	h/root/empty_layout_opt(&opt)
 	

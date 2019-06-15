@@ -1,0 +1,23 @@
+﻿module
+	$params name
+	kind react
+
+	import React from 'react'
+	import PropTypes from 'prop-types'
+	import classNames from 'classnames'
+    import 
+        @ withStyles
+        from '@material-ui/core/styles'
+	$hook imports
+	+
+	react-f ${name}
+		$hook
+	+
+    const styles
+        => 
+            param theme
+            return
+                {
+                    $hook styles
+	+
+	export-default withStyles(styles)(${name})

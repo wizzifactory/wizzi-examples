@@ -1,0 +1,59 @@
+module
+    kind es6
+    # credits https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-remark-prismjs/src/load-prism-language.js
+    const Prism = require('prismjs')
+    const prismComponents = require('prismjs/components')
+    # Get the real name of a language given it or an alias
+    const getBaseLanguageName
+        => 
+            param nameOrAlias
+            param components = prismComponents
+            if components.languages[nameOrAlias]
+                return nameOrAlias
+            return 
+                _ Object.keys(components.languages).find
+                    => 
+                        param language
+                        const 
+                            { 
+                                @ alias
+                            = components.languages[language]
+                        if !alias
+                            return false
+                        if Array.isArray(alias)
+                            return alias.includes(nameOrAlias)
+                        else
+                            return alias === nameOrAlias
+    set module.exports =
+        function loadPrismLanguage
+            param language
+            const baseLanguage = getBaseLanguageName(language)
+            log 'loadPrismLanguage.baseLanguage', baseLanguage
+            if !baseLanguage
+                throw 
+                    new Error
+                        `lit 
+                            + Prism doesn't support language '
+                            @ language
+                            + '.
+            if Prism.languages[baseLanguage]
+                # Don't load already loaded language
+                return 
+            const languageData = prismComponents.languages[baseLanguage]
+            if languageData.option === 'default'
+                # Default language has already been loaded by Prism
+                return 
+            if languageData.require
+                # Load the required language first
+                if Array.isArray(languageData.require)
+                    _ languageData.require.forEach(loadPrismLanguage)
+                else
+                    _ loadPrismLanguage(languageData.require)
+            _ require
+                `lit 
+                    + prismjs/components/prism-
+                    @ baseLanguage
+                    + .js
+    #
+        # Exposed for unit testing
+    set module.exports.getBaseLanguageName = getBaseLanguageName

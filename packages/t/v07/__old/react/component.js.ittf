@@ -4,7 +4,7 @@
 	import React from 'react'
 	import PropTypes from 'prop-types'
 	
-	$if app.useMaterialUi
+	$if app.useMaterialUI
 		import classNames from 'classnames'
 		import { withStyles } from '@material-ui/core/styles'
 
@@ -45,7 +45,7 @@
 		$
 			nameSuffix = 'Contexted'
 	
-	$if app.useMaterialUi
+	$if app.useMaterialUI
 		
 		export default
 			$if md.withWidth || md.connect || md.pure

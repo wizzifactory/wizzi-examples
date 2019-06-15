@@ -1,0 +1,40 @@
+{
+    baseUrl "http://localhost:8080"
+    { package
+        name "demo-mern"
+        version "0.0.1"
+        description "Demo MERN"
+        title "Demo MERN"
+        license "MIT"
+        author "Stefano Bassoli stfn.bssl@gmail.com"
+    { feature
+        webpack true
+        react true
+        lint true
+        prettier true
+        auth true
+        socketio true
+        test true
+    { webpack
+        default false
+        baseAndProd true
+    { react
+        router true
+        materialUI true
+    { lint
+        default true
+        husky false
+    { prettier
+        default true
+    { auth
+        { strategies
+            local true
+            github true
+        { local
+            login true
+        { github
+            login false
+            service true
+    { test
+        jest true
+        enzime true

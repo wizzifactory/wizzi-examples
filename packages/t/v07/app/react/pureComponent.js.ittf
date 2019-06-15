@@ -4,12 +4,12 @@ $group
 	import React from 'react'
 	import PropTypes from 'prop-types'
 	
-	$if app.Build.react.useMaterialUi
+	$if app.Build.react.useMaterialUI
 		import classNames from 'classnames'
         $if md.withStyles
 		    import { withStyles } from '@material-ui/core/styles'
 
-    $if app.Build.react.redux.useForm && md.isReduxForm
+    $if app.Build.react.useRedux && app.Build.react.redux.useForm && md.isReduxForm
         import 
             @ Field
             @ FieldArray

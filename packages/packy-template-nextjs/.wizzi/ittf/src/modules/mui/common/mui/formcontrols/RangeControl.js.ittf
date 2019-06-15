@@ -1,0 +1,47 @@
+﻿app/mui-component( RangeControl )
+
+	$append imports
+		import TextField from '@material-ui/core/TextField'
+	
+	state
+		@ value undefined
+	
+	did-mount
+		prop value
+		_ this.setState
+			{
+				@ value value
+
+	will-receive-props
+		const {value} = nextProps
+		if value !== this.state.value
+			_ this.setState
+				{
+					@ value value
+
+	=> handleChange
+		param e
+		prop id
+		prop onChange
+		const value = e.target.value
+		_ this.setState
+			{
+				@ value value
+		if onChange
+			log 'cssbuilder.RangeControl.onChange', id, value
+			_ onChange(value) 
+
+	render
+		prop id
+		prop min
+		prop max
+		prop step
+		return
+			input
+				id {id}
+				type range
+				value {this.state.value}
+				min {min}
+				max {max}
+				step {step}
+				@ onChange {this.handleChange}

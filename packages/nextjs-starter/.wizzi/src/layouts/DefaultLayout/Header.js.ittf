@@ -1,0 +1,13 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Header"
+        };
+	
+	v07/app/react/purecomponent(&md)
+
+        render
+            return
+                h1 Hello header

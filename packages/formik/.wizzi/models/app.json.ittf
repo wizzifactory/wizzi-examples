@@ -22,8 +22,8 @@
             { router
             useRedux false
             { redux
-            useMaterialUi true
-            { materialUi
+            useMaterialUI true
+            { materialUI
                 useAutocomplete false
                 { autocomplete
                     useReactSelect false
@@ -38,6 +38,12 @@
             { perfectScrollbar
         useYup true
         { yup
+        useMoment true
+        { moment
+        useUnderscore true
+        { underscore
+        useValidateJs true
+        { validateJs
     
     { Styles
         useCustomTheme true
@@ -50,37 +56,60 @@
     { Portal
         [ views
             {
-                name "Dashboard"
+                component "Dashboard"
+                label "Dashboard"
                 path "/dashboard"
+                icon "Dashboard"
             {
-                name "FormikForm"
+                component "FormikForm"
+                label "FormikForm"
                 path "/formikform"
-            $*
+                icon "Dashboard"
             {
-                name "UserList"
-                path "/users"
-            {
-                name "ProductList"
-                path "/products"
-            {
-                name "Typography"
-                path "/typography"
-            {
-                name "Icons"
-                path "/icons"
-            {
-                name "Account"
-                path "/account"
-            {
-                name "Settings"
+                component "Settings"
+                label "Settings"
                 path "/settings"
+                icon "Settings"
             {
-                name "SignUp"
+                component "Account"
+                path "/account"
+                label "Account"
+                icon "AccountBox"
+            {
+                component "UserList"
+                path "/users"
+                label "Users"
+                icon "People"
+            {
+                component "ProductList"
+                path "/products"
+                label "Products"
+                icon "ShoppingBasket"
+            {
+                component "Icons"
+                path "/icons"
+                label "Icons"
+                icon "Image"
+            {
+                component "Colors"
+                path "/colors"
+                label "Colors"
+                icon "Image"
+            {
+                path "/sign-in"
+                label "Authentication"
+                icon "LockOpen"
+            {
+                component "SignIn"
+                path "/sign-in"
+            {
+                component "SignUp"
                 path "/sign-up"
             {
-                name "SignIn"
-                path "/sign-in"
-            *$
+                component "Typography"
+                path "/typography"
+                label "Typography"
+                icon "TextFields"
             {
-                name "NotFound"
+                component "NotFound"
                 path "/not-found"   

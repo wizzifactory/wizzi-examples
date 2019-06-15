@@ -1,0 +1,16 @@
+module
+    kind react
+    const withCSS = require('@zeit/next-css');
+
+    set module.exports =
+        _ withCSS
+            { 
+                @ cssModules true
+                @ webpack
+                    function 
+                        param config
+                        _ config.module.rules.push
+                            { 
+                                @ test /\.md$/
+                                @ use 'raw-loader'
+                        return config

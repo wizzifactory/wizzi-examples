@@ -12,7 +12,7 @@
 	$if app.useFirestoreServer
 		@google-cloud/firestore "^0.14.1"	
 
-	$if app.useMaterialUi || app.useMaterialUiIcons
+	$if app.useMaterialUI || app.useMaterialUIIcons
 		@material-ui/core "^1.1.0"
 		@material-ui/icons "^1.1.0"
 
@@ -32,7 +32,7 @@
 		axios "latest"
 		normalizr "latest"
 
-	$if app.useMaterialUi || app.useAphrodite
+	$if app.useMaterialUI || app.useAphrodite
 		classnames "^2.2.6"
 
 	$if app.useCodemirror
@@ -156,7 +156,7 @@
 		
 		$if app.useReduxForm
 			redux-form "^7.3.0"
-			$if app.useMaterialUi
+			$if app.useMaterialUI
 				redux-form-material-ui "next"
 		
 		$if app.useCodemirror

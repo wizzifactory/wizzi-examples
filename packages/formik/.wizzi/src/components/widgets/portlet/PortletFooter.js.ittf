@@ -1,0 +1,51 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "PortletFooter",
+            withStyles: true
+        };
+	
+	v07/app/react/purecomponent(&md)
+
+        $append imports
+
+        $append styles
+            { root
+                @ paddingBottom theme.spacing.unit
+                @ paddingTop theme.spacing.unit
+                @ paddingLeft theme.spacing.unit * 2
+                @ paddingRight theme.spacing.unit * 2
+                @ borderTop
+                    `lit 
+                        + 1px solid\b
+                        @ theme.palette.border
+                        + 
+                @ borderBottomLeftRadius '2px'
+                @ borderBottomRightRadius '2px'
+            { noDivider
+                @ borderTop 'none'
+
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    @ noDivider
+                    @ children
+                    ... rest
+                = this.props
+            
+            const rootClassName
+                _ classNames
+                    { 
+                        @ [classes.root] true
+                        @ [classes.noDivider] noDivider
+                    @ className
+            
+            return 
+                div 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    + {children}

@@ -1,0 +1,89 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "AccountProfile",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Avatar
+                @ Typography
+                @ Button
+                @ LinearProgress
+                from '@material-ui/core'
+            $include portlet-imports
+        
+        render
+            const 
+                { 
+                    @ classes
+                    @ className
+                    ... rest
+                = this.props
+            const rootClassName = classNames(classes.root, className)
+            return 
+                < Portlet 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    < PortletContent 
+                        div 
+                            @ className {classes.details}
+                            div 
+                                @ className {classes.info}
+                                < Typography 
+                                    @ variant "h2"
+                                    + John Doe
+                                < Typography 
+                                    @ className {classes.locationText}
+                                    @ variant "body1"
+                                    + Rm. Valcea, Romania
+                                < Typography 
+                                    @ className {classes.dateText}
+                                    @ variant "body1"
+                                    + 4:32PM (GMT-4)
+                            < Avatar 
+                                @ className {classes.avatar}
+                                @ src "/images/avatars/avatar_1.png"
+                        div 
+                            @ className {classes.progressWrapper}
+                            < Typography 
+                                @ variant "body1"
+                                + Profile Completeness: 70%
+                            < LinearProgress 
+                                @ value {70}
+                                @ variant "determinate"
+                    < PortletFooter 
+                        < Button 
+                            @ className {classes.uploadButton}
+                            @ color "primary"
+                            @ variant "text"
+                            + Upload picture
+                        < Button 
+                            @ variant "text"
+                            + Remove picture
+
+        $append styles
+            @ root {}
+            { details
+                @ display 'flex'
+            @ info {}
+            { locationText
+                @ marginTop theme.spacing.unit
+                @ color theme.palette.text.secondary
+            { dateText
+                @ color theme.palette.text.secondary
+            { avatar
+                @ marginLeft 'auto'
+                @ height '110px'
+                @ width '110px'
+                @ flexShrink 0
+                @ flexGrow 0
+            { progressWrapper
+                @ marginTop theme.spacing.unit * 2
+            { uploadButton
+                @ marginRight theme.spacing.unit * 2

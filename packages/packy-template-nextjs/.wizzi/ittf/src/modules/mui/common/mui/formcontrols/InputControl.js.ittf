@@ -1,0 +1,57 @@
+﻿app/mui-component( InputControl )
+
+	$append imports
+		import TextField from '@material-ui/core/TextField'
+	
+	state
+		@ value undefined
+	
+	did-mount
+		prop value
+		_ this.setState
+			{
+				@ value value
+
+	will-receive-props
+		const {value} = nextProps
+		if value !== this.state.value
+			_ this.setState
+				{
+					@ value value
+
+	=> handleChange
+		param e
+		prop id
+		prop onChange
+		const value = e.target.value
+		_ this.setState
+			{
+				@ value value
+		if onChange
+			log 'cssbuilder.inputcontrol.onChange', id, value
+			_ onChange(value) 
+
+	render
+		prop classes
+		prop id
+		prop type
+		return
+			< TextField
+				id {id}
+				type {type}
+				value {this.state.value}
+				@ onChange {this.handleChange}
+				@ className {classes.textField}
+				@ margin dense
+				@ InputProps
+					{
+						{ classes
+							@ input classes.input
+
+	$append styles
+		{ textField
+			@ margin 0
+			@ padding 0
+		{ input
+			@ color 'white'
+			@ padding '2px 1px'

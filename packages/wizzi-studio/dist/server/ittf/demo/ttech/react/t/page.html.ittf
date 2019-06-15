@@ -63,7 +63,7 @@
 				src ${react_dom_dev_url}
 				crossorigin anonymous
 		
-		$if opt.useMaterialUi
+		$if opt.useMaterialUI
 			$if opt.local
 				script
 					src /static/lib/material-ui/material-ui.development.3.1.2.js
@@ -136,7 +136,7 @@
 				module
 					kind react
 
-					$if opt.useMaterialUi
+					$if opt.useMaterialUI
 						const {
 							\b colors,
 							\b createMuiTheme,
@@ -147,7 +147,7 @@
 
 					$hook imports
 
-					$if opt.useMaterialUi
+					$if opt.useMaterialUI
 						const theme
 							_ createMuiTheme
 								{
@@ -167,7 +167,7 @@
 						style
 						$hook
 
-					$if opt.useMaterialUi
+					$if opt.useMaterialUI
 						const StyledApp
 							_ withStyles
 								@ styles

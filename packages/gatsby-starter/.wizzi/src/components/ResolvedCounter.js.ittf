@@ -1,0 +1,70 @@
+module
+    kind react
+    
+    import React from "react"
+    import PropTypes from "prop-types"
+    
+    const counterStyle
+        { 
+            @ display
+                `lit 
+                    + flex
+            @ flexFlow
+                `lit 
+                    + row nowrap
+            @ alignItems
+                `lit 
+                    + center
+            @ padding
+                `lit 
+                    + 0.2em 0.4em
+            @ borderRadius
+                `lit 
+                    + 2px
+            @ backgroundColor
+                `lit 
+                    + rgba(0, 0, 0, 0.2)
+            @ boxShadow
+                `lit 
+                    + inset 2px 1.5px 4px rgba(0, 0, 0, 0.2)
+    react Counter
+        
+        prop initialvalue
+            number
+            default 0
+        
+        state
+            @ value Number(this.props.initialvalue)
+        
+        => handleIncrement
+            _ this.setState
+                => 
+                    param state
+                    return 
+                        { 
+                            @ value state.value + 1
+        
+        => handleDecrement
+            _ this.setState
+                => 
+                    param state
+                    return 
+                        { 
+                            @ value state.value - 1
+        render
+            return 
+                span 
+                    @ style {counterStyle}
+                    strong 
+                        @ style
+                            { 
+                                @ flex "1 1"
+                        + {this.state.value}
+                    button 
+                        @ onClick {this.handleDecrement}
+                        + -1
+                    button 
+                        @ onClick {this.handleIncrement}
+                        + +1
+    
+    export-default Counter                        

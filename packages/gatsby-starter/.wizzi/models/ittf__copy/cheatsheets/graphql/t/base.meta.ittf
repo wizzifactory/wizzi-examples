@@ -1,0 +1,194 @@
+﻿element Base
+	tag
+	ast
+	category
+	
+	item
+		title type Mutation 
+		ittf
+            type Mutation
+                m createOption
+                    string name
+                    string type
+                    string format
+                    string value
+                    type Option
+                    {
+                        . id
+
+	item
+		title type Query
+		ittf
+            type Query
+                [ users
+                    item-type User
+                        %required
+                    %required
+
+	item
+		title Scalars
+		ittf
+            scalar Time
+            scalar Url
+
+	item
+		title type definition
+		ittf
+            type User
+                ID id
+                string authToken
+                string firstName
+                string lastName
+                string email
+                string mobile
+                boolean isOwner
+                ref picture
+                    int size
+                    type Url
+                ref company
+                    type Company
+                string oldField
+                    %deprecated
+
+	item
+		title interfaces
+		ittf
+            interface NamedEntity
+                string name
+                
+            interface ValuedEntity
+                int value
+
+            type Person
+                & NamedEntity
+                string name
+                int age
+
+            type Business
+                & NamedEntity
+                & ValuedEntity
+                string name
+                int value
+                int employeeCount
+
+	item
+		title unions
+		ittf
+            union SearchResult
+            $* TODO
+                | Photo
+                | Person
+            *$
+	
+	item
+		title enums
+		ittf
+            enum
+                @ NORTH
+                @ EAST
+                @ SOUTH
+                @ WEST
+
+	item
+		title Structure
+        ittf
+            input Point2D
+                {
+                    float x
+                    float y
+
+	item
+		title Directive
+		ittf
+            directive @example
+                int value
+                on FIELD_DEFINITION
+                on ARGUMENT_DEFINITION
+
+	item
+		title Type with examples
+		ittf
+            type SomeType
+                string field
+                    int arg 
+                        % example
+                            @ 5
+                    % example
+                        @ 5
+
+	item
+		title type Query
+        ittf
+            type Query
+                [ users
+                    ref User
+
+	item
+		title type Mutation
+		ittf
+            type Mutation
+                m createUser
+                    type User
+                    string email
+                        % required
+                    string firstName
+                    string lastName
+
+	item
+		title query
+		ittf
+            query getUserById
+                int id
+                { User
+                    @ id $id
+                        = 4
+                    . email
+                    . authToken
+                    . profilePic
+                        as smallPic
+                        @ size 64
+                    . profilePic
+                        as bigPic
+                        @ size 1024
+
+	item
+		title fragments
+		ittf
+            query withFragments
+                { user
+                    @ id 4
+                    { friends
+                        @ first 10
+                        ... friendFields
+                    { mutualFriends
+                        @ first 10
+                        ... friendFields
+
+	item
+		title fragments
+		ittf
+            fragment friendFields
+                on User
+                {
+                    . id
+                    . name
+                    . profilePic
+                        @ size 50
+
+	item
+		title query
+		ittf
+            query inlineFragmentTyping
+                { profiles
+                    @ handles
+                        [
+                            @ "zuck"
+                            @ "cocacola"
+                    . handle
+                    ...on User
+                        { friends
+                            . count
+                    ...on Page
+                        { likers
+                            . count
+

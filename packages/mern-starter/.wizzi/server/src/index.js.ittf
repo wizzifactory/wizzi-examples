@@ -1,0 +1,47 @@
+module
+    kind react
+    import 'babel-polyfill'
+    import 
+        @ config
+        from './features/config'
+    import mongodbStart from './services/mongodb'
+    import { siteControllers } from './site'
+    import 
+        @ authControllers
+        @ authModelBuilders
+        from './features/auth'
+    import 
+        @ blogControllers
+        @ blogModelBuilders
+        from './features/blog'
+    import 
+        @ appMiddlewares
+        from './middleware'
+    import App from './App'
+    
+    async-function start
+        let modelBuilders
+            [ 
+                @ ...authModelBuilders
+                @ ...blogModelBuilders
+        await mongodbStart(config, modelBuilders)
+        let middlewares
+            [ 
+                @ ...appMiddlewares
+        let controllers
+            [ 
+                @ ...siteControllers
+                @ ...authControllers
+                @ ...blogControllers
+        const appInitializer
+            { 
+                @ config
+                @ controllers
+                @ middlewares
+        const app = new App(appInitializer)
+        _ app.listen
+    
+    try 
+        _ start
+    catch ex
+        log ex

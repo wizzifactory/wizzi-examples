@@ -1,0 +1,33 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "PortletToolbar",
+            withStyles: true
+        };
+	
+	v07/app/react/purecomponent(&md)
+
+        $append imports
+        $append styles
+            
+            { root
+                @ justifyContent 'flex-end'
+                @ alignItems 'center'
+                @ display 'flex'
+
+        render 
+            const 
+                { 
+                    @ classes
+                    @ className
+                    @ children
+                    ... rest
+                = this.props
+            const rootClassName = classNames(classes.root, className)
+            return 
+                div 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    + {children}

@@ -1,0 +1,19 @@
+module
+    kind react
+    # Mock data
+    import products from 'components/demo_05/data/products'
+    export 
+        const getProducts
+            => 
+                param limit = 6
+                return 
+                    new Promise
+                        => 
+                            param resolve
+                            _ setTimeout
+                                => 
+                                    _ resolve
+                                        { 
+                                            @ products products.slice(0, limit)
+                                            @ productsTotal products.length
+                                @ 700

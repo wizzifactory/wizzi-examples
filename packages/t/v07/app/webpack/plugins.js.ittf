@@ -1,4 +1,9 @@
 ﻿$group
+
+    new webpack.DefinePlugin
+        { 
+            @ 'process.env.VERSION' JSON.stringify(env.VERSION)
+            @ 'process.env.PLATFORM' JSON.stringify(env.PLATFORM)
 	
 	$if app.Build.useMonaco
 		new MonacoWebpackPlugin()
@@ -29,3 +34,9 @@
 
 	$if app.Build.useHotReplacement
 		new webpack.HotModuleReplacementPlugin()
+
+    $if app.Build.webpack.useCopy
+        new CopyWebpackPlugin
+            [ 
+                { 
+                    @ from 'src/static'

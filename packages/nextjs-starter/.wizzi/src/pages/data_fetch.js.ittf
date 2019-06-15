@@ -1,0 +1,52 @@
+module
+    kind react
+    import DefaultLayout from 'layouts/DefaultLayout'
+    import Link from 'next/link'
+    import fetch from 'isomorphic-unfetch'
+    const DataFetch
+        => 
+            param props
+            < DefaultLayout 
+                h1 
+                    + Batman TV Shows
+                ul 
+                    { 
+                        _ props.shows.map
+                            => 
+                                param show
+                                li 
+                                    @ key {show.id}
+                                    < Link 
+                                        @ as
+                                            `lit 
+                                                + /p/
+                                                @ show.id
+                                                + 
+                                        @ href
+                                            `lit 
+                                                + /post_fetch?id=
+                                                @ show.id
+                                                + 
+                                        a 
+                                            + {show.name}
+    set DataFetch.getInitialProps =
+        async-function 
+            const res
+                await 
+                    _ fetch('https://api.tvmaze.com/search/shows?q=batman')
+            const data
+                await 
+                    _ res.json
+            _ console.log
+                `lit 
+                    + Show data fetched. Count:\b
+                    @ data.length
+                    + 
+            return 
+                { 
+                    @ shows
+                        _ data.map
+                            => 
+                                param entry
+                                + entry.show
+    export-default DataFetch

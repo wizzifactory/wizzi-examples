@@ -1,0 +1,209 @@
+module
+    kind react
+    # ChartJS extension rounded bar chart
+    # https://codepen.io/jedtrow/full/ygRYgo
+    function draw
+        const 
+            { 
+                @ ctx
+            = this._chart
+        const vm = this._view
+        let 
+            { 
+                @ borderWidth
+            = vm
+        let left
+        let right
+        let top
+        let bottom
+        let signX
+        let signY
+        let borderSkipped
+        let radius
+        # If radius is less than 0 or is large enough to cause drawing errors a max
+        # radius is imposed. If cornerRadius is not defined set it to 0.
+        let 
+            { 
+                @ cornerRadius
+            = this._chart.config.options
+        if cornerRadius < 0
+            set cornerRadius = 0
+        if typeof cornerRadius === 'undefined'
+            set cornerRadius = 0
+        if !vm.horizontal
+            # bar
+            set left = vm.x - vm.width / 2
+            set right = vm.x + vm.width / 2
+            set top = vm.y
+            set bottom = vm.base
+            set signX = 1
+            set signY =
+                iif bottom > top
+                    then 1
+                    else -1
+            set borderSkipped = vm.borderSkipped || 'bottom'
+        else
+            # horizontal bar
+            set left = vm.base
+            set right = vm.x
+            set top = vm.y - vm.height / 2
+            set bottom = vm.y + vm.height / 2
+            set signX =
+                iif right > left
+                    then 1
+                    else -1
+            set signY = 1
+            set borderSkipped = vm.borderSkipped || 'left'
+        # Canvas doesn't allow us to stroke inside the width so we can
+        # adjust the sizes to fit if we're setting a stroke on the line
+        if borderWidth
+            # borderWidth shold be less than bar width and bar height.
+            const barSize = Math.min(Math.abs(left - right), Math.abs(top - bottom))
+            set borderWidth =
+                iif borderWidth > barSize
+                    then barSize
+                    else borderWidth
+            const halfStroke = borderWidth / 2
+            # Adjust borderWidth when bar top position is near vm.base(zero).
+            const borderLeft
+                op+ 
+                    + left
+                    iif borderSkipped !== 'left'
+                        then halfStroke * signX
+                        else 0
+            const borderRight
+                op+ 
+                    + right
+                    iif borderSkipped !== 'right'
+                        then -halfStroke * signX
+                        else 0
+            const borderTop
+                op+ 
+                    + top
+                    iif borderSkipped !== 'top'
+                        then halfStroke * signY
+                        else 0
+            const borderBottom
+                op+ 
+                    + bottom
+                    iif borderSkipped !== 'bottom'
+                        then -halfStroke * signY
+                        else 0
+            # not become a vertical line?
+            if borderLeft !== borderRight
+                set top = borderTop
+                set bottom = borderBottom
+            # not become a horizontal line?
+            if borderTop !== borderBottom
+                set left = borderLeft
+                set right = borderRight
+        _ ctx.beginPath
+        set ctx.fillStyle = vm.backgroundColor
+        set ctx.strokeStyle = vm.borderColor
+        set ctx.lineWidth = borderWidth
+        # Corner points, from bottom-left to bottom-right clockwise
+        # | 1 2 |
+        # | 0 3 |
+        const corners
+            [ 
+                [ 
+                    @ left
+                    @ bottom
+                [ 
+                    @ left
+                    @ top
+                [ 
+                    @ right
+                    @ top
+                [ 
+                    @ right
+                    @ bottom
+        # Find first (starting) corner with fallback to 'bottom'
+        const borders
+            [ 
+                @ 'bottom'
+                @ 'left'
+                @ 'top'
+                @ 'right'
+        let startCorner = borders.indexOf(borderSkipped, 0)
+        if startCorner === -1
+            set startCorner = 0
+        function cornerAt
+            param index
+            return corners[(startCorner + index) % 4]
+        # Draw rectangle from 'startCorner'
+        let corner = cornerAt(0)
+        _ ctx.moveTo(corner[0], corner[1])
+        for let i = 1; i < 4;
+            set corner = cornerAt(i)
+            let nextCornerId = i + 1
+            if nextCornerId === 4
+                set nextCornerId = 0
+            const width = corners[2][0] - corners[1][0]
+            const height = corners[0][1] - corners[1][1]
+            const x = corners[1][0]
+            const y = corners[1][1]
+            set radius = cornerRadius
+            # Fix radius being too large
+            if radius > Math.abs(height) / 2
+                set radius = Math.floor(Math.abs(height) / 2)
+            if radius > Math.abs(width) / 2
+                set radius = Math.floor(Math.abs(width) / 2)
+            if height < 0
+                # Negative values in a standard bar chart
+                const xTl = x
+                const xTr = x + width
+                const yTl = y + height
+                const yTr = y + height
+                const xBl = x
+                const xBr = x + width
+                const yBl = y
+                const yBr = y
+                # Draw
+                _ ctx.moveTo(xBl + radius, yBl)
+                _ ctx.lineTo(xBr - radius, yBr)
+                _ ctx.quadraticCurveTo(xBr, yBr, xBr, yBr - radius)
+                _ ctx.lineTo(xTr, yTr + radius)
+                _ ctx.quadraticCurveTo(xTr, yTr, xTr - radius, yTr)
+                _ ctx.lineTo(xTl + radius, yTl)
+                _ ctx.quadraticCurveTo(xTl, yTl, xTl, yTl + radius)
+                _ ctx.lineTo(xBl, yBl - radius)
+                _ ctx.quadraticCurveTo(xBl, yBl, xBl + radius, yBl)
+            else
+                if width < 0
+                    # Negative values in a horizontal bar chart
+                    const xTl = x + width
+                    const xTr = x
+                    const yTl = y
+                    const yTr = y
+                    const xBl = x + width
+                    const xBr = x
+                    const yBl = y + height
+                    const yBr = y + height
+                    # Draw
+                    _ ctx.moveTo(xBl + radius, yBl)
+                    _ ctx.lineTo(xBr - radius, yBr)
+                    _ ctx.quadraticCurveTo(xBr, yBr, xBr, yBr - radius)
+                    _ ctx.lineTo(xTr, yTr + radius)
+                    _ ctx.quadraticCurveTo(xTr, yTr, xTr - radius, yTr)
+                    _ ctx.lineTo(xTl + radius, yTl)
+                    _ ctx.quadraticCurveTo(xTl, yTl, xTl, yTl + radius)
+                    _ ctx.lineTo(xBl, yBl - radius)
+                    _ ctx.quadraticCurveTo(xBl, yBl, xBl + radius, yBl)
+                else
+                    # Positive Value
+                    _ ctx.moveTo(x + radius, y)
+                    _ ctx.lineTo(x + width - radius, y)
+                    _ ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
+                    _ ctx.lineTo(x + width, y + height - radius)
+                    _ ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+                    _ ctx.lineTo(x + radius, y + height)
+                    _ ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
+                    _ ctx.lineTo(x, y + radius)
+                    _ ctx.quadraticCurveTo(x, y, x + radius, y)
+        _ ctx.fill
+        if borderWidth
+            _ ctx.stroke
+    export-default 
+        { 
+            @ draw

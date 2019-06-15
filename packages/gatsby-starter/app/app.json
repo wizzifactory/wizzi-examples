@@ -1,0 +1,80 @@
+{
+    "name": "gatsby-starter",
+    "version": "0.0.1",
+    "description": "Gatsby starter template",
+    "author": "Stefano Bassoli",
+    "license": "MIT",
+    "Params": {
+        "title": "Gatsby starter",
+        "baseUrl": "http://localhost:8080"
+    },
+    "Build": {
+        "useDotenv": true,
+        "dotenv": {},
+        "useModuleResolver": true,
+        "moduleResolver": {
+            "root": "./src",
+            "aliases": [
+                {
+                    "alias": "@components",
+                    "path": "./components"
+                },
+                {
+                    "alias": "@layouts",
+                    "path": "./layouts"
+                },
+                {
+                    "alias": "@templates",
+                    "path": "./templates"
+                },
+                {
+                    "alias": "@utils",
+                    "path": "./utils"
+                }
+            ]
+        },
+        "useBlog": true,
+        "blog": {},
+        "useStyle": true,
+        "style": {
+            "useTypography": true,
+            "typography": {
+                "theme": "kirkham"
+            },
+            "useAphrodite": true,
+            "aphrodite": {}
+        },
+        "useMaterialUI": true,
+        "materialUI": {},
+        "useContentful": true,
+        "contentful": {},
+        "useFilesystem": true,
+        "filesystem": {
+            "folders": [
+                {
+                    "name": "data",
+                    "path": "`Æ{__dirname}/src/data`"
+                }
+            ]
+        },
+        "useJson": true,
+        "json": {},
+        "useMongoDB": true,
+        "mongoDB": {
+            "collections": [
+                {
+                    "name": "accounts"
+                }
+            ]
+        },
+        "useMedium": true,
+        "medium": {
+            "username": "@ReactEurope",
+            "limit": 20
+        },
+        "useWizzi": true,
+        "wizzi": {
+            "src": "`Æ{__dirname}/src/models/cheatsheets`"
+        }
+    }
+}

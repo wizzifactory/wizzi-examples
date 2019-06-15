@@ -1,0 +1,62 @@
+module
+    kind react
+    import React from "react"
+    import 
+        @ graphql
+        from "gatsby"
+    const mediumCDNUrl = 'https://cdn-images-1.medium.com/max/150/'
+    const IndexPage
+        => 
+            { 
+                @ data
+            const posts = data.allMediumPost.edges
+            return 
+                div
+                    h1 Example showing Medium posts
+                    main 
+                        { 
+                            _ posts.map
+                                => 
+                                    param post
+                                    article 
+                                        @ key {post.node.id}
+                                        h2 
+                                            + {post.node.title}
+                                        h3 
+                                            + by \b
+                                            + {post.node.author.name}
+                                        img 
+                                            @ src
+                                                `lit 
+                                                    + 
+                                                    @ mediumCDNUrl
+                                                    + /
+                                                    @ post.node.virtuals.previewImage.imageId
+                                                    + 
+                                            @ alt {post.node.title}
+                                            @ width "150"
+    export-default IndexPage
+    # Increase the `limit` parameter to get more posts
+    export 
+        const pageQuery
+            _` graphql
+                + \n
+                + \b query {\n
+                + \b   allMediumPost(limit: 5, sort: { fields: [createdAt], order: DESC }) {\n
+                + \b     edges {\n
+                + \b       node {\n
+                + \b         id\n
+                + \b         title\n
+                + \b         author {\n
+                + \b           name\n
+                + \b         }\n
+                + \b         virtuals {\n
+                + \b           previewImage {\n
+                + \b             imageId\n
+                + \b           }\n
+                + \b         }\n
+                + \b       }\n
+                + \b     }\n
+                + \b   }\n
+                + \b }\n
+                + 

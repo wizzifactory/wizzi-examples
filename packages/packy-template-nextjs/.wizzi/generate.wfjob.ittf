@@ -1,0 +1,44 @@
+﻿wfjob packy-template-gatsby
+	
+	$
+		var ittf_models_folder  = path.join(__dirname, 'ittf', 'models');
+		var ittf_root_folder    = path.join(__dirname, 'ittf', 'root');
+		var ittf_src            = path.join(__dirname, 'ittf', 'src');
+		var dest_folder         = path.resolve(__dirname, '..', 'web');
+
+	model data
+        schema json
+        src ${ittf_models_folder}/data.json.ittf
+
+	model style
+        schema json
+        src ${ittf_models_folder}/style.json.ittf
+
+	line root
+		cwd-folder ${ittf_root_folder}
+		dest-folder ${dest_folder}
+
+		wfjob/any_js()
+			wfjob/models()
+		wfjob/any_json()
+			wfjob/models()
+		wfjob/any_md()
+			wfjob/models()
+
+	line src
+		cwd-folder ${ittf_src}
+		dest-folder ${dest_folder}
+
+		wfjob/any_js()
+			wfjob/models()
+		wfjob/any_json()
+			wfjob/models()
+		wfjob/any_css()
+			wfjob/models()
+		wfjob/any_plain(css)
+		wfjob/any_md()
+			wfjob/models()
+
+	production
+		line-ref root
+		line-ref src

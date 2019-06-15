@@ -1,0 +1,6 @@
+﻿app/mui-component( TabPanel )
+	
+	render
+		return
+			div
+				+ {this.props.children}

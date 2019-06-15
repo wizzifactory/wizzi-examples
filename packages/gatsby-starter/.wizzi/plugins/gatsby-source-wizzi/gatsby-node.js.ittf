@@ -1,0 +1,81 @@
+module
+    kind es6
+
+	var path = require('path')
+    var fs = require('fs')
+    var async = require('async')
+    var cheatsheets = require('./cheatsheets')
+
+    function getCheatSheetFolders
+        param folderPath
+        param callback
+        log 'getCheatSheetFolders.folderPath', folderPath
+        _ fs.readdir
+            @ folderPath
+            f_cb( items )
+                var ret = []
+                foreach item in items
+                    # if item.endsWith('.meta.ittf') && item.indexOf('\\t\\') < 0
+                    _ ret.push(item)
+                r_cb( ret )
+
+    set exports.sourceNodes =
+        => 
+            param { actions, createNodeId, createContentDigest  }
+            param options
+            const { createNode } = actions
+            return
+                new Promise
+                    =>
+                        param resolve
+                        param reject
+                        _ getCheatSheetFolders
+                            @ options.src
+                            f_cb_no_throw( folders )
+                                if err
+                                    log 'getCheatSheetFolders.err', err
+                                    return
+                                        _ reject(err)
+                                log 'getCheatSheetFolders.folders', folders
+                                _ async.mapSeries
+                                    @ folders
+                                    =>
+                                        param folder
+                                        param callback
+                                        log 'gatsby-source-wizzi', folder
+                                        _ cheatsheets.loadCheatsheet
+                                            _ path.join
+                                                @ options.src
+                                                @ folder
+                                                @ 'index.meta.ittf'
+                                            f_cb_no_throw( result )
+                                                if err
+                                                    log 'cheatsheets.result', result
+                                                    return
+                                                        _ callback
+                                                            @ err
+                                                _ createNode
+                                                    { 
+                                                        @ csName folder
+                                                        @ slug folder
+                                                        @ id
+                                                            _ createNodeId
+                                                                `lit 
+                                                                    + cs-folder-
+                                                                    @ folder
+                                                        @ parent null
+                                                        @ children []
+                                                        { internal
+                                                            @ type 'Cheatsheet'
+                                                            @ content folder
+                                                            @ contentDigest createContentDigest(folder)
+                                                        @ ...result
+                                                _ callback
+                                                    @ null
+                                    f_cb_no_throw()
+                                        if (err)
+                                            return
+                                                _ reject(err)
+                                        return
+                                            _ resolve()
+

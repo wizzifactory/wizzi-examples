@@ -1,0 +1,10 @@
+$group
+
+    $if app.Build.useLint && app.Build.lint.useHusky
+        { husky
+            { hooks
+                pre-commit "lint-staged"
+        { lint-staged
+            [ *.(js|jsx)
+                "npm run lint:write"
+                "git add"

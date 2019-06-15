@@ -1,0 +1,76 @@
+﻿app/mui-component( Resizer )
+    $append imports
+	    import Prefixer from 'inline-style-prefixer'
+	    import stylePropType from 'react-style-proptype'
+        var USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2'
+
+    prop className
+        string
+        required
+    prop onClick
+        func
+    prop onDoubleClick
+        func
+    prop onMouseDown
+        func
+        required
+    prop onTouchStart
+        func
+        required
+    prop onTouchEnd
+        func
+        required
+    prop prefixer
+        instance-of Prefixer
+        required
+        default new Prefixer({ userAgent: USER_AGENT })
+    prop split
+        one-of
+            @ 'vertical'
+            @ 'horizontal'
+    prop style stylePropType
+    prop resizerClassName
+        string
+        required
+        default 'Resizer'
+
+    render
+        var {className, onClick, onDoubleClick, onMouseDown, onTouchEnd, onTouchStart, prefixer, resizerClassName, split, style} = this.props
+        var classes
+            [ 
+                @ resizerClassName
+                @ split
+                @ className
+
+        return
+            span
+                class {classes.join(' ')}
+                @ style {prefixer.prefix(style) || {}}
+                @ onMouseDown
+                    =>
+                        param event
+                        _ onMouseDown(event)
+                @ onTouchStart
+                    =>
+                        param event
+                        _ event.preventDefault()
+                        _ onTouchStart(event)
+                @ onTouchEnd
+                    =>
+                        param event
+                        _ event.preventDefault()
+                        _ onTouchEnd(event)
+                @ onClick
+                    =>
+                        param event
+                        if onClick
+                            _ event.preventDefault()
+                            _ onClick(event)
+                @ onDoubleClick
+                    =>
+                        param event
+                        if onDoubleClick
+                            _ event.preventDefault()
+                            _ onDoubleClick(event)
+            
+

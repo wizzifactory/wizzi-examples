@@ -1,0 +1,14 @@
+﻿$group
+	$params name
+	
+	react-f ${name}Function
+		$hook
+	+
+    const ${name}Styles
+        => 
+            param theme
+            return
+                {
+                    $hook styles
+	+
+	const ${name} = withStyles(${name}Styles)(${name}Function)

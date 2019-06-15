@@ -1,0 +1,10 @@
+﻿module
+	kind react
+
+	$
+		var md = {
+			kebabCase: true,
+			titleize: true,
+		};
+
+	app/utils/helpers(&md)

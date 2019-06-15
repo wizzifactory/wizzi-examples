@@ -1,0 +1,113 @@
+﻿$group
+
+	const htmlFragments
+		{
+			@ menu
+				id_tag(menu, div, menu)
+					tag(div, menu-item, File)
+					tag(div, menu-item, Edit)
+			@ list
+				id_tag(list, ul, list-1)
+					tag(li, list-1-item, File
+					tag(li, list-1-item, Edit
+			@ 'media-object-1'
+				id_tag(media-object-1, div, media-object-1 media-object-1-attribution)
+					tag(a, media-object-1-img, 
+						prop(href, http://twitter.com/stubbornella
+						tag(img, media-object-1-img-img
+							prop(src, http://stubbornella.com/profile_image.jpg
+							prop(alt, me
+    				tag(div, media-object-1-bd, @Stubbornella 14 minutes ago
+			@ 'bar-1'
+				id_tag(bar-1, div, ,
+					tag(div, bar-1-fb-featurebar bar-1-dark-theme-container, Feature bar
+						tag(div, bar-1-fb-featurebar-main
+							tag(div, bar-1-fb-featurebar-title-lockup
+								tag(div, bar-1-fb-featurebar-title, Database
+							tag(div, bar-1-fb-featurebar-app-selector-container bar-1-fb-featurebar-space-consumer 
+								tag(div, bar-1-fb-resource-selector
+									tag( div, bar-1-resource-selector
+										tag(div, bar-1-selected-resource-wrapper
+											tag(div, bar-1-selected-resource
+												tag(i, bar-1-gmp-icons bar-1-ng-star-inserted, gmp_firestore 
+													tag(span, bar-1-resource-selector-text, Cloud Firestore
+											tag(div, bar-1-mat-select-arrow-wrapper
+												tag(div, bar-1-mat-select-arrow
+							tag(div, bar-1-fb-featurebar-help-container 
+
+			@ 'twitter-bar'
+				id_tag(twitter-bar, div, twitter-bar-container
+					id_tag(twitter-bar, ul, twitter-bar-ul
+						prop(role, navigation
+						tag(li, twitter-bar-li
+							tag(i, , Home
+								prop(class, fa fa-home
+						tag(li, twitter-bar-li
+							tag(i, , Notifications
+								prop(class, fa fa-bell-o
+						tag(li, twitter-bar-li
+							tag(i, , Messages
+								prop(class, fa fa-envelope-o
+						tag(li, twitter-bar-li twitter-bar__bird
+							tag(i, ,
+								prop(class, fa fa-twitter
+						tag(li, twitter-bar-li
+							tag(form
+								tag(input
+									prop(placeholder, search twitter
+								tag(i, ,
+									prop(class, fa fa-search
+						tag(li, twitter-bar-li
+							tag(i, ,
+								prop(class, fa-user-circle-o
+						tag(li, twitter-bar-li
+							tag(button, twitter-bar-li-button, tweet
+			@ 'grid-1'
+				id_tag(grid-1, div, grid-1
+					tag(header, grid-1-header, Header
+					tag(nav, grid-1-nav, Navigation
+					tag(main, grid-1-main , Navigation
+						tag(h1, grid-1-h1, Main
+						tag(p, grid-1-p, Vestibulum consectetur sit amet nisi ut consectetur. Praesent efficitur nibh vitae fringilla scelerisque est neque faucibus quam in iaculis purus libero eget mauris. Curabitur et luctus sapien ac gravida orci. Aliquam erat volutpat. In hac habitasse platea dictumst. Aenean commodo arcu a commodo efficitur libero dolor mollis turpis non posuere orci leo eget enim. Curabitur sit amet elementum orci pulvinar dignissim urna. Morbi id ex eu ex congue laoreet. Aenean tincidunt dolor justo semper pretium libero luctus nec. Ut vulputate metus accumsan leo imperdiet tincidunt. Phasellus nec rutrum dolor. Cras imperdiet sollicitudin arcu id interdum nibh fermentum in.
+					tag(aside, grid-1-aside, Related links
+					tag(footer, grid-1-footer, Footer
+			@ form
+				id_tag(form, form, ,
+					tag(ul, form-1
+						tag(li, form-1-li
+							tag(label, form-1-label, Full Name
+								tag(span, form-1-required, *
+							tag(input, form-1-field-divided form-1-field-input
+								prop(type, text
+								prop(name, field1
+								prop(placeholder, First
+							tag(input, form-1-field-divided form-1-field-input
+								prop(type, text
+								prop(name, field2
+								prop(placeholder, Last
+						tag(li, form-1-li 
+							tag(label, form-1-label, Email
+								tag(span, form-1-required, *
+							tag(input, field-long form-1-field-input
+								prop(type, email
+								prop(name, field3
+						tag(li, form-1-li 
+							tag(label, form-1-label, Subject
+							tag(select, form-1-field-select form-1-field-input
+								prop(name, field4
+								tag(option, , Advertise
+									prop(value, Advertise
+								tag(option, , Partnership
+									prop(value, Partnership
+								tag(option, , General
+									prop(value, General Question
+						tag(li, form-1-li 
+							tag(label, form-1-label, Your Message
+								tag(span, form-1-required, *
+							tag(textarea, form-1-field-long form-1-field-textarea form-1-field-input
+								prop(name, field5
+								prop(id, field5
+						tag(li, form-1-li 
+							tag(input, form-1-input-button
+								prop(type, submit
+								prop(value, Submit

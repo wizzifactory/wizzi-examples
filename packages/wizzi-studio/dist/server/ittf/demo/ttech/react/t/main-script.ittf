@@ -1,7 +1,7 @@
 ﻿$group
 	$params &opt
 
-	$if opt.useMaterialUi
+	$if opt.useMaterialUI
 
 		const {
 			\b colors,

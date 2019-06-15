@@ -1,0 +1,28 @@
+module
+    kind react
+    const path = require('path')
+    set exports.onCreateNode =
+        => 
+            param { node, actions, getNode }
+            const { createNodeField } = actions
+            if node.internal.type === 'MarkdownRemark'
+                const fileNode = getNode(node.parent)
+                let nodeSlug
+                    _ ensureSlashes
+                        _ path.basename
+                            @ fileNode.relativePath
+                            @ path.extname(fileNode.relativePath)
+                if nodeSlug
+                    _ createNodeField
+                        { 
+                            @ node
+                            @ name 'slug'
+                            @ value nodeSlug
+    
+    function ensureSlashes
+        param slug
+        if slug.charAt(0) !== '/'
+            set slug = '/' + slug
+        if slug.charAt(slug.length - 1) !== '/'
+            set slug = slug + '/'
+        return slug

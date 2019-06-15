@@ -1,0 +1,103 @@
+﻿module
+	kind react
+
+	$include app-options
+	$ 
+		var md = { name: 'FormDemos' }
+	
+	app/component(&md, &app)
+
+		$append imports
+			import SampleForm from '../demos/SampleForm'
+			import ReduxSimpleForm from '../demos/reduxForm/SimpleFormController'
+			import ReduxSyncValidationForm from '../demos/reduxForm/SyncValidationFormController'
+			import ReduxFieldLevelValidationForm from '../demos/reduxForm/FieldLevelValidationFormController'
+			import ReduxSubmitValidationForm from '../demos/reduxForm/SubmitValidationFormController'
+			import ReduxAsyncValidationForm from '../demos/reduxForm/AsyncValidationFormController'
+			import ReduxFieldArrayForm from '../demos/reduxForm/FieldArrayFormController'
+			import ReduxWizardForm from '../demos/reduxForm/WizardFormController'
+
+			const demoArray
+				[
+					@ 'SampleForm'
+					@ 'ReduxSimpleForm'
+					@ 'ReduxSyncValidationForm'
+					@ 'ReduxFieldLevelValidationForm'
+					@ 'ReduxSubmitValidationForm'
+					@ 'ReduxAsyncValidationForm'
+					@ 'ReduxFieldArrayForm'
+					@ 'ReduxWizardForm'
+
+		state
+			@ currentDemo 'SampleForm'
+
+		=> handleChangeDemo
+			param e
+			_ this.setState
+				{
+					@ currentDemo e.target.value
+		
+		render
+			prop classes
+			log 'render.state', this.state
+			const {currentDemo} = this.state
+			
+			return
+				. {classes.container}
+					select
+						value {currentDemo}
+						@ onChange {this.handleChangeDemo}
+						{
+							map( demoArray, o )
+								return
+									option {o}
+										@ key {o}
+										@ value {o}
+
+					. {classes.demos}
+						{
+							&&
+								+ currentDemo == 'SampleForm'
+								< SampleForm
+						{
+							&&
+								+ currentDemo == 'ReduxSimpleForm'
+								< ReduxSimpleForm
+						{
+							&&
+								+ currentDemo == 'ReduxSyncValidationForm'
+								< ReduxSyncValidationForm
+						{
+							&&
+								+ currentDemo == 'ReduxFieldLevelValidationForm'
+								< ReduxFieldLevelValidationForm
+						{
+							&&
+								+ currentDemo == 'ReduxSubmitValidationForm'
+								< ReduxSubmitValidationForm
+						{
+							&&
+								+ currentDemo == 'ReduxAsyncValidationForm'
+								< ReduxAsyncValidationForm
+						{
+							&&
+								+ currentDemo == 'ReduxFieldArrayForm'
+								< ReduxFieldArrayForm
+						{
+							&&
+								+ currentDemo == 'ReduxWizardForm'
+								< ReduxWizardForm
+
+		style
+
+			@ container
+				{
+					@ paddingTop '80px'		
+			
+			@ demos
+				{ 
+					@ display 'flex'
+					@ alignItems 'stretch'
+					@ minHeight '100vh'
+					@ width '100%'
+

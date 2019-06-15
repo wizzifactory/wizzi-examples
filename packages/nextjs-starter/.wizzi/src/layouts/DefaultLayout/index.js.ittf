@@ -1,0 +1,20 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "DefaultLayout"
+        };
+	
+	v07/app/react/purecomponent(&md)
+
+        $append imports
+            import Header from './Header'
+        render
+            prop children
+            return
+                div
+                    h1 Hello default layout
+                    < Header
+                    + {children}
+

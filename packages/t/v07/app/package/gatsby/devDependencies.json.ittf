@@ -1,0 +1,4 @@
+$group
+
+    $if app.Build.usePrettier
+        prettier "^1.12.0"

@@ -1,0 +1,68 @@
+﻿module
+	kind es6
+
+    const path = require("path")
+
+	set exports.createPages
+        =>
+            param { boundActionCreators, graphql }
+            const { createPage } = boundActionCreators
+			$if data.features.blog
+				_ createBlogPages
+					@ createPage
+					@ graphql
+					function
+						param err
+						if err
+							return Promise.reject(err)
+
+	$if data.features.blog
+		function createBlogPages
+			param createPage
+			param graphql
+			param callback
+			const blogPostTemplate = path.resolve(`src/templates/blog-template.js`);
+			_ graphql
+				graphql-query
+					{ allContentfulBlogPost
+						: filter
+							{
+								@ node_locale
+									{
+										@ eq "en-US"
+						: sort
+							{ 
+								@ order DESC
+								@ fields
+									[
+										@ createdAt 
+						: limit 1000
+
+						{ edges
+							{ node 
+								@ id
+								@ title
+								@ slug
+								@ createdAt
+									: formatString "MMMM DD, YYYY"
+								{ body
+									{ childMarkdownRemark
+										@ excerpt
+											: pruneLength 250
+				._  then
+					=>
+						param result
+						log 'result', result
+						if result.errors
+							_ callback(result.errors)
+						_ result.data.allContentfulBlogPost.edges.forEach
+							=>
+								param { node }
+								_ createPage
+									{
+										@ path 'blog/' + node.slug
+										@ component blogPostTemplate
+										@ context
+											{
+												@ slug node.slug
+						_ callback(null)

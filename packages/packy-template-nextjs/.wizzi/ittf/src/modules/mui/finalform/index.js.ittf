@@ -1,0 +1,364 @@
+module
+    kind react
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import 
+        @ Form
+        @ Field
+        from 'react-final-form'
+    import 
+        @ TextField
+        @ Checkbox
+        @ Radio
+        @ Select
+        from 'final-form-material-ui'
+    import 
+        @ Typography
+        @ Paper
+        @ Link
+        @ Grid
+        @ Button
+        @ CssBaseline
+        @ RadioGroup
+        @ FormLabel
+        @ MenuItem
+        @ FormGroup
+        @ FormControl
+        @ FormControlLabel
+        from '@material-ui/core'
+    # Picker
+    import DateFnsUtils from '@date-io/date-fns'
+    import 
+        @ MuiPickersUtilsProvider
+        @ TimePicker
+        @ DatePicker
+        from 'material-ui-pickers'
+    function DatePickerWrapper
+        param props
+        const 
+            { 
+                { input
+                    @ name
+                    @ onChange
+                    @ value
+                    ... restInput
+                @ meta
+                ... rest
+            = props
+        const showError = meta.submitError && !meta.dirtySinceLastSubmit || meta.error && meta.touched
+        return 
+            < DatePicker 
+                @ {...rest}
+                @ name {name}
+                @ helperText
+                    iif showError
+                        then meta.error || meta.submitError
+                        else undefined
+                @ error {showError}
+                @ inputProps {restInput}
+                @ onChange {onChange}
+                @ value
+                    iif value === ''
+                        then null
+                        else value
+    function TimePickerWrapper
+        param props
+        const 
+            { 
+                { input
+                    @ name
+                    @ onChange
+                    @ value
+                    ... restInput
+                @ meta
+                ... rest
+            = props
+        const showError = meta.submitError && !meta.dirtySinceLastSubmit || meta.error && meta.touched
+        return 
+            < TimePicker 
+                @ {...rest}
+                @ name {name}
+                @ helperText
+                    iif showError
+                        then meta.error || meta.submitError
+                        else undefined
+                @ error {showError}
+                @ inputProps {restInput}
+                @ onChange {onChange}
+                @ value
+                    iif value === ''
+                        then null
+                        else value
+    const onSubmit
+        async=> 
+            param values
+            const sleep
+                => 
+                    param ms
+                    new Promise
+                        => 
+                            param resolve
+                            _ setTimeout(resolve, ms)
+            await 
+                _ sleep(300)
+            if typeof(window) !== 'undefined'
+                _ window.alert(JSON.stringify(values, 0, 2))
+    const validate
+        => 
+            param values
+            const errors = {}
+            if !values.firstName
+                set errors.firstName = 'Required'
+            if !values.lastName
+                set errors.lastName = 'Required'
+            if !values.email
+                set errors.email = 'Required'
+            return errors
+    function App
+        return 
+            div 
+                @ style
+                    { 
+                        @ padding 16
+                        @ margin 'auto'
+                        @ maxWidth 600
+                < CssBaseline 
+                < Typography 
+                    @ variant "h4"
+                    @ align "center"
+                    @ component "h1"
+                    @ gutterBottom
+                    + \n        🏁 React Final Form\n      \b
+                < Typography 
+                    @ variant "h5"
+                    @ align "center"
+                    @ component "h2"
+                    @ gutterBottom
+                    + \n        Material-UI Example\n      \b
+                < Typography 
+                    @ paragraph
+                    < Link 
+                        @ href "https://github.com/erikras/react-final-form#-react-final-form"
+                        + \n          Read Docs\n        \b
+                    + \n        . This example demonstrates using
+                    + {' '}
+                    < Link 
+                        @ href "https://material-ui.com/demos/text-fields/"
+                        + \n          Material-UI\n        \b
+                    + {' '}
+                    + \n        form controls.\n      \b
+                < Form 
+                    @ onSubmit {onSubmit}
+                    @ initialValues
+                        { 
+                            @ employed true
+                            @ stooge 'larry'
+                    @ validate {validate}
+                    @ render
+                        => 
+                            { 
+                                @ handleSubmit
+                                @ reset
+                                @ submitting
+                                @ pristine
+                                @ values
+                            < form 
+                                @ onSubmit {handleSubmit}
+                                @ noValidate
+                                < Paper 
+                                    @ style
+                                        { 
+                                            @ padding 16
+                                    < Grid 
+                                        @ container
+                                        @ alignItems "flex-start"
+                                        @ spacing {8}
+                                        < Grid 
+                                            @ item
+                                            @ xs {6}
+                                            < Field 
+                                                @ fullWidth
+                                                @ required
+                                                @ name "firstName"
+                                                @ component {TextField}
+                                                @ type "text"
+                                                @ label "First Name"
+                                        < Grid 
+                                            @ item
+                                            @ xs {6}
+                                            < Field 
+                                                @ fullWidth
+                                                @ required
+                                                @ name "lastName"
+                                                @ component {TextField}
+                                                @ type "text"
+                                                @ label "Last Name"
+                                        < Grid 
+                                            @ item
+                                            @ xs {12}
+                                            < Field 
+                                                @ name "email"
+                                                @ fullWidth
+                                                @ required
+                                                @ component {TextField}
+                                                @ type "email"
+                                                @ label "Email"
+                                        < Grid 
+                                            @ item
+                                            @ xs {12}
+                                            < FormControlLabel 
+                                                @ label "Employed"
+                                                @ control
+                                                    < Field 
+                                                        @ name "employed"
+                                                        @ component {Checkbox}
+                                                        @ type "checkbox"
+                                        < Grid 
+                                            @ item
+                                            < FormControl 
+                                                @ component "fieldset"
+                                                < FormLabel 
+                                                    @ component "legend"
+                                                    + Best Stooge
+                                                < RadioGroup 
+                                                    @ row
+                                                    < FormControlLabel 
+                                                        @ label "Larry"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "stooge"
+                                                                @ component {Radio}
+                                                                @ type "radio"
+                                                                @ value "larry"
+                                                    < FormControlLabel 
+                                                        @ label "Moe"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "stooge"
+                                                                @ component {Radio}
+                                                                @ type "radio"
+                                                                @ value "moe"
+                                                    < FormControlLabel 
+                                                        @ label "Curly"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "stooge"
+                                                                @ component {Radio}
+                                                                @ type "radio"
+                                                                @ value "curly"
+                                        < Grid 
+                                            @ item
+                                            < FormControl 
+                                                @ component "fieldset"
+                                                < FormLabel 
+                                                    @ component "legend"
+                                                    + Sauces
+                                                < FormGroup 
+                                                    @ row
+                                                    < FormControlLabel 
+                                                        @ label "Ketchup"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "sauces"
+                                                                @ component {Checkbox}
+                                                                @ type "checkbox"
+                                                                @ value "ketchup"
+                                                    < FormControlLabel 
+                                                        @ label "Mustard"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "sauces"
+                                                                @ component {Checkbox}
+                                                                @ type "checkbox"
+                                                                @ value "mustard"
+                                                    < FormControlLabel 
+                                                        @ label "Salsa"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "sauces"
+                                                                @ component {Checkbox}
+                                                                @ type "checkbox"
+                                                                @ value "salsa"
+                                                    < FormControlLabel 
+                                                        @ label "Guacamole 🥑"
+                                                        @ control
+                                                            < Field 
+                                                                @ name "sauces"
+                                                                @ component {Checkbox}
+                                                                @ type "checkbox"
+                                                                @ value "guacamole"
+                                        < Grid 
+                                            @ item
+                                            @ xs {12}
+                                            < Field 
+                                                @ fullWidth
+                                                @ name "notes"
+                                                @ component {TextField}
+                                                @ multiline
+                                                @ label "Notes"
+                                        < Grid 
+                                            @ item
+                                            @ xs {12}
+                                            < Field 
+                                                @ fullWidth
+                                                @ name "city"
+                                                @ component {Select}
+                                                @ label "Select a City"
+                                                @ formControlProps
+                                                    { 
+                                                        @ fullWidth true
+                                                < MenuItem 
+                                                    @ value "London"
+                                                    + London
+                                                < MenuItem 
+                                                    @ value "Paris"
+                                                    + Paris
+                                                < MenuItem 
+                                                    @ value "Budapest"
+                                                    + \n                      A city with a very long Name\n                    \b
+                                        < MuiPickersUtilsProvider 
+                                            @ utils {DateFnsUtils}
+                                            < Grid 
+                                                @ item
+                                                @ xs {6}
+                                                < Field 
+                                                    @ name "rendez-vous"
+                                                    @ component {DatePickerWrapper}
+                                                    @ fullWidth
+                                                    @ margin "normal"
+                                                    @ label "Rendez-vous"
+                                            < Grid 
+                                                @ item
+                                                @ xs {6}
+                                                < Field 
+                                                    @ name "alarm"
+                                                    @ component {TimePickerWrapper}
+                                                    @ fullWidth
+                                                    @ margin "normal"
+                                                    @ label "Alarm"
+                                        < Grid 
+                                            @ item
+                                            @ style
+                                                { 
+                                                    @ marginTop 16
+                                            < Button 
+                                                @ type "button"
+                                                @ variant "contained"
+                                                @ onClick {reset}
+                                                @ disabled {submitting || pristine}
+                                                + \n                    Reset\n                  \b
+                                        < Grid 
+                                            @ item
+                                            @ style
+                                                { 
+                                                    @ marginTop 16
+                                            < Button 
+                                                @ variant "contained"
+                                                @ color "primary"
+                                                @ type "submit"
+                                                @ disabled {submitting}
+                                                + \n                    Submit\n                  \b
+                                pre 
+                                    + {JSON.stringify(values, 0, 2)}
+    
+    export default App

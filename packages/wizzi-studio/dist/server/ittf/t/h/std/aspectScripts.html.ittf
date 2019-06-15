@@ -30,7 +30,7 @@ $group
 			$else
 			    j( /static/lib/jquery/jquery.js
 		
-		$if mpage.aspect.MaterialUi
+		$if mpage.aspect.MaterialUI
 			j( https://cdn.jsdelivr.net/npm/material-ui@1.0.0-beta.47/umd/material-ui.development.js
 		
 		$if mpage.aspect.React

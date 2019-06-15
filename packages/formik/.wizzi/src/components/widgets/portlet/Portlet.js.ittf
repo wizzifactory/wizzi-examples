@@ -1,0 +1,33 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Portlet",
+            withStyles: true
+        };
+	
+	v07/app/react/purecomponent(&md)
+
+        $append imports
+            import Paper from '../Paper'
+
+        $append styles
+            { root
+                @ display 'flex'
+                @ flexDirection 'column'
+    
+        render
+            prop classes
+            prop className
+            prop children
+            prop ...rest
+            const rootClassName = classNames(classes.root, className)
+            return
+                < Paper 
+                    @ {...rest}
+                    @ className {rootClassName}
+                    @ elevation {0}
+                    @ outlined
+                    @ squared {false}
+                    + {children}

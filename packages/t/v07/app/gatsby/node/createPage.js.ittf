@@ -1,0 +1,43 @@
+module
+    kind react
+    const path = require('path')
+    const axios = require('axios')
+    set exports.createPages =
+        => 
+            param { actions }
+            const { createPage } = actions
+            return 
+                new Promise
+                    => 
+                        param resolve
+                        param reject
+                        _ axios.get
+                            @ 'https://bvaughn.github.io/js-search/books.json'
+                            ._ then
+                                => 
+                                    param result
+                                    const { data } = result
+                                    _ createPage
+                                        { 
+                                            @ path 'search'
+                                            @ component
+                                                _ path.resolve
+                                                    @ './src/templates/ClientSearchTemplate.js'
+                                            { context
+                                                { bookData
+                                                    @ allBooks data.books
+                                                    { options
+                                                        @ indexStrategy 'Prefix match'
+                                                        @ searchSanitizer 'Lower Case'
+                                                        @ TitleIndex true
+                                                        @ AuthorIndex true
+                                                        @ SearchByTerm true
+                                    _ resolve
+                            ._ catch
+                                => 
+                                    param err
+                                    log '===================================='
+                                    log `error on page creation:\n${err}`
+                                    log '===================================='
+                                    _ reject
+                                        new Error(`error on page creation:\n${err}`) 

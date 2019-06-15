@@ -1,0 +1,35 @@
+module
+	kind es6
+
+	import
+        @ useStaticQuery
+        @ graphql
+        from "gatsby"
+
+    const hookQuery
+        graphql-query csIndex
+            { allCheatsheet
+                : sort
+                    {
+                        @ order ASC
+                        @ fields
+                            [
+                                @ csName
+                { edges 
+                    { node 
+                        @ id
+                        @ csName    
+                        @ slug
+						{ elements
+                            @ name
+                            { items
+                                @ title
+                                @ itemSlug
+
+    export
+        const useCheatsheetIndex
+            =>
+                const { allCheatsheet }
+                    _ useStaticQuery
+                        @ hookQuery
+                return allCheatsheet.edges

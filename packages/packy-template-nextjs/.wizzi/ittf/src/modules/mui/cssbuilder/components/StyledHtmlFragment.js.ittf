@@ -1,0 +1,88 @@
+﻿module
+	kind react
+
+	$include app-options
+	$ 
+		var md = { name: 'StyledHtmlFragment' }
+
+	app/component(&md, &app)
+
+		$append imports
+			import Paper from '@material-ui/core/Paper'
+			import Typography from '@material-ui/core/Typography'
+			import StyledHtmlElement from './StyledHtmlElement'
+			import Control from '../../common/mui/Control'
+
+		prop classes
+			{
+
+		prop htmlFragments
+			{
+
+		prop selectedHtmlFragmentId
+			string
+			required
+
+		prop onSelectedHtmlFragmentChange
+			func
+			required
+		
+		prop cssRules
+			{
+
+		style
+
+			@ styledPanel
+				{
+					@ padding '10px'
+
+			@ styled
+				{
+					@ border '1px solid darkred'
+					@ padding '10px'
+					@ margin '10px'
+
+			@ margin10
+				{
+					@ margin '10px'
+
+		render
+			prop classes
+			prop htmlFragments
+			prop selectedHtmlFragmentId
+			prop onSelectedHtmlFragmentChange
+			prop cssRules
+			const htmlFragmentMeta = htmlFragments[selectedHtmlFragmentId]
+			
+			# log 'StyledHtmlFragment.selectedHtmlFragmentId', selectedHtmlFragmentId
+			# log 'StyledHtmlFragment.htmlFragmentMeta', htmlFragmentMeta
+			
+			return
+				< Paper
+					. {classes.styledPanel}
+
+						< Typography
+							@ type "title"
+							@ color 'inherit'
+							@ noWrap
+							+ Styled html
+
+						. {classes.margin10}
+							< Control
+								@ id "fragmentId"
+								@ key "fragmentId"
+								@ type "select"
+								@ label "Html fragment"
+								@ value {selectedHtmlFragmentId}
+								@ data
+									{
+										@ options Object.keys(htmlFragments)
+								@ onChangeValue {onSelectedHtmlFragmentChange}
+					
+						{
+							&&
+								+ htmlFragmentMeta
+								. {classes.styled}
+									< StyledHtmlElement
+										@ htmlFragmentMeta {htmlFragmentMeta}
+										@ cssRules {cssRules}

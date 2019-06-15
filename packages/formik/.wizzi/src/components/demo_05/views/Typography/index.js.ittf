@@ -1,0 +1,71 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Settings",
+            withStyles: true
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Grid
+                @ Typography
+                    as TypographyMui
+                from '@material-ui/core'
+            import 
+                @ DefaultLayout
+                from 'components/demo_05/layouts'
+
+            const variants
+                { 
+                    @ h1 'Nisi euismod ante senectus consequat phasellus ut'
+                    @ h2 'Nisi euismod ante senectus consequat phasellus ut'
+                    @ h3 'Nisi euismod ante senectus consequat phasellus ut'
+                    @ h4 'Nisi euismod ante senectus consequat phasellus ut'
+                    @ h5 'Nisi euismod ante senectus consequat phasellus ut'
+                    @ h6 'Nisi euismod ante senectus consequat phasellus ut'
+                    @ subtitle1 'Leo varius justo aptent arcu urna felis pede nisl'
+                    @ subtitle2 'Leo varius justo aptent arcu urna felis pede nisl'
+                    @ body1 'Justo proin curabitur dictumst semper auctor, consequat tempor, nostra aenean neque turpis nunc. Leo. Sapien aliquet facilisi turpis, elit facilisi praesent porta metus leo. Dignissim amet dis nec ac integer inceptos erat dis Turpis sodales ad torquent. Dolor, erat convallis.Laoreet velit a fames commodo tristique hendrerit sociosqu rhoncus vel sapien penatibus facilisis faucibus ad. Mus purus vehicula imperdiet tempor lectus, feugiat Sapien erat viverra netus potenti mattis purus turpis. Interdum curabitur potenti tristique. Porta velit dignissim tristique ultrices primis.'
+                    @ body2 'Justo proin curabitur dictumst semper auctor, consequat tempor, nostra aenean neque turpis nunc. Leo. Sapien aliquet facilisi turpis, elit facilisi praesent porta metus leo. Dignissim amet dis nec ac integer inceptos erat dis Turpis sodales ad torquent. Dolor, erat convallis.'
+                    @ caption 'Accumsan leo pretium conubia ullamcorper.'
+                    @ button 'Vivamus ultrices rutrum fames dictumst'
+        
+        $append styles
+            { root
+                @ padding theme.spacing.unit * 4
+        
+        render
+            prop classes
+            return 
+                < DefaultLayout 
+                    @ title "Typography"
+                    div 
+                        @ className {classes.root}
+                        < Grid 
+                            @ container
+                            @ spacing {4}
+                            { 
+                                _ Object.keys(variants).map
+                                    => 
+                                        param key
+                                        param i
+                                        < React.Fragment 
+                                            @ key {i}
+                                            < Grid 
+                                                @ item
+                                                @ sm {3}
+                                                @ xs {12}
+                                                < TypographyMui 
+                                                    @ variant "caption"
+                                                    + {key}
+                                            < Grid 
+                                                @ item
+                                                @ sm {9}
+                                                @ xs {12}
+                                                < TypographyMui
+                                                    @ variant {key}
+                                                    + {variants[key]}

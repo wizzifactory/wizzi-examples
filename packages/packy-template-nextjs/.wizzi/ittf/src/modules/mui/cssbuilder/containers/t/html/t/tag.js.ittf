@@ -1,0 +1,10 @@
+{
+    $params tag, clazz|@@null, text|@@null
+    @ tag '${tag}'
+    $if clazz != null
+        @ class '${clazz}'
+    $if text != null
+        @ text '${text}'
+    @ children
+        [
+            $hook

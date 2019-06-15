@@ -1,0 +1,69 @@
+module
+    kind react
+    import users from 'components/demo_05/data/users'
+    import orders from 'components/demo_05/data/orders'
+
+    function lookupUser
+        param user
+        const userCopy = JSON.parse(JSON.stringify(user))
+        const userOrders
+            _ userCopy.orders.map
+                => 
+                    param id
+                    _ orders.find
+                        => 
+                            param order
+                            set order.id === id
+        const userMoneySpent
+            _ userCopy.orders.reduce
+                => 
+                    param total
+                    param order
+                    set total + order.amount
+                @ 0
+        set userCopy.orders = userOrders
+        set userCopy.moneySpent = userMoneySpent
+        return userCopy
+    
+    export 
+        const getUsers
+            => 
+                param limit = 10
+                return 
+                    new Promise
+                        => 
+                            param resolve
+                            _ setTimeout
+                                => 
+                                    const usersLookup = users.slice(0, limit).map(lookupUser)
+                                    _ resolve
+                                        { 
+                                            @ users usersLookup
+                                            @ usersTotal users.length
+                                @ 700
+    
+    export 
+        const getUser
+            => 
+                param id
+                return 
+                    new Promise
+                        => 
+                            param resolve
+                            param reject
+                            _ setTimeout
+                                => 
+                                    const user
+                                        _ users.find
+                                            => 
+                                                param user
+                                                set user.id === id
+                                    if user
+                                        _ resolve
+                                            { 
+                                                @ user lookupUser(user)
+                                    else
+                                        _ reject
+                                            { 
+                                                @ error 'User not found'
+                                @ 500
