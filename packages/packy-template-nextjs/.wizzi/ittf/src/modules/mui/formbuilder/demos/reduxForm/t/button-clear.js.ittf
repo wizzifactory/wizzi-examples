@@ -1,8 +1,0 @@
-﻿$group
-	$params label|Clear Values
-
-	button
-		@ type button
-		@ disabled {pristine || submitting}
-		@ onClick {reset}
-		+ Clear Values

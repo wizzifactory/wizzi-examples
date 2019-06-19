@@ -1,0 +1,44 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "Routes"
+        };
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            import 
+                @ Switch
+                @ Route
+                @ Redirect
+                from 'react-router-dom'
+            # Views
+            $foreach view in pkg.Portal.views
+                $if view.component && view.component.length > 0
+                    import ${view.component} from './views/${view.component}'
+        render
+            return 
+                < Switch 
+                    $*
+                    < Redirect 
+                        @ exact
+                        @ from "/"
+                        @ to "/dashboard"
+                    *$
+                    < Route 
+                        @ component {Dashboard}
+                        @ exact
+                        @ path "/"
+                    $foreach view in pkg.Portal.views
+                        $if view.component && view.component.length > 0
+                            < Route 
+                                @ component {${view.component}}
+                                @ exact
+                                @ path "${view.path}"
+                    < Route 
+                        @ component {NotFound}
+                        @ path "/"
+                    < Redirect 
+                        @ to "/not-found"

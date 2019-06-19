@@ -1,9 +1,0 @@
-﻿module
-	kind react
-
-	import React, { Component, PropTypes } from 'react'
-
-	$include controlTypes/input
-	$include controlTypes/select
-	$include controlTypes/range
-

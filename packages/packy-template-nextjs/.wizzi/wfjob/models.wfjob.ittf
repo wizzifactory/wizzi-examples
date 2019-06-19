@@ -1,6 +1,0 @@
-$group
-    model-ref data
-        export-name data
-    model-ref style
-        export-name style
-

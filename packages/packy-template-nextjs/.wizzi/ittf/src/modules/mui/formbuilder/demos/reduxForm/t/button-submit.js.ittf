@@ -1,7 +1,0 @@
-﻿$group
-	$params label|Submit
-	
-	button
-		@ type submit
-		@ disabled {pristine || submitting}
-		+ ${label}

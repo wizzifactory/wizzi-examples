@@ -1,0 +1,7 @@
+v07/plugin/package()
+
+	$append scripts
+
+    $append dependencies
+
+    $append devDependencies

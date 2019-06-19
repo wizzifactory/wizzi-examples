@@ -1,7 +1,0 @@
-{
-    $params name, value, literal:boolean|true
-    @ prop '${name}'
-    $if literal
-        @ value '${value}'
-    $else
-        @ value ${value}

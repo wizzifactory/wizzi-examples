@@ -1,7 +1,0 @@
-﻿module
-	kind react
-
-	$include app-options
-	
-	app/store/configureStore.prod( &app )
-

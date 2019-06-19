@@ -1,7 +1,0 @@
-﻿module 
-    kind react
-	+
-    if process.env.NODE_ENV === 'production'
-        set module.exports = require('./configureStore.prod')
-    else 
-        set module.exports = require('./configureStore.dev')

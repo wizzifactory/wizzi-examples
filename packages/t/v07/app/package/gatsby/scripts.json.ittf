@@ -2,5 +2,5 @@ $group
 
     build "gatsby build"
     develop "gatsby develop"
-    $if app.Build.usePrettier
+    $if pkg.Build.usePrettier
         format "prettier --write 'src/**/*.js'"

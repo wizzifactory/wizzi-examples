@@ -1,6 +1,6 @@
 $group
 
-    $if app.Build.webpack.useDevAndProd
+    $if pkg.Build.webpack.useDevAndProd
         start "webpack-dev-server --mode development --config ./webpack.base.config.js --open --hot --history-api-fallback --env.PLATFORM=local --env.VERSION=stag"
         prebuild "webpack --mode production --config ./webpack.prod.config.js --env.PLATFORM=production --env.VERSION=stag --progress"
         build "node server"
@@ -8,12 +8,12 @@ $group
         start "webpack-dev-server --open --mode development"
         build "webpack"
         build:prod "webpack --mode production"
-    $if app.Build.useLint
+    $if pkg.Build.useLint
         lint "eslint --debug src/"
         lint:write "eslint --debug src/ --fix"
-    $if app.Build.useTest && app.Build.test.useJest
+    $if pkg.Build.useTest && pkg.Build.test.useJest
         test "jest"
         test:watch "jest --watch"
         test:coverage "jest --coverage --colors"
-    $if app.Build.usePrettier
+    $if pkg.Build.usePrettier
         prettier "prettier --write src/**/*.js"

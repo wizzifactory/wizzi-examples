@@ -1,9 +1,0 @@
-﻿module
-	kind react
-
-	$
-		var md = {
-		};
-
-	app/utils/prism(&md)
-

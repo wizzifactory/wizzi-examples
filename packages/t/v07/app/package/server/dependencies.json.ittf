@@ -1,33 +1,33 @@
 ﻿$group
 
-    $if app.Build.useExpress
+    $if pkg.Build.useExpress
         body-parser "^1.18.3"
-    $if app.Build.useMongoDB
+    $if pkg.Build.useMongoDB
         connect-mongo "^2.0.3"
-    $if app.Build.useCors
+    $if pkg.Build.useCors
         cors "^2.8.5"
-    $if app.Build.useAuth && app.Build.auth.usePassport && app.Build.auth.passport.useLocal
+    $if pkg.Build.useAuth && pkg.Build.auth.usePassport && pkg.Build.auth.passport.useLocal
         crypto "^1.0.1"
-    $if app.Build.useConfig && app.Build.config.useEnvalid
+    $if pkg.Build.useConfig && pkg.Build.config.useEnvalid
         envalid "^4.2.2"
-    $if app.Build.useExpress
+    $if pkg.Build.useExpress
         express "^4.16.4"
-    $if app.Build.useAuth && app.Build.auth.usePassport && app.Build.auth.passport.useLocal
+    $if pkg.Build.useAuth && pkg.Build.auth.usePassport && pkg.Build.auth.passport.useLocal
         express-jwt "^5.3.1"
-    $if app.Build.express.useSession
+    $if pkg.Build.express.useSession
         express-session "^1.15.6"
     json-stringify-safe "^5.0.1"
-    $if app.Build.useAuth && app.Build.auth.usePassport && app.Build.auth.passport.useLocal
+    $if pkg.Build.useAuth && pkg.Build.auth.usePassport && pkg.Build.auth.passport.useLocal
         jsonwebtoken "^8.5.1"
-    $if app.Build.useMongoDB && app.Build.mongodb.useMongoose
+    $if pkg.Build.useMongoDB && pkg.Build.mongodb.useMongoose
         mongoose "^5.3.11"
-    $if app.Build.useExpress
+    $if pkg.Build.useExpress
         parseurl "^1.3.2"
-    $if app.Build.useAuth && app.Build.auth.usePassport
+    $if pkg.Build.useAuth && pkg.Build.auth.usePassport
         passport "^0.4.0"
-        $if app.Build.auth.passport.useGithub
+        $if pkg.Build.auth.passport.useGithub
             passport-github2 "^0.1.11"
-        $if app.Build.auth.passport.useLocal
+        $if pkg.Build.auth.passport.useLocal
             passport-local "^1.0.0"
-    $if app.Build.useSocketIO
+    $if pkg.Build.useSocketIO
         socket.io "^2.2.0"

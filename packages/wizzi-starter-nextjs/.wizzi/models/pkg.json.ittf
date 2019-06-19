@@ -1,0 +1,16 @@
+{
+	name "wizzi-starter-nextjs"
+	version "0.0.1"
+	description "Wizzi starter template for Next.js packages"
+	author "Stefano Bassoli"
+	license "MIT"
+
+    { Build
+        useNextJs true
+        { nextjs
+        useReact true
+        { react
+            useMaterialUI true
+            { materialUI
+        useIsomorphicUnfetch true
+        { isomorphicUnfetch

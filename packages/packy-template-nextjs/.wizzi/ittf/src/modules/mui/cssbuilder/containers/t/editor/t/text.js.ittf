@@ -1,6 +1,0 @@
-{
-    $params id, defaultValue|@@null
-    @ id '${id}'
-    @ type 'text'
-    $if defaultValue != null
-        @ defaultValue '${defaultValue}'

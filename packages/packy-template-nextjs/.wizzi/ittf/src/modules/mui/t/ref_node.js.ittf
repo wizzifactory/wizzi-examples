@@ -1,4 +1,0 @@
-﻿@ ref
-	$params name
-	=> param node
-		set this.${name} = node

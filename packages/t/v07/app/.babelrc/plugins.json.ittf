@@ -2,17 +2,17 @@
 	
     "@babel/proposal-class-properties"
     "@babel/proposal-object-rest-spread"
-    $if app.Build.usePrismjs
+    $if pkg.Build.usePrismjs
         [
             "prismjs"
             {
                 languages
                     [
-                        $foreach m in app.Build.prismjs.modes
+                        $foreach m in pkg.Build.prismjs.modes
                             "${m}"
                 plugins ["line-numbers"]
                 theme "twilight"
                 css true
-    $if app.Build.useDinamicImport
+    $if pkg.Build.useDinamicImport
         "@babel/plugin-syntax-dynamic-import"
     "@babel/plugin-transform-regenerator"

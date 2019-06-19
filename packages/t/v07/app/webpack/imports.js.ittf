@@ -3,28 +3,28 @@
 	const path = require('path')
 	const resolve = path.resolve
 
-	$if app.Build.useMonaco || app.Build.useMonaco2 || app.Build.useHotReplacement
+	$if pkg.Build.useMonaco || pkg.Build.useMonaco2 || pkg.Build.useHotReplacement
 		const webpack = require('webpack')
 	
-	$if app.Build.useMonaco
+	$if pkg.Build.useMonaco
 		# const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 		const MonacoWebpackPlugin = require('monaco-editor-webpack-3-plugin')
 	
-	$if app.Build.useMonaco2
+	$if pkg.Build.useMonaco2
 		const MonacoEditorPlugin = require('monaco-editor-webpack-plugin')
 
-	$if app.Build.webpack.useHtml
+	$if pkg.Build.webpack.useHtml
 		const HtmlWebpackPlugin = require('html-webpack-plugin')
-    $if app.Build.useVue
+    $if pkg.Build.useVue
 		const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-    $if app.Build.webpack.useMerge
+    $if pkg.Build.webpack.useMerge
         const merge = require("webpack-merge")
     
-    $if app.Build.webpack.useCopy
+    $if pkg.Build.webpack.useCopy
         const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-    $if app.Build.webpack.useMiniCssExtract
+    $if pkg.Build.webpack.useMiniCssExtract
         const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 

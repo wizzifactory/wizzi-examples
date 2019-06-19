@@ -1,6 +1,6 @@
 $group
 
-    $if app.Build.useLint && app.Build.lint.useHusky
+    $if pkg.Build.useLint && pkg.Build.lint.useHusky
         { husky
             { hooks
                 pre-commit "lint-staged"

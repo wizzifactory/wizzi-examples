@@ -5,14 +5,14 @@
             @ 'process.env.VERSION' JSON.stringify(env.VERSION)
             @ 'process.env.PLATFORM' JSON.stringify(env.PLATFORM)
 	
-	$if app.Build.useMonaco
+	$if pkg.Build.useMonaco
 		new MonacoWebpackPlugin()
 		#
 			_ new webpack.DefinePlugin
 				{
 					@ 'process.browser' true
 
-	$if app.Build.useMonaco2
+	$if pkg.Build.useMonaco2
 		$$ https://github.com/Microsoft/monaco-editor-webpack-plugin#options
 		new MonacoEditorPlugin
 			{
@@ -22,20 +22,20 @@
 					@ 'css'
 					@ 'html'
     
-    $if app.Build.webpack.useHtml
+    $if pkg.Build.webpack.useHtml
 		new HtmlWebpackPlugin
 			{
 				@ template './src/index.html'
                 @ filename './index.html'
 
 	
-    $if app.Build.useVue
+    $if pkg.Build.useVue
 		new VueLoaderPlugin()
 
-	$if app.Build.useHotReplacement
+	$if pkg.Build.useHotReplacement
 		new webpack.HotModuleReplacementPlugin()
 
-    $if app.Build.webpack.useCopy
+    $if pkg.Build.webpack.useCopy
         new CopyWebpackPlugin
             [ 
                 { 

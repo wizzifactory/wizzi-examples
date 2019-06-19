@@ -1,6 +1,0 @@
-﻿< Route
-	$params group, name, comp, title
-	@ title "${title}"
-	@ path {basepath + "/${group}/${name}"}
-	@ component {${comp}}
-	@ nav

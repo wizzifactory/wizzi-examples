@@ -1,8 +1,0 @@
-﻿$group
-
-	artifact .nowignore
-		src .nowignore.text.ittf
-		schema text
-		generator text/document
-		dest-path .nowignore
-		extension nowignore

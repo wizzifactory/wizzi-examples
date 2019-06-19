@@ -1,0 +1,152 @@
+module
+	kind react
+    # Credits: https://github.com/redgeoff/mson-react/tree/master/src/fields/text-field.js
+
+	$
+		var md = {
+            name: "TextField"
+        };
+
+    v07/app/react/pureComponent(&md)
+        
+        $append imports
+            import Input from '@material-ui/core/Input'
+            import CommonField from './CommonField'
+            import DisplayValueTypography from './DisplayValueTypography'
+            # Create a custom TextMask component. This is done once in the constructor so that it is not
+            # done in each call to render()
+            const TextMaskCustom
+                => 
+                    param props
+                    const 
+                        { 
+                            @ inputRef
+                            ... other
+                        = props
+                    const 
+                        { 
+                            @ mask
+                        = this.props
+                    return 
+                        < MaskedInput 
+                            @ {...other}
+                            @ ref
+                                => 
+                                    param ref
+                                    _ inputRef
+                                        iif ref
+                                            then ref.inputElement
+                                            else null
+                            @ mask {mask}
+        
+        => handleChange
+            param event
+            $if pkg.Build.react.useRedux
+                prop input
+                _ input.onChange(event.target.value)
+            $else
+                prop component
+                const value = component.fromUIValue(event.target.value)
+                _ component.setValue(value)
+        
+        => handleBlur
+            $if pkg.Build.react.useRedux
+                # TODO
+            $else
+                _ this.props.component.setTouched(true)
+        
+        => handleKeyUp
+            param event
+            # If the user presses enter on the field then mark as touched. This is necessary for when the
+            # user is using the keyboard to enter data and there is an error on the last field that needs
+            # to be reported when the user presses enter.
+            if event.keyCode === 13
+                $if pkg.Build.react.useRedux
+                    # TODO
+                $else
+                    _ this.props.component.setTouched(true)
+        
+        render
+            const 
+                { 
+                    $if pkg.Build.react.useRedux
+                        @ input
+                        @ label
+                        @ classes
+                    $else
+                        @ component
+                    @ err
+                    @ touched
+                    @ maxLength
+                    @ disabled
+                    @ fullWidth
+                    @ type
+                    @ editable
+                    @ accessEditable
+                    @ multiline
+                    @ rows
+                    @ rowsMax
+                    @ useDisplayValue
+                    @ mask
+                    @ displayValue
+                = this.props
+            const dis = accessEditable === false || disabled
+            let fld = null
+            if editable && !useDisplayValue
+                const optional = {}
+                if mask
+                    set optional.inputComponent = this.TextMaskCustom
+                const uiValue
+                    $if pkg.Build.react.useRedux
+                        + input.value
+                    $else
+                        _ component.getUIValue
+                set fld =
+                    < Input 
+                        @ id
+                            $if pkg.Build.react.useRedux
+                                @ input.name
+                            $else
+                                _ component.getUniqueId
+                        @ error
+                            iif touched && err
+                                then true
+                                else false
+                        @ inputProps
+                            { 
+                                @ maxLength
+                        @ onChange {this.handleChange}
+                        @ onBlur {this.handleBlur}
+                        @ onKeyUp {this.handleKeyUp}
+                        @ value
+                            iif uiValue
+                                then uiValue
+                                else ''
+                        @ disabled {dis}
+                        @ fullWidth {fullWidth}
+                        @ type {type}
+                        @ multiline {multiline}
+                        @ rows {rows}
+                        @ rowsMax {rowsMax}
+                        @ {...optional}
+            else
+                set fld =
+                    < DisplayValueTypography 
+                        { 
+                            iif displayValue
+                                then displayValue
+                                else
+                                    $if pkg.Build.react.useRedux
+                                        + input.value
+                                    $else
+                                        _ component.getDisplayValue
+            return 
+                < CommonField 
+                    $if pkg.Build.react.useRedux
+                        @ input {input}
+                        @ label {label}
+                        @ touched {touched}
+                        @ err {err}
+                    $else
+                        @ component {component}
+                    + {fld}

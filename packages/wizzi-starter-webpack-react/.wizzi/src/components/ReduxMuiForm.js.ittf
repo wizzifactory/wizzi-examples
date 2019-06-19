@@ -1,0 +1,48 @@
+module
+	kind react
+
+	$
+		var md = {
+            isForm: true,
+            name: "ReduxMuiForm",
+            id: "reduxmui",
+            withStyles: true,
+            validate: true,
+            asyncValidate: false
+        };
+        var fields = pkg.Forms.reduxmui.fields; 
+        var submit = pkg.Forms.reduxmui.submit
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            redux-form-imports(&fields)
+            $include redux-form-fields
+            redux-form-fieldarray(&fields)
+        
+        render
+            prop handleSubmit
+            prop pristine
+            prop reset
+            prop submitting
+            prop classes
+            return 
+                . { classes.root }
+                    form 
+                        @ onSubmit {handleSubmit}
+                        @ className { classes.form }
+                        $foreach field in fields
+                            field(&fields)
+                        redux-form-submit(&submit)
+        
+        $append styles
+            { root
+                @ backgroundColor "#222"
+                @ color "#ddd"
+                @ margin "50px"
+                @ padding "30px"
+            { form
+                @ backgroundColor "#444"
+                @ padding "10px"
+            { formControl
+                @ width "100%"

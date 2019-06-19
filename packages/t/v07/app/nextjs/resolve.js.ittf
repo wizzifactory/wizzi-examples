@@ -6,16 +6,16 @@
 	
     [ extensions
 		@ ".js"
-		$if app.Build.useTypescript
+		$if pkg.Build.useTypescript
 			@ ".ts"
-		$if app.Build.useReact
+		$if pkg.Build.useReact
 			@ ".jsx"
-			$if app.Build.useTypescript
+			$if pkg.Build.useTypescript
 				@ ".tsx"
 		@ ".json"
-		$if app.Build.useVue
+		$if pkg.Build.useVue
 			@ ".vue"
 	
     { alias
-		$if app.Build.useVue
+		$if pkg.Build.useVue
 			@ '@' resolve('src')

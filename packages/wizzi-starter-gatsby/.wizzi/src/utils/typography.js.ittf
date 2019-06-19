@@ -1,0 +1,8 @@
+﻿module
+	kind es6
+	import Typography from "typography"
+	import ${pkg.Build.style.typography.theme}Theme from "typography-theme-${pkg.Build.style.typography.theme}"
+	const typography = new Typography(${pkg.Build.style.typography.theme}Theme)
+	export default typography
+    export 
+        const rhythm = typography.rhythm

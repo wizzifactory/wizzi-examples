@@ -1,0 +1,42 @@
+{
+	name "wizzi-starter-mern-server"
+	version "0.0.1"
+	description "Wizzi starter template for MERN (MongoDB, Express, React, and Node.js) server packages"
+	author "Stefano Bassoli"
+	license "MIT"
+
+    { Params
+        title "MERN server starter by Wizzi"
+        baseUrl "http://localhost:3000"
+
+    { Build
+        useConfig true
+        { config
+            useEnvalid true
+            { envalid
+        useExpress true
+        { express
+            useSession true
+            { session
+        useCors true
+        { cors
+        useMongoDB true
+        { mongodb
+            useMongoose true
+            { mongoose
+        useAuth true
+        { auth
+            usePassport true
+            { passport
+                useLocal true
+                { local
+                useGithub true
+                { github
+                    useLogin false
+                    { login
+                    useService true
+                    { service
+        useSocketIO true
+        { socketio
+        useNodemon true
+        { nodemon

@@ -4,7 +4,7 @@
 	import React from 'react'
 	import PropTypes from 'prop-types'
 	
-	$if app.Build.react.useMaterialUI
+	$if pkg.Build.react.useMaterialUI
 		import classNames from 'classnames'
         $if md.withStyles || md.withWidth
 		    import
@@ -19,10 +19,10 @@
                 @ withRouter
                 from 'react-router-dom'
 
-	$if app.useNextjs
+	$if pkg.useNextjs
 		import withRoot from '../lib/withRoot'
 	
-	$if !(app.useNextjs) && (md.withWidth || md.withStyles || md.withRouter || md.connect || md.pure)
+	$if !(pkg.useNextjs) && (md.withWidth || md.withStyles || md.withRouter || md.connect || md.pure)
 		import compose from 'recompose/compose'
 	
 	$if md.withContext
@@ -34,13 +34,13 @@
 	$if md.pure
 		import pure from 'recompose/pure'
 
-    $if app.Build.react.redux.useForm && md.isReduxForm
+    $if pkg.Build.react.redux.useForm && md.isReduxForm
         import 
             @ Field
             @ FieldArray
             from 'redux-form'
 
-    $if app.Build.react.useFormik && md.isFormikForm
+    $if pkg.Build.react.useFormik && md.isFormikForm
         import 
             @ Formik
             @ Form
@@ -52,10 +52,10 @@
             @ ErrorMessage
             from 'formik'
 
-    $if app.Build.useYup && md.useYup
+    $if pkg.Build.useYup && md.useYup
         import * as Yup from 'yup'
 
-    $if app.Build.react.useDraftJs && md.useDraftJs
+    $if pkg.Build.react.useDraftJs && md.useDraftJs
         import 
             @ Editor
             @ EditorState
@@ -91,7 +91,7 @@
     export default ${md.name}
 
     $*
-	$if app.Build.react.useRedux && app.useNextjs && md.connect
+	$if pkg.Build.react.useRedux && pkg.useNextjs && md.connect
 		redux-maps(&app)
 	+
 	$
@@ -103,7 +103,7 @@
 		$
 			nameSuffix = 'Contexted'
 	
-	$if app.Build.react.useMaterialUI
+	$if pkg.Build.react.useMaterialUI
 		
 		export default
 			$if md.withWidth || md.connect || md.pure
@@ -118,7 +118,7 @@
 						_ connect()
 					( 
 						@ ${md.name + nameSuffix}
-			$elif app.useNextjs
+			$elif pkg.useNextjs
 				_ withRoot
 					_ withStyles
 						@ styles
@@ -130,7 +130,7 @@
 					( 
 						@ ${md.name + nameSuffix}
 	
-	$elif app.Build.react.useRedux && app.useNextjs && md.connect
+	$elif pkg.Build.react.useRedux && pkg.useNextjs && md.connect
 		
 		export default
 			_ connect

@@ -1,0 +1,162 @@
+module
+	kind react
+
+	$
+		var md = {
+            name: "AgImages",
+            isReduxForm: true,
+            withStyles: true
+        };
+        var meta = pkg.Collections.anticipatoryGuideImages;
+        var columns = meta.columns;
+        var form = meta.form;
+	
+	v07/app/react/component(&md)
+
+        $append imports
+            $*
+            import Grid from '@material-ui/core/Grid'
+            import Typography from '@material-ui/core/Typography'
+            import FormCard from './widgets/FormCard'
+            import FormDialog from './widgets/FormDialog'
+            import ConfirmationDialog from './widgets/ConfirmationDialog'
+            import SelectOrder from './widgets/SelectOrder'
+            import Button from './widgets/Button'
+            import Icon from './widgets/Icon'
+            import CommonField from './fields/Commonfield'
+            # import './collection-field.css'
+            import 
+                @ DragDropContext
+                @ Droppable
+                @ Draggable
+                from 'react-beautiful-dnd'
+            $if !!pkg.Build.react.useRedux == false                                        
+                import ButtonField from 'mson/lib/fields/button-field'
+                import access from 'mson/lib/access'
+                import attach from '../attach'
+            *$
+            const renderField
+                => 
+                    param props
+                    const
+                        { 
+                            @ input
+                            @ label
+                            @ type
+                            { meta
+                                @ touched
+                                @ error
+                        = props
+                    return
+                        div 
+                            label 
+                                + {label}
+                            div 
+                                input 
+                                    @ {...input}
+                                    @ type {type}
+                                    @ placeholder {label}
+                                { 
+                                    && 
+                                        + touched && error
+                                        span 
+                                            + {error}
+
+            const Header
+                =>
+                    param props
+                    const
+                        { 
+                            @ fields
+                            { meta
+                                @ error
+                                @ submitFailed
+                        = props
+                    return
+                        li 
+                            button 
+                                @ type "button"
+                                @ onClick
+                                    => 
+                                        _ fields.push({})
+                                + Add Member
+                            { 
+                                && 
+                                    + submitFailed && error
+                                    span 
+                                        + {error}
+
+            const renderMembers
+                => 
+                    param props
+                    const
+                        { 
+                            @ fields
+                        = props
+                    return
+                        ul 
+                            < Header
+                                @ {...props}
+                            { 
+                                _ fields.map
+                                    => 
+                                        param member
+                                        param index
+                                        li 
+                                            @ key {index}
+                                            button 
+                                                @ type "button"
+                                                @ title "Remove"
+                                                @ onClick
+                                                    => 
+                                                        _ fields.remove(index)
+                                            h4 
+                                                + Member #
+                                                + {index + 1}
+                                            < Field 
+                                                @ name
+                                                    `lit 
+                                                        + 
+                                                        @ member
+                                                        + .firstName
+                                                @ type "text"
+                                                @ component {renderField}
+                                                @ label "First Name"
+                                            < Field
+                                                @ name
+                                                    `lit 
+                                                        + 
+                                                        @ member
+                                                        + .lastName
+                                                @ type "text"
+                                                @ component {renderField}
+                                                @ label "Last Name"
+
+        render
+            prop handleSubmit
+            prop onSubmit
+            prop pristine
+            prop reset
+            prop submitting
+            prop classes
+            return 
+                form 
+                    @ onSubmit {handleSubmit(onSubmit)}
+                    < Field 
+                        @ name "clubName"
+                        @ type "text"
+                        @ component {renderField}
+                        @ label "Club Name"
+                    < FieldArray 
+                        @ name "members"
+                        @ component {renderMembers}
+                    div 
+                        button 
+                            @ type "submit"
+                            @ disabled {submitting}
+                            + Submit
+                        button 
+                            @ type "button"
+                            @ disabled {pristine || submitting}
+                            @ onClick {reset}
+                            + Clear Values
