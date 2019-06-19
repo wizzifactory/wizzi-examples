@@ -1,8 +1,5 @@
 v07/plugin/examples/withMonoRepoWizziFactory()
 
-    $override requireWizzi
-        set wizzi = require('../../../../../index')
-
     $append plugins
         [ items
             @ './index.js'

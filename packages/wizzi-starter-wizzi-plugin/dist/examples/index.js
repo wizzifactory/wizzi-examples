@@ -19,7 +19,8 @@ var file = wizziUtils.file;
 var wizzi = null;
 function createWizziFactory(globalContext, callback) {
     if (wizzi == null) {
-        wizzi = require('../../../../../index');
+        // The wizzi package will be the npm version from wizzi/node_modules
+        wizzi = require('wizzi');
     }
     console.log('"wizzi" package version', wizzi.version);
     wizzi.fsnoaclFactory({

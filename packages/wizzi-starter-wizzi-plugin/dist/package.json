@@ -22,7 +22,8 @@
         "npm": ">=1.4.28"
     },
     "scripts": {
-        "test": "mocha tests/**/*.js --full-trace"
+        "test": "mocha tests/**/*.js --full-trace",
+        "examples": "node examples"
     },
     "dependencies": {
         "async": "^2.1.5",
